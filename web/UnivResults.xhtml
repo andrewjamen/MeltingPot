@@ -6,7 +6,9 @@
         <title>University Search Results</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h2>University Results:</h2><br/>
+        <h:outputText id="univResults" escape="false" value="#{someController.univResults}"/>
+        <h:commandButton id="back" value="Back" action="UnivSearch.xhtml"/>
     </h:body>
 </html>
 
