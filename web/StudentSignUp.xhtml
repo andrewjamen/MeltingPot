@@ -1,12 +1,69 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Student Sign Up</title>
+        <style type="text/css">
+            .container {
+                width: 500px;
+                clear: both;
+            }
+            .container input {
+                width: 100%;
+                clear: both;
+            }
+        </style>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h2>Student Sign Up</h2>
+        <div class ="container">
+            <h:form>
+
+                First Name:<h:inputText id="firstNameID" value="#{studentSignUpController.studentBean.firstName}"/><br/><br/>
+
+                Last Name:<h:inputText id="lastNameID" value="#{studentSignUpController.studentBean.lastName}"/><br/><br/>
+
+                User Name:<h:inputText id="userNameID" value="#{studentSignUpController.studentBean.userName}" required="true">
+                    <f:ajax event="keyup" render="availableID"/>
+                </h:inputText>
+                <h:outputText id="availableID" escape="false" value="#{studentSignUpController.checkAvailable()}"/><br/><br/>
+
+                Password:<h:inputSecret id="passwordID" value="#{studentSignUpController.studentBean.password}"><br/>   
+                    <f:ajax event="keyup"/>
+                </h:inputSecret><br/><br/>         
+                
+                Confirm Password:<h:inputSecret id="confirmID" value="#{studentSignUpController.studentBean.confirm}">
+                    <f:ajax event="keyup" render="matchID"/>
+                </h:inputSecret>
+                <h:outputText id="matchID" escape="false" value="#{studentSignUpController.checkMatch()}"/><br/><br/>
+
+                Email:<h:inputText id="emailID" value="#{studentSignUpController.studentBean.email}"/><br/><br/>    
+
+                Address: <h:inputText id="addressID" value="#{studentSignUpController.studentBean.address}"/><br/><br/> 
+
+                City:<h:inputText id="cityID" value="#{studentSignUpController.studentBean.city}"/><br/><br/>  
+
+                State:<h:inputText id="stateID" value="#{studentSignUpController.studentBean.state}"/><br/><br/>   
+
+                High School:<h:inputText id="hsID" value="#{studentSignUpController.studentBean.highSchool}"/><br/><br/>   
+
+                ACT Score:<h:inputText id="actID" value="#{studentSignUpController.studentBean.act}"/><br/><br/>   
+
+                Cumulative GPA:<h:inputText id="gpaID" value="#{studentSignUpController.studentBean.gpa}"/><br/><br/>   
+
+                Extra Curricular Activities:<br/><h:inputTextarea id="extraID" rows="5" cols="69" value="#{studentSignUpController.studentBean.extra}"/><br/><br/>   
+
+                Desired Major:<h:inputText id="majorID" value="#{studentSignUpController.studentBean.major}"/><br/><br/>   
+
+                Personal Statement:<br/><h:inputTextarea id="statementID" rows="10" cols="69" value="#{studentSignUpController.studentBean.statement}"/><br/><br/>   
+
+
+                <h:commandButton id="submitID" value="Submit" action="#{studentSignUpController.createProfile()}"/>
+
+            </h:form>
+        </div>
     </h:body>
 </html>
 

@@ -1,12 +1,58 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>University Sign Up</title>
+        <style type="text/css">
+            .container {
+                width: 500px;
+                clear: both;
+            }
+            .container input {
+                width: 100%;
+                clear: both;
+            }
+        </style>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h2>University Sign Up</h2>
+        <div class ="container">
+            <h:form>
+
+                Name of University:<h:inputText id="lastNameID" value="#{univSignUpController.univBean.name}"/><br/><br/>
+
+                User Name:<h:inputText id="userNameID" value="#{univSignUpController.univBean.userName}" required="true">
+                    <f:ajax event="keyup" render="validID"/>
+                </h:inputText>
+                <h:outputText id="validID" escape="false" value="#{univSignUpController.checkAvailable()}"/><br/><br/>
+
+                Password:<h:inputSecret id="passwordID" value="#{univSignUpController.univBean.password}">  
+                    <f:ajax event="keyup"/>
+                </h:inputSecret><br/><br/>
+                Confirm Password:<h:inputSecret id="confirmID" value="#{univSignUpController.univBean.confirm}">    
+                    <f:ajax event="keyup" render="matchID"/>
+                </h:inputSecret>
+                <h:outputText id="matchID" escape="false" value="#{univSignUpController.checkMatch()}"/><br/><br/>
+
+                Email:<h:inputText id="emailID" value="#{univSignUpController.univBean.email}"/><br/><br/>    
+
+                Address: <h:inputText id="addressID" value="#{univSignUpController.univBean.address}"/><br/><br/> 
+
+                City:<h:inputText id="cityID" value="#{univSignUpController.univBean.city}"/><br/><br/>  
+
+                State:<h:inputText id="stateID" value="#{univSignUpController.univBean.state}"/><br/><br/>   
+
+                Your Average Accepted ACT Score:<h:inputText id="actID" value="#{univSignUpController.univBean.avgAct}"/><br/><br/>   
+
+                Your Average Accepted Cumulative GPA:<h:inputText id="gpaID" value="#{univSignUpController.univBean.avgGpa}"/><br/><br/>   
+
+
+                <h:commandButton id="submitID" value="Submit" action="#{univSignUpController.createProfile()}"/>
+
+            </h:form>
+        </div>
     </h:body>
 </html>
 
