@@ -5,12 +5,18 @@
  */
 package controller;
 
+import dao.UnivDAO;
+import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import model.UnivBean;
 
 /**
  *
  * @author IT353S712
  */
+@ManagedBean
+@SessionScoped
 public class UnivProfileController {
     private UnivBean univModel;
     
@@ -30,5 +36,13 @@ public class UnivProfileController {
      */
     public void setUnivModel(UnivBean univModel) {
         this.univModel = univModel;
+    }
+    
+    public String getProfilePage() {
+        ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(univModel.getUsername());
+        
+        univModel = tmp.get(0);
+        
+        return "UnivProfile.xhtml";
     }
 }
