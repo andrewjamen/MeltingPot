@@ -38,8 +38,8 @@ public class UnivProfileController {
         this.univModel = univModel;
     }
     
-    public String getProfilePage() {
-        ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName("ilstu");
+    public String getProfilePage(String username) {
+        ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
         
         univModel = tmp.get(0);
         
