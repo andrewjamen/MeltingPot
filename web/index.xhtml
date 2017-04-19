@@ -3,12 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Home</title>
+            <style type="text/css">
+            .container {
+                width: 500px;
+                clear: both;
+            }
+            .container input {
+                width: 100%;
+                clear: both;
+            }
+        </style> 
     </h:head>
     <h:body>
-        Hello from Facelets
-        Chris Mohrfeld
-        Jack Foss
+        <h2>LinkedU</h2>
+        <div class="container">
+            <h:button value="Login" outcome="Login.xhtml" /><br/><br/>
+            <h:button value="Student Sign Up" outcome="StudentSignUp.xhtml" /><br/><br/>
+            <h:button value="University Sign Up" outcome="UnivSignUp.xhtml" />
+        </div>
     </h:body>
 </html>
-

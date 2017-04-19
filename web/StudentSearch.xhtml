@@ -1,12 +1,22 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Student Search</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h2>Student Search</h2><br/>
+        <h:form>
+            Name: <h:inputText id="studentNameID" value="#{someController.theModel.studentName}">
+            </h:inputText><br/><br/>
+            GPA: <h:inputText id="studentGpaID" value="#{someController.theModel.studentGpa}">
+            </h:inputText><br/><br/>
+            ACT score: <h:inputText id="studentActID" value="#{someController.theModel.studentAct}">
+            </h:inputText><br/><br/>
+            <h:commandButton id="submitID" value="Submit" action="#{someController.search()}"/>
+        </h:form>
     </h:body>
 </html>
 

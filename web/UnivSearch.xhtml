@@ -1,12 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>University Search</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h2>University Search</h2><br/>
+        <h:form>
+            Name: <h:inputText id="univNameID" value="#{someController.theModel.univName}">
+            </h:inputText><br/><br/>
+            Location: <h:selectOneRadio id="univLocationID" value="#{someController.theModel.univLocation}">
+                <f:selectItem id="itemInState" itemLabel="inState" itemValue="In State"/>
+                <f:selectItem id="itemOutState" itemLabel="outState" itemValue="Out of State"/>
+            </h:selectOneRadio><br/>
+            Price: <h:inputText id="univPriceID" value="#{someController.theModel.univPrice}">
+            </h:inputText><br/><br/>
+            <h:commandButton id="submitID" value="Submit" action="#{someController.search()}"/>
+        </h:form>
     </h:body>
 </html>
 
