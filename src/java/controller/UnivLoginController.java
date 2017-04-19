@@ -96,7 +96,7 @@ public class UnivLoginController {
         ArrayList<UnivBean> allUsers = aUnivDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
-            if (theModel.getUsername().equals(allUsers.get(i).getUsername())) {
+            if (theModel.getUserName().equals(allUsers.get(i).getUserName())) {
                 if (theModel.getPassword().equals(allUsers.get(i).getPassword())) {
                     authenticate = true;
                     break;

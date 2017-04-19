@@ -6,7 +6,12 @@
         <title>University Profile</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        University Name: <h:outputText value="#{univProfileController.univModel.userName}" /><br /><br />
+        
+        Location<br />
+        Address: <h:outputText value="#{univProfileController.univModel.address}" /><br />
+        City: <h:outputText value="#{univProfileController.univModel.city}" /><br />
+        State: <h:outputText value="#{univProfileController.univModel.state}" /><br />
     </h:body>
 </html>
 
