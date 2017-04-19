@@ -21,13 +21,13 @@ public class UnivBean{
     private String address;
     private String city;
     private String state;
-    private String avgAct;
-    private String avgGpa;
+    private int avgAct;
+    private double avgGpa;
     
     public UnivBean(){
     }
 
-    public UnivBean(String name, String username, String password, String email, String address, String city, String state, String avgAct, String avgGpa) {
+    public UnivBean(String name, String username, String password, String email, String address, String city, String state, int avgAct, double avgGpa) {
         
         this.username = username;
         this.password = password;
@@ -104,19 +104,19 @@ public class UnivBean{
         this.state = state;
     }
 
-    public String getAvgAct() {
+    public int getAvgAct() {
         return avgAct;
     }
 
-    public void setAvgAct(String avgAct) {
+    public void setAvgAct(int avgAct) {
         this.avgAct = avgAct;
     }
 
-    public String getAvgGpa() {
+    public double getAvgGpa() {
         return avgGpa;
     }
 
-    public void setAvgGpa(String avgGpa) {
+    public void setAvgGpa(double avgGpa) {
         this.avgGpa = avgGpa;
     }
     

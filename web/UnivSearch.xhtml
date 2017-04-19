@@ -9,16 +9,19 @@
     <h:body>
         <h2>University Search</h2><br/>
         <h:form>
-            Name: <h:inputText id="univNameID" value="#{someController.theModel.univName}">
+            Username: <h:inputText id="userNameID" value="#{univSearchController.theModel.username}">
             </h:inputText><br/><br/>
-            Location: <h:selectOneRadio id="univLocationID" value="#{someController.theModel.univLocation}">
-                <f:selectItem id="itemInState" itemLabel="inState" itemValue="In State"/>
-                <f:selectItem id="itemOutState" itemLabel="outState" itemValue="Out of State"/>
-            </h:selectOneRadio><br/>
-            Price: <h:inputText id="univPriceID" value="#{someController.theModel.univPrice}">
+            University Name: <h:inputText id="nameID" value="#{univSearchController.theModel.name}">
             </h:inputText><br/><br/>
-            <h:commandButton id="submitID" value="Submit" action="#{someController.search()}"/>
+            State: <h:inputText id="stateID" value="#{univSearchController.theModel.state}">
+            </h:inputText><br/><br/>
+            Average GPA: <h:inputText id="avgGpaID" value="#{univSearchController.theModel.avgGpa}" converterMessage="The format should be X.XX where X is a digit" maxlength="4">
+                <f:validateDoubleRange minimum="0.00" maximum="5.00" />
+            </h:inputText><br/><br/>
+            Average ACT: <h:inputText id="avgActID" value="#{univSearchController.theModel.avgAct}" converterMessage="Please enter digits only">
+                <f:validateLongRange  minimum="0" maximum="36" />
+            </h:inputText><br/><br/>
+            <h:commandButton id="submitID" value="Search" action="#{univSearchController.search()}"/>
         </h:form>
     </h:body>
 </html>
-

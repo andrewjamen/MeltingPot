@@ -86,7 +86,9 @@ public class StudentDAO {
             // columns), and formulate the result string to send back to the client.
             Statement stmt = DBConn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            String lastName, firstName, userName, password, email, address, city, state, act, gpa, extra, statement, major, highSchool;
+            String lastName, firstName, userName, password, email, address, city, state, extra, statement, major, highSchool;
+            int act;
+            double gpa;
             StudentBean aStudentBean;
             while (rs.next()) {
                 // 1. if a float (say PRICE) is to be retrieved, use rs.getFloat("PRICE");
@@ -99,8 +101,8 @@ public class StudentDAO {
                 address = rs.getString("Address");
                 city = rs.getString("City");
                 state = rs.getString("State");
-                act = rs.getString("ACT");
-                gpa = rs.getString("GPA");
+                act = rs.getInt("ACT");
+                gpa = rs.getDouble("GPA");
                 extra = rs.getString("Extra");
                 major = rs.getString("Major");
                 statement = rs.getString("Statement");
@@ -211,8 +213,8 @@ public class StudentDAO {
                 aStudentBean.setMajor(rs.getString("Major"));
                 aStudentBean.setExtra(rs.getString("Extra"));
                 aStudentBean.setHighSchool(rs.getString("HighSchool"));
-                aStudentBean.setAct(rs.getString("ACT"));
-                aStudentBean.setGpa(rs.getString("GPA"));
+                aStudentBean.setAct(rs.getInt("ACT"));
+                aStudentBean.setGpa(rs.getDouble("GPA"));
                 aStudentBean.setStatement(rs.getString("Statement"));
 
             }
@@ -228,5 +230,22 @@ public class StudentDAO {
             System.err.println(e.getMessage());
         }
         return result;
+    }
+    
+    /*
+    author: jfoss
+        Search for user based on given information (username, firstName, lastName, state, ACT, GPA)
+    */
+    public ArrayList searchForUsers(String userName, String firstName, String lastName, String state, int ACT, double GPA) {
+        String query = "SELECT * FROM ITKSTU.Students ";
+        query += "WHERE Username LIKE '%" + userName + "%' ";
+        query += "AND LOWER(FirstName) LIKE '%" + firstName.toLowerCase() + "%' ";
+        query += "AND LOWER(LastName) LIKE '%" + lastName.toLowerCase() + "%' ";
+        if(!state.equals("")) query += "AND State = '" + state + "' ";
+        query += "AND ACT >= " + ACT + " ";
+        query += "AND GPA >= " + GPA;
+        
+        ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
+        return aStudentBeanCollection;
     }
 }

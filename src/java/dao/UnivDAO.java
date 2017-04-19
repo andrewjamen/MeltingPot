@@ -78,7 +78,9 @@ public class UnivDAO {
             // columns), and formulate the result string to send back to the client.
             Statement stmt = DBConn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            String name, userName, password, email, address, city, state, avgAct, avgGpa;
+            String name, userName, password, email, address, city, state;
+            int avgAct;
+            double avgGpa;
             UnivBean aUnivBean;
             while (rs.next()) {
                 // 1. if a float (say PRICE) is to be retrieved, use rs.getFloat("PRICE");
@@ -90,8 +92,8 @@ public class UnivDAO {
                 address = rs.getString("Address");
                 city = rs.getString("City");
                 state = rs.getString("State");
-                avgAct = rs.getString("AvgACT");
-                avgGpa = rs.getString("AvgGPA");
+                avgAct = rs.getInt("AvgACT");
+                avgGpa = rs.getDouble("AvgGPA");
 
 
                 // make a ProfileBean object out of the values
@@ -186,12 +188,12 @@ public class UnivDAO {
                 aUnivBean.setUsername(rs.getString("Username"));
                 aUnivBean.setPassword(rs.getString("Password"));
                 aUnivBean.setName(rs.getString("Name"));
-                aUnivBean.setAvgGpa(rs.getString("AvgGPA"));
+                aUnivBean.setAvgGpa(rs.getDouble("AvgGPA"));
                 aUnivBean.setEmail(rs.getString("Email"));
                 aUnivBean.setCity(rs.getString("City"));
                 aUnivBean.setState(rs.getString("State"));
                 aUnivBean.setAddress(rs.getString("Address"));
-                aUnivBean.setAvgAct(rs.getString("AvgACT"));
+                aUnivBean.setAvgAct(rs.getInt("AvgACT"));
 
 
             }
@@ -207,5 +209,23 @@ public class UnivDAO {
             System.err.println(e.getMessage());
         }
         return result;
+    }
+    
+    /*
+    author: jfoss
+        Search for user based on given information (username, name, state, avgAct, avgGpa)
+    */
+    public ArrayList searchForUsers(String userName, String name, String state, int avgAct, double avgGpa) {
+        String query = "SELECT * FROM ITKSTU.Universities ";
+        query += "WHERE Username LIKE '%" + userName + "%' ";
+        query += "AND LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
+        if(!state.equals("")) query += "AND State = '" + state + "' ";
+        if(avgAct == 0) avgAct = 36;
+        query += "AND AvgACT <= " + avgAct + " ";
+        if(avgGpa == 0) avgGpa = 5;
+        query += "AND AvgGPA <= " + avgGpa;
+        
+        ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
+        return aUnivBeanCollection;
     }
 }
