@@ -39,7 +39,7 @@ public class UnivProfileController {
     }
     
     public String getProfilePage() {
-        ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(univModel.getUsername());
+        ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName("ilstu");
         
         univModel = tmp.get(0);
         
