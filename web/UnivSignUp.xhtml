@@ -2,57 +2,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>University Sign Up</title>
-        <style type="text/css">
-            .container {
-                width: 500px;
-                clear: both;
-            }
-            .container input {
-                width: 100%;
-                clear: both;
-            }
-        </style>
     </h:head>
     <h:body>
-        <h2>University Sign Up</h2>
-        <div class ="container">
-            <h:form>
 
-                Name of University:<h:inputText id="lastNameID" value="#{univSignUpController.univBean.name}"/><br/><br/>
+        <ui:composition	template="./WEB-INF/includes/template.xhtml">
 
-                User Name:<h:inputText id="userNameID" value="#{univSignUpController.univBean.userName}" required="true">
-                    <f:ajax event="keyup" render="validID"/>
-                </h:inputText>
-                <h:outputText id="validID" escape="false" value="#{univSignUpController.checkAvailable()}"/><br/><br/>
+            <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="htmlHead">
+                <meta name="description" content="Login" />
+            </ui:define>
 
-                Password:<h:inputSecret id="passwordID" value="#{univSignUpController.univBean.password}">  
-                    <f:ajax event="keyup"/>
-                </h:inputSecret><br/><br/>
-                Confirm Password:<h:inputSecret id="confirmID" value="#{univSignUpController.univBean.confirm}">    
-                    <f:ajax event="keyup" render="matchID"/>
-                </h:inputSecret>
-                <h:outputText id="matchID" escape="false" value="#{univSignUpController.checkMatch()}"/><br/><br/>
+            <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="main">
+                <div id="login" style="width:600px; height:800px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
 
-                Email:<h:inputText id="emailID" value="#{univSignUpController.univBean.email}"/><br/><br/>    
+                    <center><h3>University Sign Up</h3></center>
+                    <h:form styleClass="container">
+                        <div style="margin-left: 50px;">
+                            Name of University:<br/><h:inputText style="width:300px" id="lastNameID" value="#{univSignUpController.univBean.name}"/><br/><br/>
 
-                Address: <h:inputText id="addressID" value="#{univSignUpController.univBean.address}"/><br/><br/> 
+                            User Name:<br/><h:inputText style="width:300px" id="userNameID" value="#{univSignUpController.univBean.username}" required="true">
+                                <f:ajax event="keyup" render="validID"/>
+                            </h:inputText><br/>
+                            <h:outputText style="width:300px" id="validID" escape="false" value="#{univSignUpController.checkAvailable()}"/><br/><br/>
 
-                City:<h:inputText id="cityID" value="#{univSignUpController.univBean.city}"/><br/><br/>  
+                            Password:<br/><h:inputSecret style="width:300px" id="passwordID" value="#{univSignUpController.univBean.password}">  
+                                <f:ajax event="keyup"/>
+                            </h:inputSecret><br/><br/>
+                            Confirm Password:<br/><h:inputSecret style="width:300px" id="confirmID" value="#{univSignUpController.univBean.confirm}">    
+                                <f:ajax event="keyup" render="matchID"/>
+                            </h:inputSecret><br/>
+                            <h:outputText id="matchID" escape="false" value="#{univSignUpController.checkMatch()}"/><br/><br/>
 
-                State:<h:inputText id="stateID" value="#{univSignUpController.univBean.state}"/><br/><br/>   
+                            Email:<br/><h:inputText style="width:300px" id="emailID" value="#{univSignUpController.univBean.email}"/><br/><br/>    
 
-                Your Average Accepted ACT Score:<h:inputText id="actID" value="#{univSignUpController.univBean.avgAct}"/><br/><br/>   
+                            Address:<br/><h:inputText style="width:300px" id="addressID" value="#{univSignUpController.univBean.address}"/><br/><br/> 
 
-                Your Average Accepted Cumulative GPA:<h:inputText id="gpaID" value="#{univSignUpController.univBean.avgGpa}"/><br/><br/>   
+                            City:<br/><h:inputText style="width:300px" id="cityID" value="#{univSignUpController.univBean.city}"/><br/><br/>  
+
+                            State:<br/><h:inputText style="width:300px" id="stateID" value="#{univSignUpController.univBean.state}"/><br/><br/>   
+
+                            Your Average Accepted ACT Score:<br/><h:inputText style="width:300px" id="actID" value="#{univSignUpController.univBean.avgAct}"/><br/><br/>   
+
+                            Your Average Accepted Cumulative GPA:<br/><h:inputText style="width:300px" id="gpaID" value="#{univSignUpController.univBean.avgGpa}"/><br/><br/><br/><br/> 
 
 
-                <h:commandButton id="submitID" value="Submit" action="#{univSignUpController.createProfile()}"/>
+                            <center><h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                                id="submitID" value="Submit" action="#{univSignUpController.createProfile()}"/></center>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
 
-            </h:form>
-        </div>
+        </ui:composition>
     </h:body>
 </html>
 

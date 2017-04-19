@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    <h:head>
+        <script>function initialize(){}</script>
+        <link rel="stylesheet" type="text/css" href="resources/stylesheet.css" />
+        <script type="text/javascript" charset="utf-8" src="./resources/script.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./resources/jquery-1.4.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./resources/jquery.datePicker.js"></script>
+        <ui:insert name="htmlHead" />
+
+    </h:head>
+    <h:body onload="initialize()">
+        <center>
+            <div class="container">
+                <h:panelGroup layout="block" >
+                    <ui:include src="/WEB-INF/includes/header.xhtml" />
+                </h:panelGroup>
+        
+                <div style ="min-height: 750px; border-bottom: 1px solid #888888;padding:0">
+
+               
+                <h:panelGrid>
+                   
+                    <h:panelGroup layout="block">
+                        <!-- Display page provides HTML fragment named as "main" -->
+                        <ui:insert name="main" />
+                    </h:panelGroup>
+                </h:panelGrid>
+            </div>
+       
+            <h:panelGroup layout="block" >
+                <ui:include src="/WEB-INF/includes/footer.xhtml" />
+            </h:panelGroup>
+            </div>
+        </center>
+    </h:body>
+</html>

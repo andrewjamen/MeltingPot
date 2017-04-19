@@ -3,10 +3,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import model.StudentBean;
 import model.UnivBean;
 
 /**
@@ -31,7 +33,7 @@ public class UnivDAO {
             String insertString;
             Statement stmt = DBConn.createStatement();
             insertString = "INSERT INTO ITKSTU.Universities VALUES ('"
-                    + aUnivBean.getUserName()
+                    + aUnivBean.getUsername()
                     + "','" + aUnivBean.getPassword()
                     + "','" + aUnivBean.getName()
                     + "','" + aUnivBean.getEmail()
@@ -150,7 +152,7 @@ public class UnivDAO {
                     + "State = '" + pro.getState() + "' "
                     + "AvgACT = '" + pro.getAvgAct() + "' "
                     + "AvgGPA = '" + pro.getAvgGpa() + "' "
-                    + "WHERE UserName = '" + pro.getUserName() + "'";
+                    + "WHERE UserName = '" + pro.getUsername() + "'";
             rowCount = stmt.executeUpdate(updateString);
             System.out.println("updateString =" + updateString);
             DBConn.close();
@@ -160,5 +162,50 @@ public class UnivDAO {
         // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
         return rowCount;
 
+    }
+    
+    //TODO: not Working
+    public boolean findUser(UnivBean aUnivBean) {
+        Connection DBConn = null;
+        boolean result = false;
+        try {
+            String myDB = "jdbc:derby://localhost:1527/Project353";
+            DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
+            DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+
+            // With the connection made, create a statement to talk to the DB server.
+            // Create a SQL statement to query, retrieve the rows one by one (by going to the
+            // columns), and formulate the result string to send back to the client.
+            String sqlStr = "SELECT * FROM Project353.Universities WHERE username = ? and password = ?";
+            PreparedStatement stmt = DBConn.prepareStatement(sqlStr);
+            stmt.setString(1, aUnivBean.getUsername());
+            stmt.setString(2, aUnivBean.getPassword());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                result = true;
+                aUnivBean.setUsername(rs.getString("Username"));
+                aUnivBean.setPassword(rs.getString("Password"));
+                aUnivBean.setName(rs.getString("Name"));
+                aUnivBean.setAvgGpa(rs.getString("AvgGPA"));
+                aUnivBean.setEmail(rs.getString("Email"));
+                aUnivBean.setCity(rs.getString("City"));
+                aUnivBean.setState(rs.getString("State"));
+                aUnivBean.setAddress(rs.getString("Address"));
+                aUnivBean.setAvgAct(rs.getString("AvgACT"));
+
+
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println("ERROR: Problems with SQL select");
+            e.printStackTrace();
+        }
+        try {
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return result;
     }
 }

@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      >
+    <div id ="banner" style ="width: 1000px;height: 50px;">
+
+        <div style="font-size: 32px;width:750px; float:center; text-align: center; font-family:Arial Black;">LinkedU</div>
+        <div style="width:250px;float:center; padding-top: 15px;">
+            <c:if test="${studentLoginController.loggedIn}">
+
+                <h:panelGroup layout="block">
+                    <h:form>
+                        <h:commandLink action="MyAccount" value="#{studentLoginController.theModel.username}" /> |
+                        <h:commandLink action="#{studentLoginController.logout()}" value="Logout" />
+                    </h:form>
+                </h:panelGroup>
+
+            </c:if>
+            <c:if test="${univLoginController.loggedIn}">
+
+                <h:panelGroup layout="block">
+                    <h:form>
+                        <h:commandLink action="MyAccount" value="#{univLoginController.theModel.username}" /> |
+                        <h:commandLink action="#{univLoginController.logout()}" value="Logout" />
+                    </h:form>
+                </h:panelGroup>
+
+            </c:if>
+            <c:if test="${!(studentLoginController.loggedIn || univLoginController.loggedIn)}">
+
+                <h:panelGroup layout="block">
+                    <h:form>
+                        <h:commandLink action="StudentSignUp" value="Student Sign Up" /> |
+                        <h:commandLink action="UnivSignUp" value="University Sign Up" /> 
+                    </h:form>
+                </h:panelGroup>
+
+            </c:if>
+        </div>
+    </div>
+
+</html>

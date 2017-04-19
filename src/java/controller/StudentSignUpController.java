@@ -41,7 +41,7 @@ public class StudentSignUpController {
         String resultStr = "";
         resultStr += "Hello, " + studentBean.getFirstName() + " " + studentBean.getLastName() + "<br/>";
         resultStr += "You have successfully created an account with the following information:" + "<br/>" + "<br/>";
-        resultStr += "User Name: " + studentBean.getUserName() + "<br/>";
+        resultStr += "User Name: " + studentBean.getUsername() + "<br/>";
         resultStr += "Email: " + studentBean.getEmail() + "<br/>" + "<br/>";
         resultStr += "Address: " + studentBean.getAddress() + "<br/>";
         resultStr += "City: " + studentBean.getCity() + "<br/>";
@@ -113,7 +113,7 @@ public class StudentSignUpController {
 
     public String checkAvailable() {
 
-        if ("".equals(studentBean.getUserName()) || studentBean.getUserName() == null) {
+        if ("".equals(studentBean.getUsername()) || studentBean.getUsername() == null) {
             return "Enter a username!";
         }
         boolean goodLogin = true;
@@ -121,7 +121,7 @@ public class StudentSignUpController {
         ArrayList<StudentBean> allUsers = aSignUpDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
-            if (studentBean.getUserName().equals(allUsers.get(i).getUserName())) {
+            if (studentBean.getUsername().equals(allUsers.get(i).getUsername())) {
                 goodLogin = false;
             }
         }
@@ -161,7 +161,7 @@ public class StudentSignUpController {
         }
 
         StudentDAO aSignUpDAO = new StudentDAO();
-        ArrayList<StudentBean> users = aSignUpDAO.findByUserName(studentBean.getUserName());
+        ArrayList<StudentBean> users = aSignUpDAO.findByUserName(studentBean.getUsername());
 
         if (users.size() > 0) {
             FacesContext context = FacesContext.getCurrentInstance();

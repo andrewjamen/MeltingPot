@@ -35,7 +35,7 @@ public class UnivSignUpController {
         String resultStr = "";
         resultStr += "Hello, " + univBean.getName() + "<br/>";
         resultStr += "You have successfully created an account with the following information:" + "<br/>" + "<br/>";
-        resultStr += "User Name: " + univBean.getUserName() + "<br/>";
+        resultStr += "User Name: " + univBean.getUsername() + "<br/>";
         resultStr += "Email: " + univBean.getEmail() + "<br/>" + "<br/>";
         resultStr += "Address: " + univBean.getAddress() + "<br/>";
         resultStr += "City: " + univBean.getCity() + "<br/>";
@@ -55,7 +55,7 @@ public class UnivSignUpController {
     
     public String checkAvailable() {
 
-        if ("".equals(univBean.getUserName()) || univBean.getUserName() == null) {
+        if ("".equals(univBean.getUsername()) || univBean.getUsername() == null) {
             return "Enter a username!";
         }
         boolean goodLogin = true;
@@ -63,7 +63,7 @@ public class UnivSignUpController {
         ArrayList<UnivBean> allUsers = aUnivDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
-            if (univBean.getUserName().equals(allUsers.get(i).getUserName())) {
+            if (univBean.getUsername().equals(allUsers.get(i).getUsername())) {
                 goodLogin = false;
             }
         }
@@ -102,7 +102,7 @@ public class UnivSignUpController {
         }
 
         UnivDAO aUnivDAO = new UnivDAO();
-        ArrayList<UnivBean> users = aUnivDAO.findByUserName(univBean.getUserName());
+        ArrayList<UnivBean> users = aUnivDAO.findByUserName(univBean.getUsername());
 
         if (users.size() > 0) {
             FacesContext context = FacesContext.getCurrentInstance();
