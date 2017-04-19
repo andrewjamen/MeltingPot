@@ -9,13 +9,21 @@
     <h:body>
         <h2>Student Search</h2><br/>
         <h:form>
-            Name: <h:inputText id="studentNameID" value="#{someController.theModel.studentName}">
+            Username: <h:inputText id="userNameID" value="#{studentSearchController.theModel.username}">
             </h:inputText><br/><br/>
-            GPA: <h:inputText id="studentGpaID" value="#{someController.theModel.studentGpa}">
+            First Name: <h:inputText id="firstNameID" value="#{studentSearchController.theModel.firstName}">
             </h:inputText><br/><br/>
-            ACT score: <h:inputText id="studentActID" value="#{someController.theModel.studentAct}">
+            Last Name: <h:inputText id="lastNameID" value="#{studentSearchController.theModel.lastName}">
             </h:inputText><br/><br/>
-            <h:commandButton id="submitID" value="Submit" action="#{someController.search()}"/>
+            State: <h:inputText id="stateID" value="#{studentSearchController.theModel.state}">
+            </h:inputText><br/><br/>
+            GPA: <h:inputText id="gpaID" value="#{studentSearchController.theModel.gpa}" converterMessage="The format should be X.XX where X is a digit" maxlength="4">
+                <f:validateDoubleRange minimum="0.00" maximum="5.00" />
+            </h:inputText><br/><br/>
+            ACT: <h:inputText id="actID" value="#{studentSearchController.theModel.act}" converterMessage="Please enter digits only">
+                <f:validateLongRange  minimum="0" maximum="36" />
+            </h:inputText><br/><br/>
+            <h:commandButton id="submitID" value="Search" action="#{studentSearchController.search()}"/>
         </h:form>
     </h:body>
 </html>

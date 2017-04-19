@@ -18,8 +18,8 @@ public class StudentBean {
     private String city;
     private String state;
     private String highSchool;
-    private String act;
-    private String gpa;
+    private int act;
+    private double gpa;
     private String extra;
     private String major;
     private String statement;
@@ -29,7 +29,7 @@ public class StudentBean {
 
     public StudentBean(String lastName, String firstName, String username, String password,
             String email, String address, String city, String state, String highSchool,
-            String act, String gpa, String extra, String major, String statement) {
+            int act, double gpa, String extra, String major, String statement) {
         
         this.username = username;
         this.password = password;        
@@ -127,19 +127,19 @@ public class StudentBean {
         this.highSchool = highSchool;
     }
 
-    public String getAct() {
+    public int getAct() {
         return act;
     }
 
-    public void setAct(String act) {
+    public void setAct(int act) {
         this.act = act;
     }
 
-    public String getGpa() {
+    public double getGpa() {
         return gpa;
     }
 
-    public void setGpa(String gpa) {
+    public void setGpa(double gpa) {
         this.gpa = gpa;
     }
 

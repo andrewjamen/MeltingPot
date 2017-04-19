@@ -6,9 +6,11 @@
         <title>Student Search Results</title>
     </h:head>
     <h:body>
-        <h2>Student Results:</h2><br/>
-        <h:outputText id="studentResults" escape="false" value="#{someController.studentResults}"/>
-        <h:commandButton id="back" value="Back" action="StudentSearch.xhtml"/>
+        <h:form>
+            <h2>Student Results:</h2><br/>
+            <h:outputText id="studentResults" escape="false" value="#{studentSearchController.results}"/>
+            <h:commandButton id="back" value="Back" action="StudentSearch.xhtml"/>
+        </h:form>
     </h:body>
 </html>
 
