@@ -5,15 +5,17 @@
  */
 package model;
 
+import dao.UnivDAO;
+
 /**
  *
  * @author Andrew
  */
-public class UnivBean {
+public class UnivBean{
     
-    private String name;
-    private String userName;
+    private String username;
     private String password;
+    private String name;
     private String confirm;
     private String email;
     private String address;
@@ -25,10 +27,11 @@ public class UnivBean {
     public UnivBean(){
     }
 
-    public UnivBean(String name, String userName, String password, String email, String address, String city, String state, String avgAct, String avgGpa) {
-        this.name = name;
-        this.userName = userName;
+    public UnivBean(String name, String username, String password, String email, String address, String city, String state, String avgAct, String avgGpa) {
+        
+        this.username = username;
         this.password = password;
+        this.name = name;
         this.email = email;
         this.address = address;
         this.city = city;
@@ -37,20 +40,12 @@ public class UnivBean {
         this.avgGpa = avgGpa;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -59,6 +54,14 @@ public class UnivBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+   
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getConfirm() {
@@ -117,5 +120,8 @@ public class UnivBean {
         this.avgGpa = avgGpa;
     }
     
+
+
     
 }
+

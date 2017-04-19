@@ -7,6 +7,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,7 +36,7 @@ public class StudentDAO {
             String insertString;
             Statement stmt = DBConn.createStatement();
             insertString = "INSERT INTO ITKSTU.Students VALUES ('"
-                    + aStudentBean.getUserName()
+                    + aStudentBean.getUsername()
                     + "','" + aStudentBean.getPassword()
                     + "','" + aStudentBean.getFirstName()
                     + "','" + aStudentBean.getLastName()
@@ -168,7 +169,7 @@ public class StudentDAO {
                     + "Extra = '" + pro.getExtra() + "' "
                     + "Major = '" + pro.getMajor() + "' "
                     + "Statement = '" + pro.getStatement() + "' "
-                    + "WHERE UserName = '" + pro.getUserName() + "'";
+                    + "WHERE UserName = '" + pro.getUsername() + "'";
             rowCount = stmt.executeUpdate(updateString);
             System.out.println("updateString =" + updateString);
             DBConn.close();
@@ -178,5 +179,54 @@ public class StudentDAO {
         // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
         return rowCount;
 
+    }
+
+    //TODO: Not Working
+    public boolean findUser(StudentBean aStudentBean) {
+        Connection DBConn = null;
+        boolean result = false;
+        try {
+            String myDB = "jdbc:derby://localhost:1527/Project353";
+            DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
+            DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+
+            // With the connection made, create a statement to talk to the DB server.
+            // Create a SQL statement to query, retrieve the rows one by one (by going to the
+            // columns), and formulate the result string to send back to the client.
+            String sqlStr = "SELECT * FROM Project353.Students WHERE username = ? and password = ?";
+            PreparedStatement stmt = DBConn.prepareStatement(sqlStr);
+            stmt.setString(1, aStudentBean.getUsername());
+            stmt.setString(2, aStudentBean.getPassword());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                result = true;
+                aStudentBean.setUsername(rs.getString("Username"));
+                aStudentBean.setPassword(rs.getString("Password"));
+                aStudentBean.setFirstName(rs.getString("FirstName"));
+                aStudentBean.setLastName(rs.getString("LastName"));
+                aStudentBean.setEmail(rs.getString("Email"));
+                aStudentBean.setCity(rs.getString("City"));
+                aStudentBean.setState(rs.getString("State"));
+                aStudentBean.setAddress(rs.getString("Address"));
+                aStudentBean.setMajor(rs.getString("Major"));
+                aStudentBean.setExtra(rs.getString("Extra"));
+                aStudentBean.setHighSchool(rs.getString("HighSchool"));
+                aStudentBean.setAct(rs.getString("ACT"));
+                aStudentBean.setGpa(rs.getString("GPA"));
+                aStudentBean.setStatement(rs.getString("Statement"));
+
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println("ERROR: Problems with SQL select");
+            e.printStackTrace();
+        }
+        try {
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return result;
     }
 }

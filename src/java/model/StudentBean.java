@@ -1,15 +1,17 @@
 package model;
 
+import dao.StudentDAO;
+
 /**
  *
  * @author Andrew
  */
 public class StudentBean {
-    
+
+    private String username;
+    private String password;
     private String lastName;
     private String firstName;
-    private String userName;
-    private String password;
     private String confirm;
     private String email;
     private String address;
@@ -19,19 +21,20 @@ public class StudentBean {
     private String act;
     private String gpa;
     private String extra;
-    private String major;    
+    private String major;
     private String statement;
-    
-    public StudentBean(){
+
+    public StudentBean() {
     }
 
-    public StudentBean(String lastName, String firstName, String userName, String password, 
-            String email, String address, String city, String state, String highSchool, 
+    public StudentBean(String lastName, String firstName, String username, String password,
+            String email, String address, String city, String state, String highSchool,
             String act, String gpa, String extra, String major, String statement) {
+        
+        this.username = username;
+        this.password = password;        
         this.lastName = lastName;
         this.firstName = firstName;
-        this.userName = userName;
-        this.password = password;
         this.email = email;
         this.address = address;
         this.city = city;
@@ -42,6 +45,22 @@ public class StudentBean {
         this.extra = extra;
         this.major = major;
         this.statement = statement;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getLastName() {
@@ -58,22 +77,6 @@ public class StudentBean {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getConfirm() {
@@ -163,7 +166,7 @@ public class StudentBean {
     public void setStatement(String statement) {
         this.statement = statement;
     }
-    
-    
-    
+
+
+
 }
