@@ -39,10 +39,18 @@ public class UnivProfileController {
     }
     
     public String getProfilePage(String username) {
+        System.out.println("Name: " + username);
         ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
         
-        univModel = tmp.get(0);
-        
+        if(tmp.isEmpty())
+        {
+            System.out.println("Empty");
+        }
+        else
+        {
+            univModel = tmp.get(0);            
+        }
+
         return "UnivProfile.xhtml";
     }
 }

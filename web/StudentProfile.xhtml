@@ -9,13 +9,25 @@
     <h:body>
         <ui:composition	template="./WEB-INF/includes/template.xhtml">
             <ui:define name="main"><br /><br /><br />
-                Student Name: <h:outputText value="#{studentProfileController.studentModel.firstName}" />
-                              <h:outputText value="#{studentProfileController.studentModel.lastName}" /><br /><br />
+                Student Name (temp placeholder): <h:outputText style="font-size: 16px" value="#{studentProfileController.studentModel.firstName}" />
+                              <h:outputText style="font-size: 16px" value="#{studentProfileController.studentModel.lastName}" /><br /><br />
         
-                Location<br />
+                <h2>Location</h2>
                 Address: <h:outputText value="#{studentProfileController.studentModel.address}" /><br />
                 City: <h:outputText value="#{studentProfileController.studentModel.city}" /><br />
-                State: <h:outputText value="#{studentProfileController.studentModel.state}" /><br />
+                State: <h:outputText value="#{studentProfileController.studentModel.state}" /><br /><br />
+                
+                <h2>Education</h2>
+                High School: <h:outputText value="#{studentProfileController.studentModel.highSchool}" /><br />
+                GPA: <h:outputText value="#{studentProfileController.studentModel.gpa}" /><br />
+                ACT: <h:outputText value="#{studentProfileController.studentModel.act}" /><br />
+                Major: <h:outputText value="#{studentProfileController.studentModel.major}" /><br />
+                
+                <h2>Statement</h2>
+                <h:outputText value="#{studentProfileController.studentModel.statement}" /><br />
+                
+                <h2>Contact Information</h2>
+                Email: <h:outputText value="#{studentProfileController.studentModel.email}" /><br />
             </ui:define>
         </ui:composition>
     </h:body>
