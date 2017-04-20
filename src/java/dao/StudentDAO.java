@@ -30,12 +30,12 @@ public class StudentDAO {
 
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             String insertString;
             Statement stmt = DBConn.createStatement();
-            insertString = "INSERT INTO ITKSTU.Students VALUES ('"
+            insertString = "INSERT INTO APP.Students VALUES ('"
                     + aStudentBean.getUsername()
                     + "','" + aStudentBean.getPassword()
                     + "','" + aStudentBean.getFirstName()
@@ -65,7 +65,7 @@ public class StudentDAO {
 
     public ArrayList findAll() {
 
-        String query = "SELECT * FROM ITKSTU.Students";
+        String query = "SELECT * FROM APP.Students";
         ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
         return aStudentBeanCollection;
 
@@ -77,7 +77,7 @@ public class StudentDAO {
         try {
             DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
             // if doing the above in Oracle: DBHelper.loadDriver("oracle.jdbc.driver.OracleDriver");
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             // if doing the above in Oracle:  String myDB = "jdbc:oracle:thin:@oracle.itk.ilstu.edu:1521:ora478";
             DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
@@ -129,7 +129,7 @@ public class StudentDAO {
 
     public ArrayList findByUserName(String aName) {
         // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
-        String query = "SELECT * FROM ITKSTU.Students ";
+        String query = "SELECT * FROM APP.Students ";
         query += "WHERE UserName = '" + aName + "'";
 
         ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
@@ -146,7 +146,7 @@ public class StudentDAO {
         }
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             String updateString;
@@ -157,7 +157,7 @@ public class StudentDAO {
             // SET column1=value, column2=value2,...
             // WHERE some_column=some_value
             // Note: Notice the WHERE clause in the UPDATE syntax. The WHERE clause specifies which record or records that should be updated. If you omit the WHERE clause, all records will be updated!
-            updateString = "UPDATE ITKSTU.Students SET "
+            updateString = "UPDATE APP.Students SET "
                     + "FirstName = '" + pro.getFirstName() + "', "
                     + "LastName = '" + pro.getLastName() + "', "
                     + "Password = '" + pro.getPassword() + "', "
@@ -188,14 +188,14 @@ public class StudentDAO {
         Connection DBConn = null;
         boolean result = false;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
             DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
             // With the connection made, create a statement to talk to the DB server.
             // Create a SQL statement to query, retrieve the rows one by one (by going to the
             // columns), and formulate the result string to send back to the client.
-            String sqlStr = "SELECT * FROM Project353.Students WHERE username = ? and password = ?";
+            String sqlStr = "SELECT * FROM APP.Students WHERE username = ? and password = ?";
             PreparedStatement stmt = DBConn.prepareStatement(sqlStr);
             stmt.setString(1, aStudentBean.getUsername());
             stmt.setString(2, aStudentBean.getPassword());
@@ -237,7 +237,7 @@ public class StudentDAO {
         Search for user based on given information (username, firstName, lastName, state, ACT, GPA)
     */
     public ArrayList searchForUsers(String userName, String firstName, String lastName, String state, int ACT, double GPA) {
-        String query = "SELECT * FROM ITKSTU.Students ";
+        String query = "SELECT * FROM APP.Students ";
         query += "WHERE Username LIKE '%" + userName + "%' ";
         query += "AND LOWER(FirstName) LIKE '%" + firstName.toLowerCase() + "%' ";
         query += "AND LOWER(LastName) LIKE '%" + lastName.toLowerCase() + "%' ";

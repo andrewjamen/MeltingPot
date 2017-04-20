@@ -27,12 +27,12 @@ public class UnivDAO {
 
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             String insertString;
             Statement stmt = DBConn.createStatement();
-            insertString = "INSERT INTO ITKSTU.Universities VALUES ('"
+            insertString = "INSERT INTO APP.Universities VALUES ('"
                     + aUnivBean.getUsername()
                     + "','" + aUnivBean.getPassword()
                     + "','" + aUnivBean.getName()
@@ -57,7 +57,7 @@ public class UnivDAO {
 
     public ArrayList findAll() {
 
-        String query = "SELECT * FROM ITKSTU.Universities";
+        String query = "SELECT * FROM APP.Universities";
         ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
         return aStudentBeanCollection;
 
@@ -69,7 +69,7 @@ public class UnivDAO {
         try {
             DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
             // if doing the above in Oracle: DBHelper.loadDriver("oracle.jdbc.driver.OracleDriver");
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             // if doing the above in Oracle:  String myDB = "jdbc:oracle:thin:@oracle.itk.ilstu.edu:1521:ora478";
             DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
@@ -117,7 +117,7 @@ public class UnivDAO {
 
     public ArrayList findByUserName(String aName) {
         // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
-        String query = "SELECT * FROM ITKSTU.Universities ";
+        String query = "SELECT * FROM APP.Universities ";
         query += "WHERE UserName = '" + aName + "'";
 
         ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
@@ -134,7 +134,7 @@ public class UnivDAO {
         }
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             String updateString;
@@ -145,7 +145,7 @@ public class UnivDAO {
             // SET column1=value, column2=value2,...
             // WHERE some_column=some_value
             // Note: Notice the WHERE clause in the UPDATE syntax. The WHERE clause specifies which record or records that should be updated. If you omit the WHERE clause, all records will be updated!
-            updateString = "UPDATE ITKSTU.Universities SET "
+            updateString = "UPDATE APP.Universities SET "
                     + "Name = '" + pro.getName() + "', "
                     + "Password = '" + pro.getPassword() + "', "
                     + "Email = '" + pro.getEmail() + "', "
@@ -171,7 +171,7 @@ public class UnivDAO {
         Connection DBConn = null;
         boolean result = false;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
             DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
             DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
@@ -216,7 +216,7 @@ public class UnivDAO {
         Search for user based on given information (username, name, state, avgAct, avgGpa)
     */
     public ArrayList searchForUsers(String userName, String name, String state, int avgAct, double avgGpa) {
-        String query = "SELECT * FROM ITKSTU.Universities ";
+        String query = "SELECT * FROM APP.Universities ";
         query += "WHERE Username LIKE '%" + userName + "%' ";
         query += "AND LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
         if(!state.equals("")) query += "AND State = '" + state + "' ";
