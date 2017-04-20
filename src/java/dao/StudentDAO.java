@@ -45,9 +45,9 @@ public class StudentDAO {
                     + "','" + aStudentBean.getCity()
                     + "','" + aStudentBean.getState()
                     + "','" + aStudentBean.getHighSchool()
-                    + "','" + aStudentBean.getAct()
-                    + "','" + aStudentBean.getGpa()
-                    + "','" + aStudentBean.getExtra()
+                    + "'," + aStudentBean.getAct()
+                    + "," + aStudentBean.getGpa()
+                    + ",'" + aStudentBean.getExtra()
                     + "','" + aStudentBean.getMajor()
                     + "','" + aStudentBean.getStatement()
                     + "')";
@@ -166,8 +166,8 @@ public class StudentDAO {
                     + "City = '" + pro.getCity() + "' "
                     + "State = '" + pro.getState() + "' "
                     + "HighSchool = '" + pro.getHighSchool() + "' "
-                    + "ACT = '" + pro.getAct() + "' "
-                    + "GPA = '" + pro.getGpa() + "' "
+                    + "ACT = " + pro.getAct() + " "
+                    + "GPA = " + pro.getGpa() + " "
                     + "Extra = '" + pro.getExtra() + "' "
                     + "Major = '" + pro.getMajor() + "' "
                     + "Statement = '" + pro.getStatement() + "' "

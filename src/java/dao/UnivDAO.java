@@ -40,9 +40,9 @@ public class UnivDAO {
                     + "','" + aUnivBean.getAddress()
                     + "','" + aUnivBean.getCity()
                     + "','" + aUnivBean.getState()
-                    + "','" + aUnivBean.getAvgAct()
-                    + "','" + aUnivBean.getAvgGpa()
-                    + "')";
+                    + "'," + aUnivBean.getAvgAct()
+                    + "," + aUnivBean.getAvgGpa()
+                    + ")";
 
             rowCount = stmt.executeUpdate(insertString);
             System.out.println("insert string =" + insertString);
@@ -152,8 +152,8 @@ public class UnivDAO {
                     + "Address = '" + pro.getAddress() + "', "
                     + "City = '" + pro.getCity() + "' "
                     + "State = '" + pro.getState() + "' "
-                    + "AvgACT = '" + pro.getAvgAct() + "' "
-                    + "AvgGPA = '" + pro.getAvgGpa() + "' "
+                    + "AvgACT = " + pro.getAvgAct() + " "
+                    + "AvgGPA = " + pro.getAvgGpa() + " "
                     + "WHERE UserName = '" + pro.getUsername() + "'";
             rowCount = stmt.executeUpdate(updateString);
             System.out.println("updateString =" + updateString);
