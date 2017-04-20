@@ -30,12 +30,13 @@ public class UnivSearchController {
         this.theModel = theModel;
     }
 
-    public String getResults() {
+    public ArrayList<UnivBean> getResults() {
         UnivDAO univDAO = new UnivDAO();
-        String resultStr = "";
+        //String resultStr = "";
         
         ArrayList<UnivBean> users = univDAO.searchForUsers(theModel.getUsername(), theModel.getName(), theModel.getState(), theModel.getAvgAct(), theModel.getAvgGpa());
         
+        /*
         if(!users.isEmpty()){
             for(int i=0; i<users.size(); i++){
                 resultStr += users.get(i).getUsername() + " - " + users.get(i).getName() + "<br/>";
@@ -44,7 +45,8 @@ public class UnivSearchController {
             resultStr += "Nothing found! No universities match the given parameters";
         }
         results = resultStr;
-        return results;
+        */
+        return users;
     }
 
     public void setResults(String results) {
