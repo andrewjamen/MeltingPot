@@ -6,14 +6,6 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Home</title>
-        <style>
-            .button {
-                background-color: #699DB6;
-                border-color: rgba(0,0,0,0.3);
-                text-shadow: 0 1px 0 rgba(0,0,0,0.5);
-                color: #FFF;
-            }
-        </style>
     </h:head>
     <h:body>
         <ui:composition	template="./WEB-INF/includes/template.xhtml">
@@ -28,7 +20,7 @@
                 <div id="login" style ="padding-left: 25px; width:600px; height:550px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
                     <center><h2>Student Search</h2></center><br/>
                     <h:form>
-                        Username:<br/><h:inputText style="width:300px" id="userNameID" value="#{studentSearchController.theModel.username}">
+                        Username<br/><h:inputText  style="width:300px" id="usernameID" value="#{studentSearchController.theModel.username}">
                         </h:inputText><br/><br/>
                         
                         First Name:<br/><h:inputText  style="width:300px" id="firstNameID" value="#{studentSearchController.theModel.firstName}">

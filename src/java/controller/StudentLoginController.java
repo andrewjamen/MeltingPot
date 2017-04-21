@@ -65,8 +65,7 @@ public class StudentLoginController {
             response = "Invalid username/password!";
             return ""; // stay right at the current page
         } else {
-            StudentAccountController theStudentAccountController = new StudentAccountController(findProfile());
-            theStudentAccountController.setStudentModel(findProfile());
+            this.setTheModel(findProfile());
             loggedIn = true;
             response = "";
             return "StudentAccount.xhtml?faces-redirect=true";

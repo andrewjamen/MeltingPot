@@ -5,14 +5,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Student Results</title>
-        <style>
-            .button {
-                background-color: #699DB6;
-                border-color: rgba(0,0,0,0.3);
-                text-shadow: 0 1px 0 rgba(0,0,0,0.5);
-                color: #FFF;
-            }
-        </style>
     </h:head>
     <h:body>
         <ui:composition	template="./WEB-INF/includes/template.xhtml">
@@ -25,12 +17,19 @@
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
                 <div id="login" style ="padding-left: 25px; width:600px; height:400px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
-                    <h:form>
-                        <h2>Student Results:</h2><br/>
-                        <h:outputText id="studentResults" escape="false" value="#{studentSearchController.results}"/><br/><br/>
-                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
-                            id="back" value="Back" action="StudentSearch.xhtml"/>
-                    </h:form>
+                    
+                    <h2>Student Results:</h2><br/>
+                    <h:dataTable id="studentResults" value="#{studentSearchController.getResults()}" var="aRow"
+                                 border="0" cellpadding="0" cellspacing="0">
+                        <h:column>
+                            <h3><h:outputText value="#{aRow.firstName} #{aRow.lastName}"/>&#160;&#160;&#160;</h3>
+                        </h:column>
+                        <h:column>
+                            <h:form><h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
+                                value="Go to profile" action="#{studentProfileController.getProfilePage(aRow.username)}"/></h:form>
+
+                        </h:column>
+                    </h:dataTable>
                 </div>
             </ui:define>
 

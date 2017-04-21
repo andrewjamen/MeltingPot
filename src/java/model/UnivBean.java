@@ -23,6 +23,8 @@ public class UnivBean{
     private String state;
     private int avgAct;
     private double avgGpa;
+    private String request;
+    private String requestSender;
     
     public UnivBean(){
     }
@@ -118,6 +120,22 @@ public class UnivBean{
 
     public void setAvgGpa(double avgGpa) {
         this.avgGpa = avgGpa;
+    }
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public String getRequestSender() {
+        return requestSender;
+    }
+
+    public void setRequestSender(String requestSender) {
+        this.requestSender = requestSender;
     }
     
 

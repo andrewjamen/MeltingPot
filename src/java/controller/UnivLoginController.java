@@ -63,7 +63,7 @@ public class UnivLoginController {
             // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("Login?faces-redirect=true");
+            nav.performNavigation("Login.xhtml?faces-redirect=true");
         }
     }
 
@@ -73,8 +73,7 @@ public class UnivLoginController {
             response = "Invalid username/password!";
             return ""; // stay right at the current page
         } else {
-            UnivAccountController theUnivAccountController = new UnivAccountController(findProfile());
-            theUnivAccountController.setUnivModel(findProfile());
+            this.setTheModel(findProfile());
             loggedIn = true;
             response = "";
             return "UnivAccount.xhtml?faces-redirect=true";

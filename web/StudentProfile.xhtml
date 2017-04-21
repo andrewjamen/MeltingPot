@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>University Profile</title>
     </h:head>
@@ -32,9 +33,6 @@
                                 City: <h:outputText value="#{studentProfileController.studentModel.city}" /><br/>
                                 State: <h:outputText value="#{studentProfileController.studentModel.state}" /><br/><br/>
 
-                                <h3>Contact Information</h3>
-                                Email: <h:outputText value="#{studentProfileController.studentModel.email}" /><br/><br/>
-
                                 <h3>Education</h3>
                                 Your GPA: <h:outputText value="#{studentProfileController.studentModel.gpa}" /><br/>
                                 Your ACT: <h:outputText value="#{studentProfileController.studentModel.act}" /><br/>
@@ -45,7 +43,10 @@
                                 Extra Curricular Activities:<br/>
                                 <h:outputText value="#{studentProfileController.studentModel.extra}" /><br/><br/>
                                 Personal Statement:<br/>
-                                <h:outputText value="#{studentProfileController.studentModel.statement}" /><br/>
+                                <h:outputText value="#{studentProfileController.studentModel.statement}" /><br/><br/>
+                                
+                                <h3>Contact Information</h3>
+                                Email: <h:outputText value="#{studentProfileController.studentModel.email}" /><br/>
 
                             </div>    
                         </h:panelGroup>
@@ -54,14 +55,15 @@
                         <div style="margin-top: 15px">
                             <h:panelGroup layout="block">
                                 <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Profile Options"/><br/><br/><br/><br/><br/>
+                                              value="Profile Options"/><br/><br/><br/><br/>
 
                                 <h:form>        
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="Schedule Appointment" action="#{studentProfileController.scheduleAppt(univLoginController.theModel)}" onclick="backgroud - color:yellow"/><br/><br/><br/>
+                                                     value="Schedule Appointment" action="#{studentProfileController.scheduleAppt(univLoginController.theModel)}"/><br/><br/><br/><br/>
 
+                                    <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this student"/><br/>
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="Request More Info" action="#{studentProfileController.requestInfo(univLoginController.theModel)}" />
+                                                     value="Request More Info" action="#{studentProfileController.requestInfo(univLoginController.theModel, requestInput.value)}" />
 
                                 </h:form>
 

@@ -23,6 +23,8 @@ public class StudentBean {
     private String extra;
     private String major;
     private String statement;
+    private String request;
+    private String requestSender;
 
     public StudentBean() {
     }
@@ -166,6 +168,23 @@ public class StudentBean {
     public void setStatement(String statement) {
         this.statement = statement;
     }
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public String getRequestSender() {
+        return requestSender;
+    }
+
+    public void setRequestSender(String requestSender) {
+        this.requestSender = requestSender;
+    }
+    
 
 
 

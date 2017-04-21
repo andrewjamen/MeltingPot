@@ -30,12 +30,11 @@ public class StudentSearchController {
         this.theModel = theModel;
     }
 
-    public String getResults() {
+    public ArrayList<StudentBean> getResults() {
         StudentDAO studentDAO = new StudentDAO();
-        String resultStr = "";
-        
         ArrayList<StudentBean> users = studentDAO.searchForUsers(theModel.getUsername(), theModel.getFirstName(), theModel.getLastName(), theModel.getState(), theModel.getAct(), theModel.getGpa());
-        
+        /*
+        String resultStr = "";
         if(!users.isEmpty()){
             for(int i=0; i<users.size(); i++){
                 resultStr += users.get(i).getUsername() + " - " + users.get(i).getFirstName() + " " + users.get(i).getLastName() + " " + "<button type=\"button\">View Profile</button>" + "<br/>";
@@ -44,7 +43,10 @@ public class StudentSearchController {
             resultStr += "Nothing found! No students match the given parameters";
         }
         results = resultStr;
-        return results;
+        */
+               
+        
+        return users;
     }
 
     public void setResults(String results) {

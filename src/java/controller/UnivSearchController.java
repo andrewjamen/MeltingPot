@@ -31,12 +31,11 @@ public class UnivSearchController {
     }
 
     public ArrayList<UnivBean> getResults() {
-        UnivDAO univDAO = new UnivDAO();
-        //String resultStr = "";
-        
+        UnivDAO univDAO = new UnivDAO();    
         ArrayList<UnivBean> users = univDAO.searchForUsers(theModel.getUsername(), theModel.getName(), theModel.getState(), theModel.getAvgAct(), theModel.getAvgGpa());
         
         /*
+        String resultStr = "";
         if(!users.isEmpty()){
             for(int i=0; i<users.size(); i++){
                 resultStr += users.get(i).getUsername() + " - " + users.get(i).getName() + "<br/>";

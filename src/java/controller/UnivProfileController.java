@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.UnivDAO;
@@ -14,7 +9,7 @@ import model.UnivBean;
 
 /**
  *
- * @author IT353S712
+ * @author Andrew Amen
  */
 @ManagedBean
 @SessionScoped
@@ -36,10 +31,9 @@ public class UnivProfileController {
     
     public String getProfilePage(String username) {
         ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
-        
         univModel = tmp.get(0);            
 
-        return "UnivProfile.xhtml";
+        return "UnivProfile.xhtml?faces-redirect=true";
     }
     
     //TODO: must write
@@ -49,8 +43,9 @@ public class UnivProfileController {
     }
     
     //TODO: must write
-    public void requestInfo(StudentBean studentBean){
-        
+    public void requestInfo(StudentBean studentBean, String request){
+        univModel.setRequest(request);
+        univModel.setRequestSender(studentBean.getFirstName() + " " + studentBean.getLastName());  
         
     }
     

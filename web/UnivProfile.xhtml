@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>University Profile</title>
     </h:head>
@@ -16,7 +17,7 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:500px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" style ="width:600px; height:550px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
                     <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
                         <h:panelGroup layout="block">
                             <center>
@@ -29,12 +30,14 @@
                             City: <h:outputText value="#{univProfileController.univModel.city}" /><br/>
                             State: <h:outputText value="#{univProfileController.univModel.state}" /><br/><br/>
 
-                            <h3>Contact Information</h3>
-                            Email: <h:outputText value="#{univProfileController.univModel.email}" /><br/><br/>
+
 
                             <h3>Statistics:</h3>
                             Average Accepted GPA: <h:outputText value="#{univProfileController.univModel.avgGpa}" /><br/>
                             Average Accepted ACT: <h:outputText value="#{univProfileController.univModel.avgAct}" /><br/><br/>
+                            
+                            <h3>Contact Information</h3>
+                            Email: <h:outputText value="#{univProfileController.univModel.email}" /><br/><br/><br/><br/><br/><br/>
 
                         </h:panelGroup>
                     </div>
@@ -49,10 +52,11 @@
                                               value="Apply For Admision" action="#{univProfileController.apply(studentLoginController.theModel)}" /><br/><br/><br/>
 
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel)}" onclick="backgroud-color:yellow"/><br/><br/><br/>
+                                              value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel)}"/><br/><br/><br/><br/>
 
+                                    <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University"/><br/>
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="Request More Info" action="#{univProfileController.requestInfo(studentLoginController.theModel)}" />
+                                              value="Request More Info" action="#{univProfileController.requestInfo(studentLoginController.theModel, requestInput.value)}" />
                                     
                                 </h:form>
 

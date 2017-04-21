@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.StudentBean;
+import model.UnivBean;
 
 /**
  *
- * @author IT353S712
+ * @author Andrew Amen
  */
 @ManagedBean
 @SessionScoped
@@ -24,37 +25,30 @@ public class StudentProfileController {
         studentModel = new StudentBean();
     }
 
-    /**
-     * @return the studentModel
-     */
     public StudentBean getStudentModel() {
         return studentModel;
     }
 
-    /**
-     * @param studentModel the studentModel to set
-     */
     public void setStudentModel(StudentBean studentModel) {
         this.studentModel = studentModel;
     }
     
     public String getProfilePage(String username) {
         ArrayList<StudentBean> tmp = (new StudentDAO()).findByUserName(username);
-        
         studentModel = tmp.get(0);
         
-        return "StudentProfile.xhtml";
+        return "StudentProfile.xhtml?faces-redirect=true";
     }    
     
     
     //TODO: must write
-    public void requestInfo(StudentBean studentBean){
-        
-        
+    public void requestInfo(UnivBean univBean, String request){
+        studentModel.setRequest(request);
+        studentModel.setRequestSender(univBean.getName());        
     }
     
     //TODO: must write
-    public void scheduleAppt(StudentBean studentBean){
+    public void scheduleAppt(UnivBean univBean){
         
         
     }
