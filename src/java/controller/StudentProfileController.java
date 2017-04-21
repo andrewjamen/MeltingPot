@@ -45,4 +45,17 @@ public class StudentProfileController {
         
         return "StudentProfile.xhtml";
     }    
+    
+    
+    //TODO: must write
+    public void requestInfo(StudentBean studentBean){
+        
+        
+    }
+    
+    //TODO: must write
+    public void scheduleAppt(StudentBean studentBean){
+        
+        
+    }
 }

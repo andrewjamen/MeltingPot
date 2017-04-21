@@ -9,6 +9,7 @@ import dao.UnivDAO;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import model.StudentBean;
 import model.UnivBean;
 
 /**
@@ -40,4 +41,23 @@ public class UnivProfileController {
 
         return "UnivProfile.xhtml";
     }
+    
+    //TODO: must write
+    public void apply(StudentBean sutdentBean){
+        
+        
+    }
+    
+    //TODO: must write
+    public void requestInfo(StudentBean studentBean){
+        
+        
+    }
+    
+    //TODO: must write
+    public void scheduleAppt(StudentBean studentBean){
+        
+        
+    }
 }
+    
