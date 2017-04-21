@@ -234,16 +234,14 @@ public class StudentDAO {
     
     /*
     author: jfoss
-        Search for user based on given information (username, firstName, lastName, state, ACT, GPA)
+        Search for user based on given information (firstName, lastName, ACT, GPA)
     */
-    public ArrayList searchForUsers(String userName, String firstName, String lastName, String state, int ACT, double GPA) {
+    public ArrayList searchForUsers(String firstName, String lastName, int ACT, double GPA) {
         String query = "SELECT * FROM APP.Students ";
-        query += "WHERE Username LIKE '%" + userName + "%' ";
-        query += "AND LOWER(FirstName) LIKE '%" + firstName.toLowerCase() + "%' ";
+        query += "WHERE LOWER(FirstName) LIKE '%" + firstName.toLowerCase() + "%' ";
         query += "AND LOWER(LastName) LIKE '%" + lastName.toLowerCase() + "%' ";
-        if(!state.equals("")) query += "AND State = '" + state + "' ";
-        query += "AND ACT >= " + ACT + " ";
-        query += "AND GPA >= " + GPA;
+        if(ACT != 0) query += "AND ACT >= " + ACT + " ";
+        if(GPA != 0) query += "AND GPA >= " + GPA;
         
         ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
         return aStudentBeanCollection;

@@ -32,13 +32,13 @@ public class UnivSearchController {
 
     public ArrayList<UnivBean> getResults() {
         UnivDAO univDAO = new UnivDAO();    
-        ArrayList<UnivBean> users = univDAO.searchForUsers(theModel.getUsername(), theModel.getName(), theModel.getState(), theModel.getAvgAct(), theModel.getAvgGpa());
+        ArrayList<UnivBean> users = univDAO.searchForUsers(theModel.getName(), theModel.getState(), theModel.getAvgAct(), theModel.getAvgGpa());
         
         /*
         String resultStr = "";
         if(!users.isEmpty()){
             for(int i=0; i<users.size(); i++){
-                resultStr += users.get(i).getUsername() + " - " + users.get(i).getName() + "<br/>";
+                resultStr += users.get(i).getName() + "<br/>";
             }
         } else{
             resultStr += "Nothing found! No universities match the given parameters";
@@ -53,8 +53,7 @@ public class UnivSearchController {
     }
     
     public String search(){
-        if(!theModel.getUsername().equals("") || !theModel.getName().equals("") || !theModel.getState().equals("")
-                || theModel.getAvgAct() != 0 || theModel.getAvgGpa() != 0.0){
+        if(!theModel.getName().equals("") || !theModel.getState().equals("") || theModel.getAvgAct() != 0 || theModel.getAvgGpa() != 0.0){
             return "UnivResults.xhtml";
         } else{
             FacesContext context = FacesContext.getCurrentInstance();

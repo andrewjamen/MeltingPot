@@ -32,12 +32,12 @@ public class StudentSearchController {
 
     public ArrayList<StudentBean> getResults() {
         StudentDAO studentDAO = new StudentDAO();
-        ArrayList<StudentBean> users = studentDAO.searchForUsers(theModel.getUsername(), theModel.getFirstName(), theModel.getLastName(), theModel.getState(), theModel.getAct(), theModel.getGpa());
+        ArrayList<StudentBean> users = studentDAO.searchForUsers(theModel.getFirstName(), theModel.getLastName(), theModel.getAct(), theModel.getGpa());
         /*
         String resultStr = "";
         if(!users.isEmpty()){
             for(int i=0; i<users.size(); i++){
-                resultStr += users.get(i).getUsername() + " - " + users.get(i).getFirstName() + " " + users.get(i).getLastName() + " " + "<button type=\"button\">View Profile</button>" + "<br/>";
+                resultStr += users.get(i).getFirstName() + " " + users.get(i).getLastName() + " " + "<button type=\"button\">View Profile</button>" + "<br/>";
             }
         } else{
             resultStr += "Nothing found! No students match the given parameters";
@@ -54,8 +54,7 @@ public class StudentSearchController {
     }
     
     public String search(){
-        if(!theModel.getUsername().equals("") || !theModel.getFirstName().equals("") || !theModel.getLastName().equals("") || !theModel.getState().equals("")
-                || theModel.getAct() != 0 || theModel.getGpa() != 0.0){
+        if(!theModel.getFirstName().equals("") || !theModel.getLastName().equals("") || theModel.getAct() != 0 || theModel.getGpa() != 0.0){
             return "StudentResults.xhtml";
         } else{
             FacesContext context = FacesContext.getCurrentInstance();
