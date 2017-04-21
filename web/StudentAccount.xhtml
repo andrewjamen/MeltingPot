@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>Univ Account</title>
     </h:head>
@@ -23,50 +24,51 @@
                                 <h:outputText style="font-size:30px; font-weight: bold;"
                                               value="#{studentLoginController.theModel.firstName}'s Account" />
                             </center><br/><br/>
+ 
 
-                            <!-- WHY DOESNT THIS WORK? -->
-                            <h:outputText value="#{studentAccountController.accountInfo}"/>   
-                            
                             <div style="padding-left:25px">
-                            <h3>Location</h3>
-                            Address: <h:outputText value="#{studentLoginController.theModel.address}" /><br/>
-                            City: <h:outputText value="#{studentLoginController.theModel.city}" /><br/>
-                            State: <h:outputText value="#{studentLoginController.theModel.state}" /><br/><br/>
+                                <h3>Location</h3>
+                                Address: <h:outputText value="#{studentLoginController.theModel.address}" /><br/>
+                                City: <h:outputText value="#{studentLoginController.theModel.city}" /><br/>
+                                State: <h:outputText value="#{studentLoginController.theModel.state}" /><br/><br/>
 
-                            <h3>Contact Information</h3>
-                            Email: <h:outputText value="#{studentLoginController.theModel.email}" /><br/><br/>
+                                <h3>Contact Information</h3>
+                                Email: <h:outputText value="#{studentLoginController.theModel.email}" /><br/><br/>
 
-                            <h3>Education</h3>
-                            Your GPA: <h:outputText value="#{studentLoginController.theModel.gpa}" /><br/>
-                            Your ACT: <h:outputText value="#{studentLoginController.theModel.act}" /><br/>
-                            High School: <h:outputText value="#{studentLoginController.theModel.highSchool}" /><br/>
-                            Desired Major: <h:outputText value="#{studentLoginController.theModel.major}" /><br/><br/>
-                            
-                            <h3>Personal Information:</h3>
-                            Extra Curricular Activities:<br/>
-                            <h:outputText value="#{studentLoginController.theModel.extra}" /><br/><br/>
-                            Personal Statement:<br/>
-                            <h:outputText value="#{studentLoginController.theModel.statement}" /><br/>
+                                <h3>Education</h3>
+                                Your GPA: <h:outputText value="#{studentLoginController.theModel.gpa}" /><br/>
+                                Your ACT: <h:outputText value="#{studentLoginController.theModel.act}" /><br/>
+                                High School: <h:outputText value="#{studentLoginController.theModel.highSchool}" /><br/>
+                                Desired Major: <h:outputText value="#{studentLoginController.theModel.major}" /><br/><br/>
+
+                                <h3>Personal Information:</h3>
+                                Extra Curricular Activities:<br/>
+                                <h:outputText value="#{studentLoginController.theModel.extra}" /><br/><br/>
+                                Personal Statement:<br/>
+                                <h:outputText value="#{studentLoginController.theModel.statement}" /><br/>
 
                             </div>
                         </h:panelGroup>
                     </div>
                     <center>
                         <div style="margin-top: 15px">
-                        <h:panelGroup layout="block">
-                            <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                          value="Account Options"/><br/><br/><br/><br/><br/>
+                            <h:panelGroup layout="block">
+                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
+                                              value="Account Options and Notifications"/><br/><br/><br/><br/><br/>
+                                <c:if test="${studentLoginController.theModel.request != null}">
+                                    <center><h4>Requests:</h4></center>
+                                    <h:outputText value="${studentLoginController.theModel.request}"/>
+                                </c:if>
+                                <h:form>                
+                                    <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                              value="University Search" outcome="UnivSearch.xhtml" /><br/><br/><br/>
 
-                            <h:form>                
-                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                          value="University Search" outcome="UnivSearch.xhtml" /><br/><br/><br/>
+                                    <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                              value="Update Your Information" outcome="StudentUpdate.xhtml" />
+                                </h:form>
 
-                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                          value="Update Your Information" outcome="StudentUpdate.xhtml" />
-                            </h:form>
-
-                        </h:panelGroup>
-                            </div>
+                            </h:panelGroup>
+                        </div>
                     </center>
                 </div>
             </ui:define>
