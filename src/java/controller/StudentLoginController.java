@@ -65,9 +65,11 @@ public class StudentLoginController {
             response = "Invalid username/password!";
             return ""; // stay right at the current page
         } else {
+            StudentAccountController theStudentAccountController = new StudentAccountController(findProfile());
+            theStudentAccountController.setStudentModel(findProfile());
             loggedIn = true;
             response = "";
-            return "UnivSearch.xhtml?faces-redirect=true";
+            return "StudentAccount.xhtml?faces-redirect=true";
         }
     }
 
@@ -95,7 +97,17 @@ public class StudentLoginController {
                 }
             }
         }
-        
+
         return authenticate;
+    }
+
+    public StudentBean findProfile() {
+
+        StudentDAO aStudentDAO = new StudentDAO();
+        ArrayList<StudentBean> allUsers = aStudentDAO.findByUserName(theModel.getUsername());
+
+        theModel = allUsers.get(0);
+
+        return theModel;
     }
 }

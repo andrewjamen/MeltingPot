@@ -18,22 +18,17 @@ import model.UnivBean;
 @ManagedBean
 @SessionScoped
 public class UnivProfileController {
+    
     private UnivBean univModel;
     
     public UnivProfileController() {
         univModel = new UnivBean();
     }
 
-    /**
-     * @return the univModel
-     */
     public UnivBean getUnivModel() {
         return univModel;
     }
 
-    /**
-     * @param univModel the univModel to set
-     */
     public void setUnivModel(UnivBean univModel) {
         this.univModel = univModel;
     }

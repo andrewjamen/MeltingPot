@@ -47,9 +47,10 @@
                         Minimum ACT:<br/><h:inputText style="width:300px" id="actID" value="#{studentSearchController.theModel.act}" converterMessage="Please enter digits only">
                             <f:validateLongRange  minimum="0" maximum="36" />
                         </h:inputText><br/><br/><br/>
-                        
+                        <center>
                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
                             id="submitID" value="Search" action="#{studentSearchController.search()}"/>
+                        </center>
                     </h:form>
                 </div>
             </ui:define>

@@ -38,7 +38,7 @@ public class StudentSearchController {
         
         if(!users.isEmpty()){
             for(int i=0; i<users.size(); i++){
-                resultStr += users.get(i).getUsername() + " - " + users.get(i).getFirstName() + " " + users.get(i).getLastName() + "<br/>";
+                resultStr += users.get(i).getUsername() + " - " + users.get(i).getFirstName() + " " + users.get(i).getLastName() + " " + "<button type=\"button\">View Profile</button>" + "<br/>";
             }
         } else{
             resultStr += "Nothing found! No students match the given parameters";
