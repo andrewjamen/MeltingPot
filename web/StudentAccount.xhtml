@@ -24,7 +24,7 @@
                                 <h:outputText style="font-size:30px; font-weight: bold;"
                                               value="#{studentLoginController.theModel.firstName}'s Account" />
                             </center><br/><br/>
- 
+
 
                             <div style="padding-left:25px">
                                 <h3>Location</h3>
@@ -50,26 +50,30 @@
                             </div>
                         </h:panelGroup>
                     </div>
-                    <center>
-                        <div style="margin-top: 15px">
-                            <h:panelGroup layout="block">
+                    <div style="margin-top: 15px">
+                        <h:panelGroup layout="block">
+                            <center>
                                 <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Account Options and Notifications"/><br/><br/><br/><br/><br/>
-                                <c:if test="${studentLoginController.theModel.request != null}">
+                                              value="Account Tools and Notifications"/></center>
+                            <div style="paddborder: 1px solid #000; background-color: #13d393">
+                                <c:if test="${(not empty  studentLoginController.theModel.request )}">
                                     <center><h4>Requests:</h4></center>
-                                    <h:outputText value="${studentLoginController.theModel.request}"/>
+                                    <h:outputText style="padding-left: 15px" value="${studentLoginController.theModel.request}"/>
                                 </c:if>
-                                <h:form>                
+                            </div>
+                            <br/>
+                            <center>
+                                <h:form>
+                                    <br/><br/><br/><br/><br/>
                                     <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                               value="University Search" outcome="UnivSearch.xhtml" /><br/><br/><br/>
 
                                     <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                               value="Update Your Information" outcome="StudentUpdate.xhtml" />
                                 </h:form>
-
-                            </h:panelGroup>
-                        </div>
-                    </center>
+                            </center>
+                        </h:panelGroup>
+                    </div>            
                 </div>
             </ui:define>
         </ui:composition>

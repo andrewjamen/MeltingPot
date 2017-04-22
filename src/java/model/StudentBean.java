@@ -24,14 +24,13 @@ public class StudentBean {
     private String major;
     private String statement;
     private String request;
-    private String requestSender;
 
     public StudentBean() {
     }
 
     public StudentBean(String lastName, String firstName, String username, String password,
             String email, String address, String city, String state, String highSchool,
-            int act, double gpa, String extra, String major, String statement) {
+            int act, double gpa, String extra, String major, String statement, String request) {
         
         this.username = username;
         this.password = password;        
@@ -47,6 +46,7 @@ public class StudentBean {
         this.extra = extra;
         this.major = major;
         this.statement = statement;
+        this.request = request;
     }
 
     public String getUsername() {
@@ -176,16 +176,4 @@ public class StudentBean {
     public void setRequest(String request) {
         this.request = request;
     }
-
-    public String getRequestSender() {
-        return requestSender;
-    }
-
-    public void setRequestSender(String requestSender) {
-        this.requestSender = requestSender;
-    }
-    
-
-
-
 }

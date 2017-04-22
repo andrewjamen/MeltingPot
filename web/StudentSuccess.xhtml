@@ -5,14 +5,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Home</title>
-        <style>
-            .button {
-                background-color: #699DB6;
-                border-color: rgba(0,0,0,0.3);
-                text-shadow: 0 1px 0 rgba(0,0,0,0.5);
-                color: #FFF;
-            }
-        </style>
     </h:head>
     <h:body>
         <ui:composition	template="./WEB-INF/includes/template.xhtml">
@@ -24,7 +16,7 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:450px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8; margin-left: 50px;">
+                <div id="stuSuccsess" style ="width:600px; height:550px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8; margin-left: 50px;">
                     <h:form style="padding-left: 30px">
                         <center><h2 style="padding-right:30px">Sign Up Successful!</h2></center>
                         <h:outputText id="result" escape="false" value="#{studentSignUpController.response}"/>

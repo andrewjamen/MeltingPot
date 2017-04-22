@@ -20,6 +20,7 @@ import model.UnivBean;
 @SessionScoped
 public class StudentProfileController {
     private StudentBean studentModel;
+    String requestMessage = "";
     
     public StudentProfileController() {
         studentModel = new StudentBean();
@@ -39,13 +40,17 @@ public class StudentProfileController {
         
         return "StudentProfile.xhtml?faces-redirect=true";
     }    
-    
-    
-    //TODO: must write
-    public void requestInfo(UnivBean univBean, String request){
-        studentModel.setRequest(request);
-        studentModel.setRequestSender(univBean.getName());        
+
+    public void sendStudentRequest(String sender, String request){      
+        
+        StudentDAO aStudentDAO = new StudentDAO();
+        
+        requestMessage += "Message from " + sender
+                + ":   " + request;
+        
+        aStudentDAO.insertRequest(studentModel, requestMessage);
     }
+    
     
     //TODO: must write
     public void scheduleAppt(UnivBean univBean){

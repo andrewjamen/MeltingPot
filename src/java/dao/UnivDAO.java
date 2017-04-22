@@ -41,7 +41,7 @@ public class UnivDAO {
                     + "','" + aUnivBean.getCity()
                     + "','" + aUnivBean.getState()
                     + "'," + aUnivBean.getAvgAct()
-                    + "," + aUnivBean.getAvgGpa()
+                    + "," + aUnivBean.getAvgGpa() + ",''"
                     + ")";
 
             rowCount = stmt.executeUpdate(insertString);

@@ -49,7 +49,7 @@ public class StudentDAO {
                     + "," + aStudentBean.getGpa()
                     + ",'" + aStudentBean.getExtra()
                     + "','" + aStudentBean.getMajor()
-                    + "','" + aStudentBean.getStatement()
+                    + "','" + aStudentBean.getStatement() + "','"
                     + "')";
 
             rowCount = stmt.executeUpdate(insertString);
@@ -86,7 +86,7 @@ public class StudentDAO {
             // columns), and formulate the result string to send back to the client.
             Statement stmt = DBConn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            String lastName, firstName, userName, password, email, address, city, state, extra, statement, major, highSchool;
+            String lastName, firstName, userName, password, email, address, city, state, extra, statement, major, highSchool, request;
             int act;
             double gpa;
             StudentBean aStudentBean;
@@ -107,9 +107,10 @@ public class StudentDAO {
                 major = rs.getString("Major");
                 statement = rs.getString("Statement");
                 highSchool = rs.getString("HighSchool");
+                request = rs.getString("Requests");
 
                 // make a ProfileBean object out of the values
-                aStudentBean = new StudentBean(lastName, firstName, userName, password, email, address, city, state, highSchool, act, gpa, extra, major, statement);
+                aStudentBean = new StudentBean(lastName, firstName, userName, password, email, address, city, state, highSchool, act, gpa, extra, major, statement, request);
                 // add the newly created object to the collection
                 aStudentBeanCollection.add(aStudentBean);
             }
@@ -183,7 +184,6 @@ public class StudentDAO {
 
     }
 
-    //TODO: Not Working
     public boolean findUser(StudentBean aStudentBean) {
         Connection DBConn = null;
         boolean result = false;
@@ -247,5 +247,53 @@ public class StudentDAO {
         
         ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
         return aStudentBeanCollection;
+    }
+    
+    public int insertRequest(StudentBean pro, String request){
+        Connection DBConn = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        int rowCount = 0;
+        try {
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
+            DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+
+            String updateString = "";
+            Statement stmt = DBConn.createStatement();
+
+            // SQL UPDATE Syntax [http://www.w3schools.com]:
+            // UPDATE table_name
+            // SET column1=value, column2=value2,...
+            // WHERE some_column=some_value
+            // Note: Notice the WHERE clause in the UPDATE syntax. The WHERE clause specifies which record or records that should be updated. If you omit the WHERE clause, all records will be updated!
+            updateString = "UPDATE APP.Students SET "
+                    + "FirstName = '" + pro.getFirstName() + "', "
+                    + "LastName = '" + pro.getLastName() + "', "
+                    + "Password = '" + pro.getPassword() + "', "
+                    + "Email = '" + pro.getEmail() + "', "
+                    + "Address = '" + pro.getAddress() + "', "
+                    + "City = '" + pro.getCity() + "', "
+                    + "State = '" + pro.getState() + "', "
+                    + "HighSchool = '" + pro.getHighSchool() + "', "
+                    + "ACT = " + pro.getAct() + ", "
+                    + "GPA = " + pro.getGpa() + ", "
+                    + "Extra = '" + pro.getExtra() + "', "
+                    + "Major = '" + pro.getMajor() + "', "
+                    + "Statement = '" + pro.getStatement() + "', "
+                    + "Requests = '" + request + "' "
+                    + "WHERE UserName = '" + pro.getUsername() + "'";
+            rowCount = stmt.executeUpdate(updateString);
+            System.out.println("updateString =" + updateString);
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
+        return rowCount;
+
     }
 }
