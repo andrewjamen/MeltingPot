@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.StudentBean;
 import model.UnivBean;
 
@@ -16,7 +17,63 @@ import model.UnivBean;
  * @author Andrew Amen
  */
 public class UnivDAO {
-
+    final int actRange = 5;
+    final int gpaRange = 1;
+    final static HashMap<String, String> stateCodes = new HashMap<String, String>(50);
+    
+    public UnivDAO(){
+        stateCodes.put("al", "alabama");
+        stateCodes.put("ak", "alaska");
+        stateCodes.put("az", "arizona");
+        stateCodes.put("ar", "arkansas");
+        stateCodes.put("ca", "california");
+        stateCodes.put("co", "colorado");
+        stateCodes.put("ct", "connecticut");
+        stateCodes.put("de", "delaware");
+        stateCodes.put("fl", "florida");
+        stateCodes.put("ga", "georgia");
+        stateCodes.put("hi", "hawaii");
+        stateCodes.put("id", "idaho");
+        stateCodes.put("il", "illinois");
+        stateCodes.put("in", "indiana");
+        stateCodes.put("ia", "iowa");
+        stateCodes.put("ks", "kansas");
+        stateCodes.put("ky", "kentucky");
+        stateCodes.put("la", "louisiana");
+        stateCodes.put("me", "maine");
+        stateCodes.put("md", "maryland");
+        stateCodes.put("ma", "massachusetts");
+        stateCodes.put("mi", "michigan");
+        stateCodes.put("mn", "minnesota");
+        stateCodes.put("ms", "mississippi");
+        stateCodes.put("mo", "missouri");
+        stateCodes.put("mt", "montana");
+        stateCodes.put("ne", "nebraska");
+        stateCodes.put("nv", "nevada");
+        stateCodes.put("nh", "new hampshire");
+        stateCodes.put("nj", "new jersey");
+        stateCodes.put("nm", "new mexico");
+        stateCodes.put("ny", "new york");
+        stateCodes.put("nc", "north carolina");
+        stateCodes.put("nd", "north dakota");
+        stateCodes.put("oh", "ohio");
+        stateCodes.put("ok", "oklahoma");
+        stateCodes.put("or", "oregon");
+        stateCodes.put("pa", "pennsylvania");
+        stateCodes.put("ri", "rhode island");
+        stateCodes.put("sc", "south carolina");
+        stateCodes.put("sd", "south dakota");
+        stateCodes.put("tn", "tennessee");
+        stateCodes.put("tx", "texas");
+        stateCodes.put("ut", "utah");
+        stateCodes.put("vt", "vermont");
+        stateCodes.put("va", "virginia");
+        stateCodes.put("wa", "washington");
+        stateCodes.put("wv", "west virginia");
+        stateCodes.put("wi", "wisconsin");
+        stateCodes.put("wy", "wyoming");
+    }
+    
     public int createProfile(UnivBean aUnivBean) {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -97,7 +154,7 @@ public class UnivDAO {
 
 
                 // make a ProfileBean object out of the values
-                aUnivBean = new UnivBean(name, userName, password, email, address, city, state, avgAct, avgGpa);
+                aUnivBean = new UnivBean(name, userName, password, email, address, city, findState(state), avgAct, avgGpa);
                 // add the newly created object to the collection
                 aUnivBeanCollection.add(aUnivBean);
             }
@@ -213,19 +270,28 @@ public class UnivDAO {
     
     /*
     author: jfoss
-        Search for user based on given information (username, name, state, avgAct, avgGpa)
+        Search for user based on given information (name, state, avgAct, avgGpa)
     */
-    public ArrayList searchForUsers(String userName, String name, String state, int avgAct, double avgGpa) {
+    public ArrayList searchForUsers(String name, String state, int avgAct, double avgGpa) {
         String query = "SELECT * FROM APP.Universities ";
-        query += "WHERE Username LIKE '%" + userName + "%' ";
-        query += "AND LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
-        if(!state.equals("")) query += "AND State = '" + state + "' ";
-        if(avgAct == 0) avgAct = 36;
-        query += "AND AvgACT <= " + avgAct + " ";
-        if(avgGpa == 0) avgGpa = 5;
-        query += "AND AvgGPA <= " + avgGpa;
+        query += "WHERE LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
+        if(!state.equals("")) query += "AND (LOWER(State) = '" + state.toLowerCase() + "' OR LOWER(State) = '" + findState(state) + "') ";
+        if(avgAct != 0) query += "AND (AvgACT >= " + (avgAct - actRange) + " AND AvgACT <= " + (avgAct + actRange) + ") ";
+        if(avgGpa != 0) query += "AND (AvgGPA >= " + (avgGpa - gpaRange) + " AND AvgGPA <= " + (avgGpa + gpaRange) + ") ";
         
         ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
         return aUnivBeanCollection;
     }
+    
+    /*
+    author: jfoss
+       Converts from a given state code to a state name (returns original string if no match)
+    */
+    private String findState(String stateCode){
+        stateCode = stateCode.toLowerCase();
+        if(stateCodes.containsKey(stateCode))
+            return stateCodes.get(stateCode);
+        return stateCode;
+    }
+    
 }
