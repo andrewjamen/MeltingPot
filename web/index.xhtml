@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>Home</title>
         <style>
@@ -24,19 +26,41 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:450px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8; margin-left: 50px;">
-                    <br/><br/><br/><center>
-                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
-                                  value="Login" outcome="Login.xhtml" /><br/><br/>
-                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
-                                  value="Student Sign Up" outcome="StudentSignUp.xhtml" /><br/><br/>
-                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
-                                  value="University Sign Up" outcome="UnivSignUp.xhtml" /><br/><br/>
-                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                <div id="login" style ="width:600px; height:450px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8; margin-left: 0px;">
+                    <br/><br/><br/>
+                    <div style="width:255px; height:350px; border-right: 2px solid #888888; margin-top: 0px;margin-left: 15px;padding-left: 25px; float:left">
+                    <!--<center>-->
+                        <c:if test="${!(studentLoginController.loggedIn || univLoginController.loggedIn)}">
+                            <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    value="Login" outcome="Login.xhtml" /><br/><br/>
+                            <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    value="Student Sign Up" outcome="StudentSignUp.xhtml" /><br/><br/>
+                            <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    value="University Sign Up" outcome="UnivSignUp.xhtml" /><br/><br/>
+                        </c:if>
+                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                   value="Student Search" outcome="StudentSearch.xhtml" /><br/><br/>
-                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                   value="University Search" outcome="UnivSearch.xhtml" />
-                    </center>            
+                    <!--</center>--> 
+                    </div>
+                    <center>
+                        <div style="margin-top: 0px">
+                            <h:panelGroup layout="block">
+                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
+                                              value="Featured University"/><br/><br/>
+
+                                <h:outputText value="Our showcased university for today is"/><br/>
+                                <h:outputText value="#{showcasedUnivController.model.name}"/><br/><br/>
+                                <h:form>                
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                              value="Go to Profile" action="#{univProfileController.getProfilePage(showcasedUnivController.model.username)}" /><br/><br/><br/>
+                                    
+                                </h:form>
+
+                            </h:panelGroup>
+                        </div>
+                    </center>
                 </div>
             </ui:define>
 
