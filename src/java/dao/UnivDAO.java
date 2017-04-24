@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.sql.Connection;
@@ -17,11 +16,12 @@ import model.UnivBean;
  * @author Andrew Amen
  */
 public class UnivDAO {
+
     final int actRange = 5;
     final int gpaRange = 1;
     final static HashMap<String, String> stateCodes = new HashMap<String, String>(50);
-    
-    public UnivDAO(){
+
+    public UnivDAO() {
         stateCodes.put("al", "alabama");
         stateCodes.put("ak", "alaska");
         stateCodes.put("az", "arizona");
@@ -73,7 +73,7 @@ public class UnivDAO {
         stateCodes.put("wi", "wisconsin");
         stateCodes.put("wy", "wyoming");
     }
-    
+
     public int createProfile(UnivBean aUnivBean) {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -152,7 +152,6 @@ public class UnivDAO {
                 avgAct = rs.getInt("AvgACT");
                 avgGpa = rs.getDouble("AvgGPA");
 
-
                 // make a ProfileBean object out of the values
                 aUnivBean = new UnivBean(name, userName, password, email, address, city, findState(state), avgAct, avgGpa);
                 // add the newly created object to the collection
@@ -176,6 +175,15 @@ public class UnivDAO {
         // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
         String query = "SELECT * FROM APP.Universities ";
         query += "WHERE UserName = '" + aName + "'";
+
+        ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
+        return aUnivBeanCollection;
+    }
+
+    public ArrayList findByName(String aName) {
+        // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
+        String query = "SELECT * FROM APP.Universities ";
+        query += "WHERE Name = '" + aName + "'";
 
         ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
         return aUnivBeanCollection;
@@ -222,7 +230,7 @@ public class UnivDAO {
         return rowCount;
 
     }
-    
+
     //TODO: not Working
     public boolean findUser(UnivBean aUnivBean) {
         Connection DBConn = null;
@@ -252,7 +260,6 @@ public class UnivDAO {
                 aUnivBean.setAddress(rs.getString("Address"));
                 aUnivBean.setAvgAct(rs.getInt("AvgACT"));
 
-
             }
             rs.close();
             stmt.close();
@@ -267,31 +274,38 @@ public class UnivDAO {
         }
         return result;
     }
-    
+
     /*
     author: jfoss
         Search for user based on given information (name, state, avgAct, avgGpa)
-    */
+     */
     public ArrayList searchForUsers(String name, String state, int avgAct, double avgGpa) {
         String query = "SELECT * FROM APP.Universities ";
         query += "WHERE LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
-        if(!state.equals("")) query += "AND (LOWER(State) = '" + state.toLowerCase() + "' OR LOWER(State) = '" + findState(state) + "') ";
-        if(avgAct != 0) query += "AND (AvgACT >= " + (avgAct - actRange) + " AND AvgACT <= " + (avgAct + actRange) + ") ";
-        if(avgGpa != 0) query += "AND (AvgGPA >= " + (avgGpa - gpaRange) + " AND AvgGPA <= " + (avgGpa + gpaRange) + ") ";
-        
+        if (!state.equals("")) {
+            query += "AND (LOWER(State) = '" + state.toLowerCase() + "' OR LOWER(State) = '" + findState(state) + "') ";
+        }
+        if (avgAct != 0) {
+            query += "AND (AvgACT >= " + (avgAct - actRange) + " AND AvgACT <= " + (avgAct + actRange) + ") ";
+        }
+        if (avgGpa != 0) {
+            query += "AND (AvgGPA >= " + (avgGpa - gpaRange) + " AND AvgGPA <= " + (avgGpa + gpaRange) + ") ";
+        }
+
         ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
         return aUnivBeanCollection;
     }
-    
+
     /*
     author: jfoss
        Converts from a given state code to a state name (returns original string if no match)
-    */
-    private String findState(String stateCode){
+     */
+    private String findState(String stateCode) {
         stateCode = stateCode.toLowerCase();
-        if(stateCodes.containsKey(stateCode))
+        if (stateCodes.containsKey(stateCode)) {
             return stateCodes.get(stateCode);
+        }
         return stateCode;
     }
-    
+
 }

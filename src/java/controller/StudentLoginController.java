@@ -99,7 +99,7 @@ public class StudentLoginController {
         return authenticate;
     }
 
-    public StudentBean findProfile() {
+    private StudentBean findProfile() {
 
         StudentDAO aStudentDAO = new StudentDAO();
         ArrayList<StudentBean> allUsers = aStudentDAO.findByUserName(theModel.getUsername());

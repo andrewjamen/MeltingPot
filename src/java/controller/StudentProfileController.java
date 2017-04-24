@@ -36,8 +36,7 @@ public class StudentProfileController {
     
     public String getProfilePage(String username) {
         ArrayList<StudentBean> tmp = (new StudentDAO()).findByUserName(username);
-        studentModel = tmp.get(0);
-        
+        studentModel = tmp.get(0);       
         return "StudentProfile.xhtml?faces-redirect=true";
     }    
 
@@ -45,8 +44,12 @@ public class StudentProfileController {
         
         StudentDAO aStudentDAO = new StudentDAO();
         
+        if (!studentModel.getRequest().equals("")){
+        requestMessage = studentModel.getRequest() +"\n";
+        }
+        
         requestMessage += "Message from " + sender
-                + ":   " + request;
+                + ":  \t" + request;
         
         aStudentDAO.insertRequest(studentModel, requestMessage);
     }
