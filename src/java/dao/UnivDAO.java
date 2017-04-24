@@ -135,7 +135,7 @@ public class UnivDAO {
             // columns), and formulate the result string to send back to the client.
             Statement stmt = DBConn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            String name, userName, password, email, address, city, state;
+            String name, userName, password, email, address, city, state, request;
             int avgAct;
             double avgGpa;
             UnivBean aUnivBean;
@@ -151,9 +151,10 @@ public class UnivDAO {
                 state = rs.getString("State");
                 avgAct = rs.getInt("AvgACT");
                 avgGpa = rs.getDouble("AvgGPA");
+                request = rs.getString("Requests");
 
                 // make a ProfileBean object out of the values
-                aUnivBean = new UnivBean(name, userName, password, email, address, city, findState(state), avgAct, avgGpa);
+                aUnivBean = new UnivBean(name, userName, password, email, address, city, findState(state), avgAct, avgGpa, request);
                 // add the newly created object to the collection
                 aUnivBeanCollection.add(aUnivBean);
             }
@@ -215,9 +216,9 @@ public class UnivDAO {
                     + "Password = '" + pro.getPassword() + "', "
                     + "Email = '" + pro.getEmail() + "', "
                     + "Address = '" + pro.getAddress() + "', "
-                    + "City = '" + pro.getCity() + "' "
-                    + "State = '" + pro.getState() + "' "
-                    + "AvgACT = " + pro.getAvgAct() + " "
+                    + "City = '" + pro.getCity() + "', "
+                    + "State = '" + pro.getState() + "', "
+                    + "AvgACT = " + pro.getAvgAct() + ", "
                     + "AvgGPA = " + pro.getAvgGpa() + " "
                     + "WHERE UserName = '" + pro.getUsername() + "'";
             rowCount = stmt.executeUpdate(updateString);
@@ -230,8 +231,51 @@ public class UnivDAO {
         return rowCount;
 
     }
+    
+    public int insertRequest(UnivBean pro, String request) {
+        Connection DBConn = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        int rowCount = 0;
+        try {
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/cmohrfe_Sp2018_Universities";
+            DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
-    //TODO: not Working
+            String updateString;
+            Statement stmt = DBConn.createStatement();
+
+            // SQL UPDATE Syntax [http://www.w3schools.com]:
+            // UPDATE table_name
+            // SET column1=value, column2=value2,...
+            // WHERE some_column=some_value
+            // Note: Notice the WHERE clause in the UPDATE syntax. The WHERE clause specifies which record or records that should be updated. If you omit the WHERE clause, all records will be updated!
+            updateString = "UPDATE APP.Universities SET "
+                    + "Name = '" + pro.getName() + "', "
+                    + "Password = '" + pro.getPassword() + "', "
+                    + "Email = '" + pro.getEmail() + "', "
+                    + "Address = '" + pro.getAddress() + "', "
+                    + "City = '" + pro.getCity() + "', "
+                    + "State = '" + pro.getState() + "', "
+                    + "AvgACT = " + pro.getAvgAct() + ", "
+                    + "AvgGPA = " + pro.getAvgGpa() + ", "
+                    + "Requests = '" + request + "' "
+                    + "WHERE UserName = '" + pro.getUsername() + "'";
+            rowCount = stmt.executeUpdate(updateString);
+            System.out.println("updateString =" + updateString);
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
+        return rowCount;
+
+    }
+    
+    //Not tested
     public boolean findUser(UnivBean aUnivBean) {
         Connection DBConn = null;
         boolean result = false;
@@ -243,7 +287,7 @@ public class UnivDAO {
             // With the connection made, create a statement to talk to the DB server.
             // Create a SQL statement to query, retrieve the rows one by one (by going to the
             // columns), and formulate the result string to send back to the client.
-            String sqlStr = "SELECT * FROM Project353.Universities WHERE username = ? and password = ?";
+            String sqlStr = "SELECT * FROM APP.Universities WHERE username = ? and password = ?";
             PreparedStatement stmt = DBConn.prepareStatement(sqlStr);
             stmt.setString(1, aUnivBean.getUsername());
             stmt.setString(2, aUnivBean.getPassword());
@@ -307,5 +351,7 @@ public class UnivDAO {
         }
         return stateCode;
     }
+    
+    
 
 }

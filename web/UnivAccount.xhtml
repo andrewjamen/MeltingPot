@@ -2,9 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+      
     <h:head>
         <title>Univ Account</title>
+        <f:metadata>
+            <f:viewAction action="#{univNotificationsController.setUnivBean(univLoginController.theModel)}" />
+        </f:metadata>
     </h:head>
     <h:body>
         <ui:composition	template="./WEB-INF/includes/template.xhtml">
@@ -43,9 +48,16 @@
                     <center>
                         <div style="margin-top: 15px">
                             <h:panelGroup layout="block">
-                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Account Options"/><br/><br/><br/><br/><br/>
-
+                                <center>
+                                    <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
+                                                  value="Account Tools and Notifications"/><br/><br/><br/>
+                                </center>
+                                <center>
+                                    <h:form>
+                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                         value="View Notifications (#{univNotificationsController.number()})" action="#{univNotificationsController.goToPage(univLoginController.theModel.getUsername())}"/><br/><br/><br/>
+                                    </h:form>
+                                </center>
                                 <h:form>                
                                     <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                               value="Student Search" outcome="StudentSearch.xhtml" /><br/><br/><br/>

@@ -56,7 +56,7 @@
 
                                     <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University"/><br/>
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="Request More Info" action="#{univProfileController.requestInfo(studentLoginController.theModel, requestInput.value)}" />
+                                              value="Request More Info" action="#{univProfileController.sendUnivRequest(studentLoginController.theModel.username, requestInput.value)}" />
                                     
                                 </h:form>
 

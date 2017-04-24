@@ -136,6 +136,16 @@ public class StudentDAO {
         ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
         return aStudentBeanCollection;
     }
+    
+    public ArrayList findByName(String firstName, String lastName) {
+        // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
+        String query = "SELECT * FROM APP.Students ";
+        query += "WHERE FirstName = '" + firstName + "' ";
+        query += "AND LastName = '" + lastName + "'";
+
+        ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
+        return aStudentBeanCollection;
+    }
 
     public int updateProfile(StudentBean pro) {
         Connection DBConn = null;

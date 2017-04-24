@@ -24,12 +24,11 @@ public class UnivBean{
     private int avgAct;
     private double avgGpa;
     private String request;
-    private String requestSender;
     
     public UnivBean(){
     }
 
-    public UnivBean(String name, String username, String password, String email, String address, String city, String state, int avgAct, double avgGpa) {
+    public UnivBean(String name, String username, String password, String email, String address, String city, String state, int avgAct, double avgGpa, String request) {
         
         this.username = username;
         this.password = password;
@@ -40,6 +39,7 @@ public class UnivBean{
         this.state = state;
         this.avgAct = avgAct;
         this.avgGpa = avgGpa;
+        this.request = request;
     }
 
     public String getUsername() {
@@ -129,14 +129,8 @@ public class UnivBean{
     public void setRequest(String request) {
         this.request = request;
     }
-
-    public String getRequestSender() {
-        return requestSender;
-    }
-
-    public void setRequestSender(String requestSender) {
-        this.requestSender = requestSender;
-    }
+    
+    
     
 
 
