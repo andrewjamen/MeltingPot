@@ -3,6 +3,7 @@ package controller;
 import dao.StudentDAO;
 import dao.UnivDAO;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.StudentBean;
@@ -30,7 +31,7 @@ public class UnivNotificationsController {
     public void setUnivBean(UnivBean univBean) {
         this.univBean = univBean;
     }
-    
+
     public ArrayList<String> getNotifications() {
         string2list(univBean.getRequest());
         return notifications;
@@ -79,20 +80,28 @@ public class UnivNotificationsController {
 
         return notifications;
     }
-    
-    public String getSender(String request){
-        int middle = request.indexOf(" ", 13);
-        int end = request.indexOf(":");
-        String firstName = request.substring(13, middle);
-        String lastName = request.substring(middle + 1, end);
+
+    public String getSender(String request) {
+        String firstName = "";
+        String lastName = "";
         
+        if (!request.contains("Appointment")) {
+            int middle = request.indexOf(" ", 13);
+            int end = request.indexOf(":");
+            firstName = request.substring(13, middle);
+            lastName = request.substring(middle + 1, end);
+        } else {
+            int middle = request.indexOf(" ", 25);
+            int end = request.indexOf("at:");
+            firstName = request.substring(25, middle);
+            lastName = request.substring(middle + 1, end);
+        }
         ArrayList<StudentBean> tmp = (new StudentDAO()).findByName(firstName, lastName);
         StudentBean theBean = tmp.get(0);
-        
+
         String sender = theBean.getUsername();
-        
+
         return sender;
     }
-    
 
 }

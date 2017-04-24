@@ -3,9 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>University Profile</title>
+        <f:metadata>
+            <f:viewAction action="#{univNotificationsController.setUnivBean(univLoginController.theModel)}" />
+        </f:metadata>
     </h:head>
     <h:body>
         <ui:composition	template="./WEB-INF/includes/template.xhtml">
@@ -35,7 +40,7 @@
                             <h3>Statistics:</h3>
                             Average Accepted GPA: <h:outputText value="#{univProfileController.univModel.avgGpa}" /><br/>
                             Average Accepted ACT: <h:outputText value="#{univProfileController.univModel.avgAct}" /><br/><br/>
-                            
+
                             <h3>Contact Information</h3>
                             Email: <h:outputText value="#{univProfileController.univModel.email}" /><br/><br/><br/><br/><br/><br/>
 
@@ -49,15 +54,17 @@
 
                                 <h:form>                
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="Apply For Admision" action="#{univProfileController.apply(studentLoginController.theModel)}" /><br/><br/><br/>
+                                                     value="Apply For Admision" action="#{univProfileController.apply(studentLoginController.theModel)}" /><br/><br/><br/>
 
+                                    <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University (no special char's)"/><br/>
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel)}"/><br/><br/><br/><br/>
+                                                     value="Request More Info" action="#{univProfileController.sendUnivRequest(studentLoginController.theModel.username, requestInput.value)}" /><br/><br/><br/>
 
-                                    <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University"/><br/>
+
+                                    <p:calendar id="datetime" value="#{univProfileController.date}" pattern="MM/dd/yyyy HH:mm"/> 
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="Request More Info" action="#{univProfileController.sendUnivRequest(studentLoginController.theModel.username, requestInput.value)}" />
-                                    
+                                                     value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel.username)}"/><br/><br/><br/>
+
                                 </h:form>
 
                             </h:panelGroup>

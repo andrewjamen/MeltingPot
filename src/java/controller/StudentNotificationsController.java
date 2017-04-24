@@ -79,18 +79,23 @@ public class StudentNotificationsController {
 
         return notifications;
     }
-    
-    public String getSender(String request){
-        int end = request.indexOf(":");
-        String sender = request.substring(13, end);
-        
+
+    public String getSender(String request) {
+        String sender ="";
+        if (!request.contains("Appointment")) {
+            int end = request.indexOf(":");
+            sender = request.substring(13, end);
+        }
+        else{
+            int end = request.indexOf("at:");
+            sender = request.substring(25, end);
+        }
         ArrayList<UnivBean> tmp = (new UnivDAO()).findByName(sender);
         UnivBean theBean = tmp.get(0);
-        
+
         sender = theBean.getUsername();
-        
+
         return sender;
     }
-    
 
 }

@@ -3,6 +3,7 @@ package controller;
 import dao.StudentDAO;
 import dao.UnivDAO;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.StudentBean;
@@ -18,6 +19,7 @@ public class UnivProfileController {
 
     private UnivBean univModel;
     String requestMessage = "";
+    Date date;
 
     public UnivProfileController() {
         univModel = new UnivBean();
@@ -31,6 +33,14 @@ public class UnivProfileController {
         this.univModel = univModel;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
     public String getProfilePage(String username) {
         ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
         univModel = tmp.get(0);
@@ -44,7 +54,8 @@ public class UnivProfileController {
         ArrayList<StudentBean> tmp = (new StudentDAO()).findByUserName(sender);
         StudentBean theStudentBean = tmp.get(0);
         sender = theStudentBean.getFirstName() + " " + theStudentBean.getLastName();
-
+        
+        findProfile(univModel.getUsername());
         if (!univModel.getRequest().equals("")) {
             requestMessage = univModel.getRequest() + "\n";
         }
@@ -55,13 +66,31 @@ public class UnivProfileController {
         aUnivDAO.insertRequest(univModel, requestMessage);
     }
 
-    //TODO: must write
-    public void apply(StudentBean sutdentBean) {
+    public void scheduleAppt(String sender) {
+        UnivDAO aUnivDAO = new UnivDAO();
 
+        ArrayList<StudentBean> tmp = (new StudentDAO()).findByUserName(sender);
+        StudentBean theStudentBean = tmp.get(0);
+        sender = theStudentBean.getFirstName() + " " + theStudentBean.getLastName();
+
+        findProfile(univModel.getUsername());
+        if (!univModel.getRequest().equals("")) {
+            requestMessage = univModel.getRequest() + "\n";
+        }
+
+        requestMessage += "Appointment request from " + sender
+                + " at:  \t" + date;
+
+        aUnivDAO.insertRequest(univModel, requestMessage);
+    }
+    
+    public void findProfile(String username){
+        ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
+        univModel = tmp.get(0);
     }
 
     //TODO: must write
-    public void scheduleAppt(StudentBean studentBean) {
+    public void apply(StudentBean sutdentBean) {
 
     }
 }
