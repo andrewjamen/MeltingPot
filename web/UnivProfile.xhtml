@@ -5,7 +5,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>University Profile</title>
         <f:metadata>
@@ -44,9 +45,11 @@
                             <h3>Contact Information</h3>
                             Email: <h:outputText value="#{univProfileController.univModel.email}" /><br/><br/><br/><br/><br/><br/>
 
-                            <h:form>
-                                <h:commandButton value="Mark for showcase" action="#{showcasedUnivController.setShowcasedUniv(univProfileController.univModel.username)}"/>
-                            </h:form>
+                            <c:if test="${univLoginController.theModel.username == 'admin'}">
+                                <h:form>
+                                    <h:commandButton value="Mark for showcase" action="#{showcasedUnivController.setShowcasedUniv(univProfileController.univModel.username)}"/>
+                                </h:form>
+                            </c:if>
                         </h:panelGroup>
                     </div>
                     <center>
