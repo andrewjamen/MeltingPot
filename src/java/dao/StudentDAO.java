@@ -257,6 +257,23 @@ public class StudentDAO {
         return aStudentBeanCollection;
     }
     
+    /*
+    author: jfoss
+        Search for user based on given information (firstName, lastName, ACT, GPA)
+        EXCEPT for a specific user
+    */
+    public ArrayList searchForUsersExcept(String excludedUsername, String firstName, String lastName, int ACT, double GPA) {
+        String query = "SELECT * FROM APP.Students ";
+        query += "WHERE LOWER(FirstName) LIKE '%" + firstName.toLowerCase() + "%' ";
+        query += "AND LOWER(LastName) LIKE '%" + lastName.toLowerCase() + "%' ";
+        if(ACT != 0) query += "AND ACT >= " + ACT + " ";
+        if(GPA != 0) query += "AND GPA >= " + GPA + " ";
+        query += "AND Username NOT IN ('" + excludedUsername + "')";
+        
+        ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
+        return aStudentBeanCollection;
+    }
+    
     public int insertRequest(StudentBean pro, String request){
         Connection DBConn = null;
         try {

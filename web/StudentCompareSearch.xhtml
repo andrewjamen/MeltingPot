@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Compare Postings</title>
+    </h:head>
+    <h:body>
+        <ui:composition	template="./WEB-INF/includes/template.xhtml">
+
+            <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="htmlHead">
+                <meta name="description" content="Login" />
+            </ui:define>
+
+            <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="main">
+                <div id="compare" style ="padding-left: 25px; width:800px; height:550px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
+                    <center><h2>Compare Postings</h2></center><br/>
+                    <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
+                        <center><h3 style="padding-right: 25px;">#{studentCompareController.post1.firstName} #{studentCompareController.post1.lastName}</h3></center>
+                        <h:panelGroup layout="block">
+                            <h:form>
+                                GPA:<br/><h:outputText style="width:300px" id="gpaID1" value="#{studentCompareController.post1.gpa}">
+                                </h:outputText><br/><br/>
+
+                                ACT:<br/><h:outputText style="width:300px" id="actID1" value="#{studentCompareController.post1.act}">
+                                </h:outputText><br/><br/><br/>
+                            </h:form>
+                        </h:panelGroup>
+                    </div>
+                    <div style="width:270px; height:370; margin-top: 15px; padding-left: 15; float:left">
+                        <center><h3>Compare To</h3> </center>
+                        <h:panelGroup layout="block">
+                            <h:form>
+                                <div style="margin-left: 50px;">
+                                First Name:<br/><h:inputText  style="width:300px" id="firstNameID2" value="#{studentCompareController.post2.firstName}">
+                                </h:inputText><br/><br/>
+
+                                Last Name:<br/><h:inputText style="width:300px" id="lastNameID2" value="#{studentCompareController.post2.lastName}">
+                                </h:inputText><br/><br/>
+
+                                Minimum GPA:<br/><h:inputText style="width:300px" id="gpaID2" value="#{studentCompareController.post2.gpa}" converterMessage="The format should be X.XX where X is a digit" maxlength="4">
+                                    <f:validateDoubleRange minimum="0.00" maximum="5.00" />
+                                </h:inputText><br/><br/>
+
+                                Minimum ACT:<br/><h:inputText style="width:300px" id="actID2" value="#{studentCompareController.post2.act}" converterMessage="Please enter digits only">
+                                    <f:validateLongRange  minimum="0" maximum="36" />
+                                </h:inputText><br/><br/><br/>
+                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:30px"
+                                    id="submitID" value="Search" action="StudentCompareResults.xhtml"/>
+                                </div>
+                            </h:form>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
