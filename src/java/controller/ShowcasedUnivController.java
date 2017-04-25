@@ -39,5 +39,8 @@ public class ShowcasedUnivController {
         this.model = model;
     }
     
-    
+    public void setShowcasedUniv(String username) {
+        ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
+        model = tmp.get(0);    
+    }
 }

@@ -44,6 +44,9 @@
                             <h3>Contact Information</h3>
                             Email: <h:outputText value="#{univProfileController.univModel.email}" /><br/><br/><br/><br/><br/><br/>
 
+                            <h:form>
+                                <h:commandButton value="Mark for showcase" action="#{showcasedUnivController.setShowcasedUniv(univProfileController.univModel.username)}"/>
+                            </h:form>
                         </h:panelGroup>
                     </div>
                     <center>
