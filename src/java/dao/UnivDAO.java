@@ -339,6 +339,29 @@ public class UnivDAO {
         ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
         return aUnivBeanCollection;
     }
+    
+    /*
+    author: jfoss
+        Search for user based on given information (name, state, avgAct, avgGpa)
+        EXCEPT for a certain user
+     */
+    public ArrayList searchForUsersExcept(String excluded, String name, String state, int avgAct, double avgGpa) {
+        String query = "SELECT * FROM APP.Universities ";
+        query += "WHERE LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
+        if (!state.equals("")) {
+            query += "AND (LOWER(State) = '" + state.toLowerCase() + "' OR LOWER(State) = '" + findState(state) + "') ";
+        }
+        if (avgAct != 0) {
+            query += "AND (AvgACT >= " + (avgAct - actRange) + " AND AvgACT <= " + (avgAct + actRange) + ") ";
+        }
+        if (avgGpa != 0) {
+            query += "AND (AvgGPA >= " + (avgGpa - gpaRange) + " AND AvgGPA <= " + (avgGpa + gpaRange) + ") ";
+        }
+        query += "AND Username NOT IN ('" + excluded + "')";
+
+        ArrayList aUnivBeanCollection = selectProfilesFromDB(query);
+        return aUnivBeanCollection;
+    }
 
     /*
     author: jfoss

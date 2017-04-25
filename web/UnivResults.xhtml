@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Home</title>
+        <title>University Results</title>
     </h:head>
     <h:body>
         <ui:composition	template="./WEB-INF/includes/template.xhtml">
@@ -25,9 +25,12 @@
                             <h3><h:outputText value="#{aRow.name}"/>&#160;&#160;&#160;</h3>
                         </h:column>
                         <h:column>
-                            <h:form><h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
-                                value="Go to profile" action="#{univProfileController.getProfilePage(aRow.username)}"/></h:form>
-
+                            <h:form>
+                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
+                                value="Go to profile" action="#{univProfileController.getProfilePage(aRow.username)}"/>
+                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
+                                value="Compare" action="#{univCompareController.compare1(aRow.username)}"/>
+                            </h:form>    
                         </h:column>
                     </h:dataTable>
                 </div>

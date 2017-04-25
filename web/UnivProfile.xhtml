@@ -22,8 +22,8 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:550px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
-                    <div style="width:255px; height:500px; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
+                <div id="login" style ="width:600px; height:650px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                    <div style="width:255px; height:600px; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
                         <h:panelGroup layout="block">
                             <center>
                                 <h:outputText style=" padding-right:25px; font-size:30px; font-weight: bold;"
@@ -50,11 +50,14 @@
                         <div style="margin-top: 15px">
                             <h:panelGroup layout="block">
                                 <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Profile Options"/><br/><br/><br/><br/><br/>
+                                              value="Profile Options"/><br/><br/><br/>
 
                                 <h:form>                
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                      value="Apply For Admision" action="#{univProfileController.apply(studentLoginController.theModel)}" /><br/><br/><br/>
+                                    
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     value="Compare Postings" action="#{univCompareController.compare1(univProfileController.univModel.username)}"/><br/><br/><br/>
 
                                     <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University (no special char's)"/><br/>
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
