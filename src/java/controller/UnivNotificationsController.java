@@ -84,17 +84,26 @@ public class UnivNotificationsController {
     public String getSender(String request) {
         String firstName = "";
         String lastName = "";
-        
-        if (!request.contains("Appointment")) {
-            int middle = request.indexOf(" ", 13);
-            int end = request.indexOf(":");
-            firstName = request.substring(13, middle);
-            lastName = request.substring(middle + 1, end);
-        } else {
+
+        if (request.contains("Appointment")) {
+
             int middle = request.indexOf(" ", 25);
             int end = request.indexOf("at:");
             firstName = request.substring(25, middle);
             lastName = request.substring(middle + 1, end);
+        } 
+        else if (request.contains("application")) {
+            int middle = request.indexOf(" ");
+            int end = request.indexOf("has");
+            firstName = request.substring(0, middle);
+            lastName = request.substring(middle + 1, end);            
+        } 
+        else {
+            int middle = request.indexOf(" ", 13);
+            int end = request.indexOf(":");
+            firstName = request.substring(13, middle);
+            lastName = request.substring(middle + 1, end);
+
         }
         ArrayList<StudentBean> tmp = (new StudentDAO()).findByName(firstName, lastName);
         StudentBean theBean = tmp.get(0);
