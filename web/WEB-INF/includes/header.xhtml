@@ -11,7 +11,7 @@
 
                 <h:panelGroup layout="block">
                     <h:form>
-                        <h:commandLink action="index.xhtml" value="Home" /> |
+                        <h:commandLink action="index.xhtml?faces-redirect=true" value="Home" /> |
                         <h:commandLink action="StudentAccount" value="#{studentLoginController.theModel.username}" /> |
                         <h:commandLink action="#{studentLoginController.logout()}" value="Logout" />
                     </h:form>
@@ -22,7 +22,7 @@
 
                 <h:panelGroup layout="block">
                     <h:form>
-                        <h:commandLink action="index.xhtml" value="Home" /> |
+                        <h:commandLink action="index.xhtml?faces-redirect=true" value="Home" /> |
                         <h:commandLink action="UnivAccount" value="#{univLoginController.theModel.username}" /> |
                         <h:commandLink action="#{univLoginController.logout()}" value="Logout" />
                     </h:form>
@@ -33,7 +33,7 @@
 
                 <h:panelGroup layout="block">
                     <h:form>
-                        <h:commandLink action="index.xhtml" value="Home" /> |
+                        <h:commandLink action="index.xhtml?faces-redirect=true" value="Home" /> |
                         <h:commandLink action="StudentSignUp" value="Student Sign Up" /> |
                         <h:commandLink action="UnivSignUp" value="University Sign Up" /> 
                     </h:form>

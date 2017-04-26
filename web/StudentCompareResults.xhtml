@@ -34,10 +34,9 @@
                     <div style="width:270px; height:370; margin-top: 15px; padding-left: 15; float:left">
                         <center><h3>Select a Student</h3> </center>
                         <h:panelGroup layout="block">
-                            <h:form>
                                 <div style="margin-left: 50px;">
                                 <h:dataTable id="studentResults" value="#{studentCompareController.getPost2Results()}" var="aRow"
-                                 border="0" cellpadding="0" cellspacing="0">
+                                 border="0" cellpadding="5" cellspacing="0">
                                     <h:column>
                                         <h3><h:outputText value="#{aRow.firstName} #{aRow.lastName}"/>&#160;&#160;&#160;</h3>
                                     </h:column>
@@ -47,11 +46,11 @@
                                             value="Compare" action="#{studentCompareController.compare2(aRow.username)}"/>
                                             <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
                                             value="Go to profile" action="#{studentProfileController.getProfilePage(aRow.username)}"/>
+                                            
                                         </h:form>
                                     </h:column>
                                 </h:dataTable>
                                 </div>
-                            </h:form>
                         </h:panelGroup>
                     </div>
                 </div>
