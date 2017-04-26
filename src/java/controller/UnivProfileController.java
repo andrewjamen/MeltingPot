@@ -66,6 +66,7 @@ public class UnivProfileController {
         aUnivDAO.insertRequest(univModel, requestMessage);
     }
 
+    //TODO: check if null & make button animation
     public void scheduleAppt(String sender) {
         UnivDAO aUnivDAO = new UnivDAO();
 
@@ -84,11 +85,13 @@ public class UnivProfileController {
         aUnivDAO.insertRequest(univModel, requestMessage);
     }
     
+    //TODO: check if null & make button animation
     public void findProfile(String username){
         ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
         univModel = tmp.get(0);
     }
 
+    //TODO: check if null & make button animation
     public void apply(String sender) {
         UnivDAO aUnivDAO = new UnivDAO();
 

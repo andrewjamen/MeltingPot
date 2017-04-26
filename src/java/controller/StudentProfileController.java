@@ -52,6 +52,7 @@ public class StudentProfileController {
         return "StudentProfile.xhtml?faces-redirect=true";
     }
 
+    //TODO: check if null & make button animation
     public void sendStudentRequest(String sender, String request) {
 
         StudentDAO aStudentDAO = new StudentDAO();
@@ -67,6 +68,7 @@ public class StudentProfileController {
         aStudentDAO.insertRequest(studentModel, requestMessage);
     }
 
+    //TODO: check if null & make button animation
     public void scheduleAppt(String sender) {
         StudentDAO aStudentDAO = new StudentDAO();
 

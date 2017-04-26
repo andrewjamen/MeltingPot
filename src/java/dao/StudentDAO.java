@@ -175,7 +175,7 @@ public class StudentDAO {
                     + "Email = '" + pro.getEmail() + "', "
                     + "Address = '" + pro.getAddress() + "', "
                     + "City = '" + pro.getCity() + "', "
-                    + "State = '" + pro.getState() + "' "
+                    + "State = '" + pro.getState() + "', "
                     + "HighSchool = '" + pro.getHighSchool() + "', "
                     + "ACT = " + pro.getAct() + ", "
                     + "GPA = " + pro.getGpa() + ", "

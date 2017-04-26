@@ -54,6 +54,7 @@ public class StudentUpdateController {
         }
     }
 
+    //TODO: dont log out
     public String updateUser() {
         StudentDAO aStudentDAO = new StudentDAO(); 
         int status1 = aStudentDAO.updateProfile(theModel); 

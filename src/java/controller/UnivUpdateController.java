@@ -54,6 +54,7 @@ public class UnivUpdateController {
         }
     }
 
+    //TODO: dont log out
     public String updateUser() {
         UnivDAO aUnivDAO = new UnivDAO();   // Creating a new object each time.
         int status1 = aUnivDAO.updateProfile(theModel); // Doing anything with the object after this?
