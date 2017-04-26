@@ -43,11 +43,13 @@
                             Average Accepted ACT: <h:outputText value="#{univProfileController.univModel.avgAct}" /><br/><br/>
 
                             <h3>Contact Information</h3>
-                            Email: <h:outputText value="#{univProfileController.univModel.email}" /><br/><br/><br/><br/><br/><br/>
+                            Email: <h:outputText value="#{univProfileController.univModel.email}" /><br/><br/><br/><br/>
 
                             <c:if test="${univLoginController.theModel.username == 'admin'}">
                                 <h:form>
-                                    <h:commandButton value="Mark for showcase" action="#{showcasedUnivController.setShowcasedUniv(univProfileController.univModel.username)}"/>
+                                    <h:commandButton value="Mark for showcase" 
+                                                     style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     action="#{showcasedUnivController.setShowcasedUniv(univProfileController.univModel.username)}"/>
                                 </h:form>
                             </c:if>
                         </h:panelGroup>
@@ -64,7 +66,7 @@
 
                                     <c:if test="${studentLoginController.loggedIn}">
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Apply For Admision" action="#{univProfileController.apply(studentLoginController.theModel.username)}" /><br/><br/><br/>
+                                                         value="Apply For Admission" action="#{univProfileController.apply(studentLoginController.theModel.username)}" /><br/><br/><br/>
 
                                         <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University (no special char's)"/><br/>
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
