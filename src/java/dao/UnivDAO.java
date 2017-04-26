@@ -219,7 +219,8 @@ public class UnivDAO {
                     + "City = '" + pro.getCity() + "', "
                     + "State = '" + pro.getState() + "', "
                     + "AvgACT = " + pro.getAvgAct() + ", "
-                    + "AvgGPA = " + pro.getAvgGpa() + " "
+                    + "AvgGPA = " + pro.getAvgGpa() + ", "
+                    + "Requests = '" + pro.getRequest() + "' " 
                     + "WHERE UserName = '" + pro.getUsername() + "'";
             rowCount = stmt.executeUpdate(updateString);
             System.out.println("updateString =" + updateString);

@@ -1,12 +1,58 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Univ Update</title>
+        <title>University Sign Up</title>
     </h:head>
     <h:body>
-        Univ Update
+
+        <ui:composition	template="./WEB-INF/includes/template.xhtml">
+
+            <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="htmlHead">
+                <meta name="description" content="Login" />
+            </ui:define>
+
+            <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="main">
+                <div id="login" style="width:600px; height:700px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
+
+                    <center><h3>University Account Update</h3></center>
+                    <h:form>
+                        <div style="margin-left: 50px;">
+                            Name of University:<br/><h:inputText style="width:300px" id="lastNameID" value="#{univUpdateController.theModel.name}"/><br/><br/>
+
+                            Password:<br/><h:inputSecret style="width:300px" id="passwordID" value="#{univUpdateController.theModel.password}">  
+                                <f:ajax event="keyup"/>
+                            </h:inputSecret><br/><br/>
+                            Confirm Password:<br/><h:inputSecret style="width:300px" id="confirmID" value="#{univUpdateController.theModel.confirm}">    
+                                <f:ajax event="keyup" render="matchID"/>
+                            </h:inputSecret><br/>
+                            <h:outputText id="matchID" escape="false" value="#{univUpdateController.checkMatch()}"/><br/><br/>
+
+                            Email:<br/><h:inputText style="width:300px" id="emailID" value="#{univUpdateController.theModel.email}"/><br/><br/>    
+
+                            Address:<br/><h:inputText style="width:300px" id="addressID" value="#{univUpdateController.theModel.address}"/><br/><br/> 
+
+                            City:<br/><h:inputText style="width:300px" id="cityID" value="#{univUpdateController.theModel.city}"/><br/><br/>  
+
+                            State:<br/><h:inputText style="width:300px" id="stateID" value="#{univUpdateController.theModel.state}"/><br/><br/>   
+
+                            Your Average Accepted ACT Score:<br/><h:inputText style="width:300px" id="actID" value="#{univUpdateController.theModel.avgAct}"/><br/><br/>   
+
+                            Your Average Accepted Cumulative GPA:<br/><h:inputText style="width:300px" id="gpaID" value="#{univUpdateController.theModel.avgGpa}"/><br/><br/><br/><br/> 
+
+
+                            <center><h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                                id="submitID" value="Submit" action="#{univUpdateController.updateUser()}"/></center>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
     </h:body>
 </html>
-

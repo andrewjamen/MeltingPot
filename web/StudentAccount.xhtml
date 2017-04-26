@@ -59,21 +59,17 @@
                             <center>
                                 <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
                                               value="Account Tools and Notifications"/><br/><br/><br/>
-                            </center>
-                                <center>
-                                    <h:form>
-                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="View Notifications (#{studentNotificationsController.number()})" action="#{studentNotificationsController.goToPage(studentLoginController.theModel.getUsername())}"/><br/><br/><br/>
-                                    </h:form>
-                                </center>
-                            <center>
+
                                 <h:form>
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     value="View Notifications (#{studentNotificationsController.number()})" action="#{studentNotificationsController.goToPage(studentLoginController.theModel.getUsername())}"/><br/><br/><br/>
+
 
                                     <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                               value="University Search" outcome="UnivSearch.xhtml" /><br/><br/><br/>
 
-                                    <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="Update Your Information" outcome="StudentUpdate.xhtml" />
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     value="Update Your Information" action="#{studentUpdateController.retrieveProfile(studentLoginController.theModel)}" />
                                 </h:form>
                             </center>
                         </h:panelGroup>
