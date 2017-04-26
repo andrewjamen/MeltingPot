@@ -56,24 +56,28 @@
                         <div style="margin-top: 15px">
                             <h:panelGroup layout="block">
                                 <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Profile Options"/><br/><br/><br/>
+                                              value="Profile Options"/><br/><br/><br/><br/><br/><br/>
 
-                                <h:form>                
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="Apply For Admision" action="#{univProfileController.apply(studentLoginController.theModel)}" /><br/><br/><br/>
-                                    
+                                <h:form>    
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                      value="Compare Postings" action="#{univCompareController.compare1(univProfileController.univModel.username)}"/><br/><br/><br/>
 
-                                    <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University (no special char's)"/><br/>
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="Request More Info" action="#{univProfileController.sendUnivRequest(studentLoginController.theModel.username, requestInput.value)}" /><br/><br/><br/>
+                                    <c:if test="${studentLoginController.loggedIn}">
+                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                         value="Apply For Admision" action="#{univProfileController.apply(studentLoginController.theModel.username)}" /><br/><br/><br/>
+
+                                        <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University (no special char's)"/><br/>
+                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                         value="Request More Info" action="#{univProfileController.sendUnivRequest(studentLoginController.theModel.username, requestInput.value)}" /><br/><br/><br/>
 
 
-                                    <p:calendar id="datetime" value="#{univProfileController.date}" pattern="MM/dd/yyyy HH:mm"/> 
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel.username)}"/><br/><br/><br/>
-
+                                        <p:calendar id="datetime" value="#{univProfileController.date}" pattern="MM/dd/yyyy HH:mm"/> 
+                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                         value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel.username)}"/><br/><br/><br/>
+                                    </c:if>
+                                    <c:if test="${!studentLoginController.loggedIn}">
+                                        <center><h3>Login to see additional tools!</h3></center>
+                                    </c:if>
                                 </h:form>
 
                             </h:panelGroup>

@@ -89,8 +89,20 @@ public class UnivProfileController {
         univModel = tmp.get(0);
     }
 
-    //TODO: must write
-    public void apply(StudentBean sutdentBean) {
+    public void apply(String sender) {
+        UnivDAO aUnivDAO = new UnivDAO();
 
+        ArrayList<StudentBean> tmp = (new StudentDAO()).findByUserName(sender);
+        StudentBean theStudentBean = tmp.get(0);
+        sender = theStudentBean.getFirstName() + " " + theStudentBean.getLastName();
+
+        findProfile(univModel.getUsername());
+        if (!univModel.getRequest().equals("")) {
+            requestMessage = univModel.getRequest() + "\n";
+        }
+
+        requestMessage += sender + " has submitted an application! \t View their profile to review student statstics:";
+
+        aUnivDAO.insertRequest(univModel, requestMessage);
     }
 }
