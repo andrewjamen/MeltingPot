@@ -23,7 +23,7 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:650px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" style ="width:600px; height:700px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
                     <div style="width:255px; height:600px; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
                         <h:panelGroup layout="block">
                             <center>
@@ -65,6 +65,7 @@
                                                      value="Compare Postings" action="#{univCompareController.compare1(univProfileController.univModel.username)}"/><br/><br/><br/>
 
                                     <c:if test="${studentLoginController.loggedIn}">
+
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                          value="Apply For Admission" action="#{univProfileController.apply(studentLoginController.theModel.username)}" /><br/><br/><br/>
 
@@ -76,6 +77,10 @@
                                         <p:calendar id="datetime" value="#{univProfileController.date}" pattern="MM/dd/yyyy HH:mm"/> 
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                          value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel.username)}"/><br/><br/><br/>
+
+                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                         value="Map Distance From Home" action="#{univProfileController.map(studentLoginController.theModel.city, studentLoginController.theModel.state, univProfileController.univModel.city, univProfileController.univModel.state)}" /><br/><br/><br/>
+
                                     </c:if>
                                     <c:if test="${!studentLoginController.loggedIn}">
                                         <center><h3>Login to see additional tools!</h3></center>

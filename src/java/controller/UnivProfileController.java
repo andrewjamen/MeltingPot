@@ -2,10 +2,17 @@ package controller;
 
 import dao.StudentDAO;
 import dao.UnivDAO;
+import isu.ISUGoogleMapsService;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.xml.ws.WebServiceRef;
 import model.StudentBean;
 import model.UnivBean;
 
@@ -16,6 +23,9 @@ import model.UnivBean;
 @ManagedBean
 @SessionScoped
 public class UnivProfileController {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/gfish.it.ilstu.edu_8080/ISUGoogleMaps/ISUGoogleMapsService.wsdl")
+    private ISUGoogleMapsService service;
 
     private UnivBean univModel;
     String requestMessage = "";
@@ -107,5 +117,27 @@ public class UnivProfileController {
         requestMessage += sender + " has submitted an application! \t View their profile to review student statstics:";
 
         aUnivDAO.insertRequest(univModel, requestMessage);
+    }
+    
+    public void map(String startLocationCity, String startLocationState, String endLocationCity, String endLocationState){
+        String result = getDirectionsByCityState(startLocationCity, startLocationState, endLocationCity, endLocationState);
+        //outputting to file
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream("SearchMap.html");
+            PrintStream p = new PrintStream(out);
+            p.println(result);
+            //opening file programmatically
+            Desktop.getDesktop().open(new File("SearchMap.html"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private String getDirectionsByCityState(java.lang.String startLocationCity, java.lang.String startLocationState, java.lang.String endLocationCity, java.lang.String endLocationState) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        isu.ISUGoogleMaps port = service.getISUGoogleMapsPort();
+        return port.getDirectionsByCityState(startLocationCity, startLocationState, endLocationCity, endLocationState);
     }
 }
