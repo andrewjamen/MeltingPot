@@ -292,7 +292,7 @@ public class UnivDAO {
                                 + "AvgACT = ?, "
                                 + "AvgGPA = ?, "
                                 + "Requests = ? "
-                                + "WHERE UserName = ?;" ;
+                                + "WHERE UserName = ?" ;
             PreparedStatement pstmt = DBConn.prepareStatement(updateString);
             pstmt.setString(1, pro.getName());
             pstmt.setString(2, pro.getPassword());
