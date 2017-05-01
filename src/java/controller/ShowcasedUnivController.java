@@ -22,7 +22,7 @@ public class ShowcasedUnivController {
     
     public ShowcasedUnivController() {
         ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName("ilstu");
-        setModel(tmp.get(0));
+        model = tmp.get(0);
     }
 
     /**
