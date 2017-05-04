@@ -14,7 +14,7 @@
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
             </ui:define>
-
+            <!-- test number 3-->
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
                 <div id="login" style ="width:600px; height:310px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
@@ -26,10 +26,10 @@
                                 Password: <br/><h:inputSecret id="password" value="#{studentLoginController.theModel.password}" /><br/>
                                 <h:outputText value="#{studentLoginController.response}" style="color:#ff0000"/><br/>
 
-                                <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:30px"
+                                <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:120px; height:30px"
                                                  id="loginbutton" action="#{studentLoginController.processLogin()}" /><br/><br/>
 
-                                <h:commandButton value="Forgot Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:110px; height:30px"
+                                <h:commandButton value="Forgot Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:120px; height:30px"
                                                  id="reset" action="PasswordResetUsername.xhtml" /><br/><br/>
 
                             </h:form>
@@ -61,4 +61,4 @@
         </ui:composition>
     </h:body>
 </html>
-<!-- test number 2-- >
+
