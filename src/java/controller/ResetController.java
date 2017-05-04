@@ -130,7 +130,7 @@ public class ResetController {
             message.setSubject("Password Reset");
 
             // Send the actual HTML message, as big as you like
-            message.setContent("<a href=\"http://localhost:8080/LinkedU/faces/PasswordUpdate.xhtml?username=" + username
+            message.setContent("<a href=\"http://gfish2.it.ilstu.edu/cmohrfe_Spring2017_LinkedU/faces/PasswordUpdate.xhtml?username=" + username
                              + "&univOrS=" + univOrS + "\">Click here to reset your password</a>",
                     "text/html");
 
