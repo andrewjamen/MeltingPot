@@ -23,12 +23,15 @@
                         <h:panelGroup layout="block">
                             <h:form>
                                 Username: <br/><h:inputText id="username" value="#{studentLoginController.theModel.username}"/><br /><br/>
-                                Password: <br/><h:inputSecret id="password" value="#{studentLoginController.theModel.password}" /><br /><br/>
+                                Password: <br/><h:inputSecret id="password" value="#{studentLoginController.theModel.password}" /><br/>
                                 <h:outputText value="#{studentLoginController.response}" style="color:#ff0000"/><br/>
-                                <h:commandButton value="Reset Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:110px; height:30px"
-                                                 id="reset" action="PasswordResetUsername.xhtml" /><br/><br/>
+
                                 <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:30px"
-                                                 id="loginbutton" action="#{studentLoginController.processLogin()}" />
+                                                 id="loginbutton" action="#{studentLoginController.processLogin()}" /><br/><br/>
+
+                                <h:commandButton value="Forgot Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:110px; height:30px"
+                                                 id="reset" action="PasswordResetUsername.xhtml" /><br/><br/>
+
                             </h:form>
                         </h:panelGroup>
                     </div>
@@ -37,13 +40,16 @@
                         <h:panelGroup layout="block">
                             <h:form>
                                 <div style="margin-left: 50px;">
-                                Username: <br/><h:inputText id="username" value="#{univLoginController.theModel.username}"/><br /><br/>
-                                Password: <br/><h:inputSecret id="password" value="#{univLoginController.theModel.password}" /><br /><br/>
-                                <h:outputText value="#{univLoginController.response}" style="color:#ff0000"/><br/>
-                                <h:commandButton value="Reset Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:110px; height:30px"
-                                                 id="reset" action="PasswordResetUsername.xhtml" /><br/><br/>
-                                <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:30px"
-                                                 id="loginbutton" action="#{univLoginController.processLogin()}" />
+                                    Username: <br/><h:inputText id="username" value="#{univLoginController.theModel.username}"/><br /><br/>
+                                    Password: <br/><h:inputSecret id="password" value="#{univLoginController.theModel.password}" /><br/>
+                                    <h:outputText value="#{univLoginController.response}" style="color:#ff0000"/><br/>
+                                    
+                                    <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:30px"
+                                                     id="loginbutton" action="#{univLoginController.processLogin()}"/><br/><br/>
+                                    
+                                    <h:commandButton value="Forgot Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:110px; height:30px"
+                                                     id="reset" action="PasswordResetUsername.xhtml" /><br/><br/>
+                                    
                                 </div>
                             </h:form>
                         </h:panelGroup>
