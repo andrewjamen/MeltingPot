@@ -17,7 +17,7 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:300px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" style ="width:600px; height:320px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
                     <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
                         <center><h3 style="padding-right: 25px;">Student Login</h3></center>
                         <h:panelGroup layout="block">
@@ -25,7 +25,9 @@
                                 Username: <br/><h:inputText id="username" value="#{studentLoginController.theModel.username}"/><br /><br/>
                                 Password: <br/><h:inputSecret id="password" value="#{studentLoginController.theModel.password}" /><br /><br/>
                                 <h:outputText value="#{studentLoginController.response}" style="color:#ff0000"/><br/>
-                                <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:30px"
+                                <h:commandButton value="Reset Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:120px; height:30px"
+                                                 id="resetbutton" action="PasswordResetUsername.xhtml" /><br/><br/>
+                                <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:120px; height:30px"
                                                  id="loginbutton" action="#{studentLoginController.processLogin()}" />
                             </h:form>
                         </h:panelGroup>
@@ -38,7 +40,9 @@
                                 Username: <br/><h:inputText id="username" value="#{univLoginController.theModel.username}"/><br /><br/>
                                 Password: <br/><h:inputSecret id="password" value="#{univLoginController.theModel.password}" /><br /><br/>
                                 <h:outputText value="#{univLoginController.response}" style="color:#ff0000"/><br/>
-                                <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:30px"
+                                <h:commandButton value="Reset Password" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:120px; height:30px"
+                                                 id="resetbutton" action="PasswordResetUsername.xhtml" /><br/><br/>
+                                <h:commandButton value="Login" style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:120px; height:30px"
                                                  id="loginbutton" action="#{univLoginController.processLogin()}" />
                                 </div>
                             </h:form>
