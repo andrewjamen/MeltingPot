@@ -78,9 +78,6 @@
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                          value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel.username)}"/><br/><br/><br/>
 
-                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Map Distance From Home" action="#{univProfileController.map(studentLoginController.theModel.city, studentLoginController.theModel.state, univProfileController.univModel.city, univProfileController.univModel.state)}" /><br/><br/><br/>
-
                                     </c:if>
                                     <c:if test="${!studentLoginController.loggedIn}">
                                         <center><h3>Login to see additional tools!</h3></center>
