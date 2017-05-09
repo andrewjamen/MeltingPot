@@ -67,16 +67,16 @@
                                     <c:if test="${studentLoginController.loggedIn}">
 
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Apply For Admission" action="#{univProfileController.apply(studentLoginController.theModel.username)}" /><br/><br/><br/>
+                                                         value="Apply For Admission" onclick="alert('Application Sent!');" action="#{univProfileController.apply(studentLoginController.theModel.username)}" /><br/><br/><br/>
 
                                         <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this University (no special char's)"/><br/>
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Request More Info" action="#{univProfileController.sendUnivRequest(studentLoginController.theModel.username, requestInput.value)}" /><br/><br/><br/>
+                                                         value="Request More Info" onclick="alert('Request Sent!');" action="#{univProfileController.sendUnivRequest(studentLoginController.theModel.username, requestInput.value)}" /><br/><br/><br/>
 
 
                                         <p:calendar id="datetime" value="#{univProfileController.date}" pattern="MM/dd/yyyy HH:mm"/> 
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Schedule Appointment" action="#{univProfileController.scheduleAppt(studentLoginController.theModel.username)}"/><br/><br/><br/>
+                                                         value="Schedule Appointment" onclick="alert('Appointment Scheduled!');" action="#{univProfileController.scheduleAppt(studentLoginController.theModel.username)}"/><br/><br/><br/>
 
                                     </c:if>
                                     <c:if test="${!studentLoginController.loggedIn}">

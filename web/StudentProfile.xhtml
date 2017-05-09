@@ -70,11 +70,11 @@
                                     <c:if test="${univLoginController.loggedIn}">
                                         <h:inputTextarea rows="8" cols="30" binding="#{requestInput}" a:placeholder="Enter information you would like to request from this student (no special char's)"/><br/>
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Request More Info" action="#{studentProfileController.sendStudentRequest(univLoginController.theModel.name, requestInput.value)}" /><br/><br/><br/>
+                                                         value="Request More Info" onclick="alert('Request Sent!');" action="#{studentProfileController.sendStudentRequest(univLoginController.theModel.name, requestInput.value)}" /><br/><br/><br/>
 
                                         <p:calendar id="datetime" value="#{studentProfileController.date}" pattern="MM/dd/yyyy HH:mm"/> 
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Schedule Appointment" action="#{studentProfileController.scheduleAppt(univLoginController.theModel.username)}"/><br/><br/><br/>
+                                                         value="Schedule Appointment" onclick="alert('Appointment Scheduled!');" action="#{studentProfileController.scheduleAppt(univLoginController.theModel.username)}"/><br/><br/><br/>
 
                                     </c:if>
                                     <c:if test="${!univLoginController.loggedIn}">
