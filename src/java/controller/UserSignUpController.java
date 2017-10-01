@@ -1,6 +1,6 @@
 package controller;
 
-import dao.StudentDAO;
+import dao.UserDAO;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.faces.application.FacesMessage;
@@ -13,45 +13,46 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import model.StudentBean;
+import model.UserBean;
 
 /**
  * @author Andrew Amen
  */
 @ManagedBean
 @SessionScoped
-public class StudentSignUpController {
+public class UserSignUpController {
 
     private String response;
-    private StudentBean studentBean;
+    private String status = "";
+    private UserBean userBean;
 
-    public StudentSignUpController() {
-        studentBean = new StudentBean();
+    public UserSignUpController() {
+        userBean = new UserBean();
     }
 
-    public StudentBean getStudentBean() {
-        return studentBean;
+    public UserBean getUserBean() {
+        return userBean;
     }
 
-    public void setStudentBean(StudentBean studentBean) {
-        this.studentBean = studentBean;
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
     }
 
     public String getResponse() {
+
         String resultStr = "";
-        resultStr += "Hello, " + studentBean.getFirstName() + " " + studentBean.getLastName() + "<br/>";
+        resultStr += "Hello, " + userBean.getName() + "<br/>";
         resultStr += "You have successfully created an account with the following information:" + "<br/>" + "<br/>";
-        resultStr += "User Name: " + studentBean.getUsername() + "<br/>";
-        resultStr += "Email: " + studentBean.getEmail() + "<br/>" + "<br/>";
-        resultStr += "Address: " + studentBean.getAddress() + "<br/>";
-        resultStr += "City: " + studentBean.getCity() + "<br/>";
-        resultStr += "State: " + studentBean.getState() + "<br/>" + "<br/>";
-        resultStr += "High School: " + studentBean.getHighSchool() + "<br/>";
-        resultStr += "ACT: " + studentBean.getAct() + "<br/>";
-        resultStr += "GPA: " + studentBean.getGpa() + "<br/>";
-        resultStr += "Extra Curricular Activities: " + "<br/>" + studentBean.getExtra() + "<br/>" + "<br/>";
-        resultStr += "Desired Major: " + studentBean.getMajor() + "<br/>" + "<br/>";
-        resultStr += "Personal Statement: " + "<br/>" + studentBean.getStatement() + "<br/>"+"<br/>";
+        resultStr += "User Name: " + userBean.getUsername() + "<br/>";
+        resultStr += "Email: " + userBean.getEmail() + "<br/>" + "<br/>";
+        resultStr += "City: " + userBean.getCity() + "<br/>";
+        resultStr += "State: " + userBean.getState() + "<br/>" + "<br/>";
+        resultStr += "Age: " + userBean.getAge() + "<br/>";
+        resultStr += "Gender: " + userBean.getGender() + "<br/>";
+        resultStr += "Religion: " + userBean.getReligion() + "<br/>";
+        resultStr += "Race: " + userBean.getRace() + "<br/>";
+        resultStr += "Political Views: " + userBean.getPolitics() + "<br/>" + "<br/>";
+        resultStr += "Biography: " + "<br/>" + userBean.getBio() + "<br/>" + "<br/>";
 
         resultStr += "Thank you for your registration!" + "<br/>" + "<br/>";
         response = resultStr;
@@ -62,14 +63,22 @@ public class StudentSignUpController {
     public void setResponse(String response) {
         this.response = response;
     }
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     //TODO: change from account confimation to appointment confimation
     public void sendEmail() {
         // Recipient's email ID needs to be mentioned.
-        String to = studentBean.getEmail();
+        String to = userBean.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "ajamen@ilstu.edu";
+        String from = "akolet@ilstu.edu";
 
         // Assuming you are sending email from this host
         String host = "smtp.ilstu.edu";
@@ -97,7 +106,7 @@ public class StudentSignUpController {
                     new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Amen Snowboarads - New account");
+            message.setSubject("Melting Pot - New account");
 
             // Send the actual HTML message, as big as you like
             message.setContent(getResponse(),
@@ -113,15 +122,15 @@ public class StudentSignUpController {
 
     public String checkAvailable() {
 
-        if ("".equals(studentBean.getUsername()) || studentBean.getUsername() == null) {
+        if ("".equals(userBean.getUsername()) || userBean.getUsername() == null) {
             return "Enter a username!";
         }
         boolean goodLogin = true;
-        StudentDAO aSignUpDAO = new StudentDAO();
-        ArrayList<StudentBean> allUsers = aSignUpDAO.findAll();
+        UserDAO aUserDAO = new UserDAO();
+        ArrayList<UserBean> allUsers = aUserDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
-            if (studentBean.getUsername().equals(allUsers.get(i).getUsername())) {
+            if (userBean.getUsername().equals(allUsers.get(i).getUsername())) {
                 goodLogin = false;
             }
         }
@@ -132,15 +141,15 @@ public class StudentSignUpController {
             return "Username available!";
         }
     }
-    
+
     public String checkMatch() {
 
-        if ("".equals(studentBean.getConfirm()) || studentBean.getConfirm() == null) {
+        if ("".equals(userBean.getConfirm()) || userBean.getConfirm() == null) {
             return "Enter a password!";
         }
         boolean goodPassword = false;
 
-        if (studentBean.getPassword().equals(studentBean.getConfirm())){
+        if (userBean.getPassword().equals(userBean.getConfirm())) {
             goodPassword = true;
         }
 
@@ -149,29 +158,50 @@ public class StudentSignUpController {
         } else {
             return "Passwords match!";
         }
-    }    
+    }
 
     public String createProfile() {
-     
-                
-        if (!studentBean.getPassword().equals(studentBean.getConfirm())) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Passwords do not match! Try again"));
-            return "StudentSignUp.xhtml";
+        status = "";
+
+        UserDAO aUserDAO = new UserDAO();
+        ArrayList<UserBean> users = aUserDAO.findByUsername(userBean.getUsername());
+
+        if (userBean.getUsername().equals("") || userBean.getUsername() == null) {
+            status = "Enter a Username!";
+            return "";
         }
-
-        StudentDAO aSignUpDAO = new StudentDAO();
-        ArrayList<StudentBean> users = aSignUpDAO.findByUserName(studentBean.getUsername());
-
         if (users.size() > 0) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Username Already Exists!"));
-            return "StudentSignUp.xhtml";
+            status = "Username Already Exists!";
+            return "";
+        }
+        if (userBean.getName().equals("") || userBean.getName() == null) {
+            status = "Enter a Name!";
+            return "";
+        }
+        if (!userBean.getPassword().equals(userBean.getConfirm())) {
+            status = "Passwords Do Not Match!";
+            return "";
+        }
+        if (userBean.getPassword().equals("") || userBean.getPassword() == null) {
+            status = "Enter a Password!";
+            return "";
+        }
+        if (userBean.getEmail().equals("") || userBean.getEmail() == null) {
+            status = "Enter an Email!";
+            return "";
+        }
+        if (userBean.getCity().equals("") || userBean.getCity() == null) {
+            status = "Enter a City!";
+            return "";
+        }
+        if (userBean.getAge() == 0 || userBean.getEmail() == null) {
+            status = "Enter your Age!";
+            return "";
         }
 
-        int rowCount = aSignUpDAO.createProfile(studentBean); 
+        int rowCount = aUserDAO.createProfile(userBean);
         if (rowCount == 1) {
-            return "StudentSuccess.xhtml";
+            return "UserSuccess.xhtml";
         } else {
             return "error.xhml";
         }

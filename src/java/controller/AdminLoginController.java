@@ -1,12 +1,12 @@
 package controller;
 
-import dao.StudentDAO;
+import dao.AdminDAO;
 import java.util.ArrayList;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import model.StudentBean;
+import model.AdminBean;
 
 /**
  *
@@ -14,22 +14,21 @@ import model.StudentBean;
  */
 @ManagedBean
 @SessionScoped
-public class StudentLoginController {
+public class AdminLoginController {
 
     private boolean loggedIn = false;
-    StudentBean theModel;
+    AdminBean theModel;
     String response;
-    int numAttempts;
 
-    public StudentLoginController() {
-        theModel = new StudentBean();
+    public AdminLoginController() {
+        theModel = new AdminBean();
     }
 
-    public StudentBean getTheModel() {
+    public AdminBean getTheModel() {
         return theModel;
     }
 
-    public void setTheModel(StudentBean theModel) {
+    public void setTheModel(AdminBean theModel) {
         this.theModel = theModel;
     }
 
@@ -51,10 +50,9 @@ public class StudentLoginController {
 
     public void checkIfLoggedIn() {
         if (!loggedIn) {
-            // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("Login?faces-redirect=true");
+            nav.performNavigation("Login.xhtml?faces-redirect=true");
         }
     }
 
@@ -67,15 +65,11 @@ public class StudentLoginController {
             this.setTheModel(findProfile());
             loggedIn = true;
             response = "";
-            return "StudentAccount.xhtml?faces-redirect=true";
+            return "AdminAccount.xhtml?faces-redirect=true";
         }
     }
 
     public String logout() {
-//        loggedIn = false;
-//        theModel.setUsername("");
-//        theModel.setPassword("");
-//        theModel.setFavPL("");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
         return "index.xhtml?faces-redirect=true";
 
@@ -84,8 +78,8 @@ public class StudentLoginController {
     public boolean isValid() {
 
         boolean authenticate = false;
-        StudentDAO aStudentDAO = new StudentDAO();    // Creating a new object each time.
-        ArrayList<StudentBean> allUsers = aStudentDAO.findAll();
+        AdminDAO aAdminDAO = new AdminDAO();    // Creating a new object each time.
+        ArrayList<AdminBean> allUsers = aAdminDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
             if (theModel.getUsername().equals(allUsers.get(i).getUsername())) {
@@ -99,13 +93,14 @@ public class StudentLoginController {
         return authenticate;
     }
 
-    private StudentBean findProfile() {
-
-        StudentDAO aStudentDAO = new StudentDAO();
-        ArrayList<StudentBean> allUsers = aStudentDAO.findByUserName(theModel.getUsername());
-
-        theModel = allUsers.get(0);
-
+    public AdminBean findProfile() {
+        
+        AdminDAO aAdminDAO = new AdminDAO();
+        ArrayList<AdminBean> allUsers = aAdminDAO.findByUserName(theModel.getUsername());
+        
+        theModel = allUsers.get(0);        
+        
         return theModel;
     }
+    
 }

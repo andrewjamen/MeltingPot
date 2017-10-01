@@ -1,12 +1,12 @@
 package controller;
 
-import dao.UnivDAO;
+import dao.UserDAO;
 import java.util.ArrayList;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import model.UnivBean;
+import model.UserBean;
 
 /**
  *
@@ -14,21 +14,22 @@ import model.UnivBean;
  */
 @ManagedBean
 @SessionScoped
-public class UnivLoginController {
+public class UserLoginController {
 
     private boolean loggedIn = false;
-    UnivBean theModel;
+    UserBean theModel;
     String response;
+    int numAttempts;
 
-    public UnivLoginController() {
-        theModel = new UnivBean();
+    public UserLoginController() {
+        theModel = new UserBean();
     }
 
-    public UnivBean getTheModel() {
+    public UserBean getTheModel() {
         return theModel;
     }
 
-    public void setTheModel(UnivBean theModel) {
+    public void setTheModel(UserBean theModel) {
         this.theModel = theModel;
     }
 
@@ -40,20 +41,10 @@ public class UnivLoginController {
         this.response = response;
     }
 
-    /**
-     * Get the value of loggedIn
-     *
-     * @return the value of loggedIn
-     */
     public boolean isLoggedIn() {
         return loggedIn;
     }
 
-    /**
-     * Set the value of loggedIn
-     *
-     * @param loggedIn new value of loggedIn
-     */
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
@@ -63,7 +54,7 @@ public class UnivLoginController {
             // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("Login.xhtml?faces-redirect=true");
+            nav.performNavigation("Login?faces-redirect=true");
         }
     }
 
@@ -76,15 +67,11 @@ public class UnivLoginController {
             this.setTheModel(findProfile());
             loggedIn = true;
             response = "";
-            return "UnivAccount.xhtml?faces-redirect=true";
+            return "UserAccount.xhtml?faces-redirect=true";
         }
     }
 
     public String logout() {
-//        loggedIn = false;
-//        theModel.setUsername("");
-//        theModel.setPassword("");
-//        theModel.setFavPL("");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
         return "index.xhtml?faces-redirect=true";
 
@@ -93,8 +80,8 @@ public class UnivLoginController {
     public boolean isValid() {
 
         boolean authenticate = false;
-        UnivDAO aUnivDAO = new UnivDAO();    // Creating a new object each time.
-        ArrayList<UnivBean> allUsers = aUnivDAO.findAll();
+        UserDAO aUserDAO = new UserDAO();    // Creating a new object each time.
+        ArrayList<UserBean> allUsers = aUserDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
             if (theModel.getUsername().equals(allUsers.get(i).getUsername())) {
@@ -108,14 +95,13 @@ public class UnivLoginController {
         return authenticate;
     }
 
-    public UnivBean findProfile() {
-        
-        UnivDAO aUnivDAO = new UnivDAO();
-        ArrayList<UnivBean> allUsers = aUnivDAO.findByUserName(theModel.getUsername());
-        
-        theModel = allUsers.get(0);        
-        
+    private UserBean findProfile() {
+
+        UserDAO aUserDAO = new UserDAO();
+        ArrayList<UserBean> allUsers = aUserDAO.findByUsername(theModel.getUsername());
+
+        theModel = allUsers.get(0);
+
         return theModel;
     }
-    
 }

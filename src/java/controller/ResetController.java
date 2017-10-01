@@ -5,8 +5,8 @@
  */
 package controller;
 
-import dao.StudentDAO;
-import dao.UnivDAO;
+import dao.UserDAO;
+import dao.AdminDAO;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.faces.bean.ManagedBean;
@@ -18,8 +18,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import model.StudentBean;
-import model.UnivBean;
+import model.UserBean;
+import model.AdminBean;
 
 /**
  *
@@ -30,38 +30,26 @@ import model.UnivBean;
 public class ResetController {
     private String username;
     private String email;
-    private String univOrS;
+    private String userBean;
     private String password = "";
     private String confirm = "";
-    UnivBean univModel;
-    StudentBean studentModel;
+    AdminBean univModel;
+    UserBean userModel;
     
     public String reset() {
-        if (univOrS.equals("University")) {
-            ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
-            univModel = tmp.get(0);
-            univModel.setPassword(password);
-            int status1 = (new UnivDAO()).updateProfile(univModel); // Doing anything with the object after this?
+
+            ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
+            userModel = tmp.get(0);
+            userModel.setPassword(password);
+            int status1 = (new UserDAO()).updateProfile(userModel); // Doing anything with the object after this?
 
             if (status1 != 0) {
                 return "Login.xhtml?faces-redirect=true";
             } else {
                 return "error.xhtml";
             }
-        }
-        else if (univOrS.equals("Student")) {
-            ArrayList<StudentBean> tmp = (new StudentDAO()).findByUserName(username);
-            studentModel = tmp.get(0);
-            studentModel.setPassword(password);
-            int status1 = (new StudentDAO()).updateProfile(studentModel); // Doing anything with the object after this?
+        
 
-            if (status1 != 0) {
-                return "Login.xhtml?faces-redirect=true";
-            } else {
-                return "error.xhtml";
-            }
-        }
-        return "index.xhtml";
     }
     
     public String checkMatch() {
@@ -83,19 +71,14 @@ public class ResetController {
     }
     
     public String sendReset() {
-        if(univOrS.equals("University")) {
-            ArrayList<UnivBean> tmp = (new UnivDAO()).findByUserName(username);
-            univModel = tmp.get(0);
-            email = univModel.getEmail();
-        }
-        else if (univOrS.equals("Student")) {
-            ArrayList<StudentBean> tmp = (new StudentDAO()).findByUserName(username);
-            studentModel = tmp.get(0);
-            email = studentModel.getEmail();
-        }
+
+            ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
+            userModel = tmp.get(0);
+            email = userModel.getEmail();
+ 
 
         // Sender's email ID needs to be mentioned
-        String from = "cmohrfe@ilstu.edu";
+        String from = "akolet@ilstu.edu";
         
         // Assuming you are sending email from this host
         String host = "outlook.office365.com";
@@ -111,7 +94,7 @@ public class ResetController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("cmohrfe@ilstu.edu", "4YyhFLmBE5v3"); // I'm gone in two weeks anyways
+                return new PasswordAuthentication("akolet@ilstu.edu", "4YyhFLmBE5v3"); // I'm gone in two weeks anyways
             }
         });
 
@@ -130,8 +113,8 @@ public class ResetController {
             message.setSubject("Password Reset");
 
             // Send the actual HTML message, as big as you like
-            message.setContent("<a href=\"http://gfish2.it.ilstu.edu/cmohrfe_Spring2017_LinkedU/faces/PasswordUpdate.xhtml?username=" + username
-                             + "&univOrS=" + univOrS + "\">Click here to reset your password</a>",
+            message.setContent("<a href=\"http://gfish2.it.ilstu.edu/MeltingPot/faces/PasswordUpdate.xhtml?username=" + username
+                             + "&univOrS=" + userBean + "\">Click here to reset your password</a>",
                     "text/html");
 
             // Send message
@@ -143,72 +126,43 @@ public class ResetController {
         return "PasswordReset.xhtml";
     }
 
-    /**
-     * @return the username
-     */
     public String getUsername() {
         return username;
     }
 
-    /**
-     * @param username the username to set
-     */
     public void setUsername(String username) {
         this.username = username;
     }
 
-    /**
-     * @return the univOrS
-     */
-    public String getUnivOrS() {
-        return univOrS;
+    public String getUserBean() {
+        return userBean;
     }
 
-    /**
-     * @param univOrS the univOrS to set
-     */
-    public void setUnivOrS(String univOrS) {
-        this.univOrS = univOrS;
+
+    public void setUserBean(String userBean) {
+        this.userBean = userBean;
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return the password
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * @param password the password to set
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * @return the confirm
-     */
     public String getConfirm() {
         return confirm;
     }
 
-    /**
-     * @param confirm the confirm to set
-     */
     public void setConfirm(String confirm) {
         this.confirm = confirm;
     }
