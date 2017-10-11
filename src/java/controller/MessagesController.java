@@ -1,12 +1,10 @@
 package controller;
 
 import dao.UserDAO;
-import dao.AdminDAO;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.UserBean;
-import model.AdminBean;
 
 /**
  *
@@ -14,12 +12,12 @@ import model.AdminBean;
  */
 @ManagedBean
 @SessionScoped
-public class UserMessagesController {
+public class MessagesController {
 
     UserBean userBean;
     ArrayList<String> messages = new ArrayList();
 
-    public UserMessagesController() {
+    public MessagesController() {
         userBean = new UserBean();
     }
 
@@ -43,16 +41,13 @@ public class UserMessagesController {
     public String goToPage(String username) {
         ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
         userBean = tmp.get(0);
-        return "UserNotifications.xhtml?faces-redirect=true";
+        return "/Messages/Messages.xhtml?faces-redirect=true";
     }
 
     public int number() {
         int length = 0;
-        ArrayList<String> temp = new ArrayList();
-        temp = messages;
         messages = getMessages();
-        length = temp.size();
-        messages = temp;
+        length = messages.size();
 
         return length;
     }

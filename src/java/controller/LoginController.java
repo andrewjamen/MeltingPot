@@ -14,14 +14,14 @@ import model.UserBean;
  */
 @ManagedBean
 @SessionScoped
-public class UserLoginController {
+public class LoginController {
 
     private boolean loggedIn = false;
     UserBean theModel;
     String response;
     int numAttempts;
 
-    public UserLoginController() {
+    public LoginController() {
         theModel = new UserBean();
     }
 
@@ -67,13 +67,13 @@ public class UserLoginController {
             this.setTheModel(findProfile());
             loggedIn = true;
             response = "";
-            return "UserAccount.xhtml?faces-redirect=true";
+            return "/Account/Account.xhtml?faces-redirect=true";
         }
     }
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
-        return "index.xhtml?faces-redirect=true";
+        return "/Home/Home.xhtml?faces-redirect=true";
 
     }
 

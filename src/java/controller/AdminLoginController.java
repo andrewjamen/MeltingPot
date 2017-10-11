@@ -52,7 +52,7 @@ public class AdminLoginController {
         if (!loggedIn) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("Login.xhtml?faces-redirect=true");
+            nav.performNavigation("/Account/Login.xhtml?faces-redirect=true");
         }
     }
 
@@ -65,13 +65,13 @@ public class AdminLoginController {
             this.setTheModel(findProfile());
             loggedIn = true;
             response = "";
-            return "AdminAccount.xhtml?faces-redirect=true";
+            return "/Admin/AdminAccount.xhtml?faces-redirect=true";
         }
     }
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
-        return "index.xhtml?faces-redirect=true";
+        return "/Home/Home.xhtml?faces-redirect=true";
 
     }
 

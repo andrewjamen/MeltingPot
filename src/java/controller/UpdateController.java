@@ -17,13 +17,13 @@ import model.UserBean;
  */
 @ManagedBean
 @SessionScoped
-public class UserUpdateController {
+public class UpdateController {
 
     private UserBean userBean;
     private String updateStatus;
     private String status;
 
-    public UserUpdateController() {
+    public UpdateController() {
         userBean = new UserBean();
     }
 
@@ -59,9 +59,9 @@ public class UserUpdateController {
         ArrayList users = aStudentDAO.findByUsername(userBean.getUsername());
         userBean = (UserBean) users.get(0);
         if (userBean != null) {
-            return "UserUpdate.xhtml?faces-redirect=true";
+            return "/Account/UpdateProfile.xhtml?faces-redirect=true";
         } else {
-            return "error.xhtml";
+            return "/Home/Error.xhtml?faces-redirect=true";
         }
     }
 
@@ -102,11 +102,11 @@ public class UserUpdateController {
         }
 
         if (status1 != 0) {
-            UserLoginController login = new UserLoginController();
+            LoginController login = new LoginController();
             login.logout();
-            return "Login.xhtml?faces-redirect=true";
+            return "/Account/Login.xhtml?faces-redirect=true";
         } else {
-            return "error.xhtml";
+            return "/Home/Error.xhtml?faces-redirect=true";
         }
 
     }

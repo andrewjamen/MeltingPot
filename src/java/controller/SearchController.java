@@ -2,10 +2,9 @@ package controller;
 
 import dao.UserDAO;
 import java.util.ArrayList;
-import javax.faces.application.FacesMessage;
+import java.util.Iterator;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import model.UserBean;
 
 /**
@@ -14,12 +13,13 @@ import model.UserBean;
  */
 @ManagedBean
 @SessionScoped
-public class UserSearchController {
+public class SearchController {
 
     private String results;
     private UserBean theModel;
+    private String searcher;
 
-    public UserSearchController() {
+    public SearchController() {
         theModel = new UserBean();
     }
 
@@ -31,10 +31,27 @@ public class UserSearchController {
         this.theModel = theModel;
     }
 
+    public String getSearcher() {
+        return searcher;
+    }
+
+    public void setSearcher(String searcher) {
+        this.searcher = searcher;
+    }
+
     public ArrayList<UserBean> getResults() {
         UserDAO userDAO = new UserDAO();
         ArrayList<UserBean> users = userDAO.searchForUsers(theModel.getName(), theModel.getGender(), theModel.getAge(),
                 theModel.getCity(), theModel.getState(), theModel.getReligion(), theModel.getRace(), theModel.getPolitics());
+
+        //dont show your own profile
+        Iterator<UserBean> iter = users.iterator();
+        while (iter.hasNext()) {
+            String removeName = iter.next().getUsername();
+            if (searcher.equals(removeName)) {
+                iter.remove();
+            }
+        }
 
         return users;
     }
@@ -44,19 +61,7 @@ public class UserSearchController {
     }
 
     public String search() {
-        /*
-        if (theModel.getName().equals("") && theModel.getGender().equals("Any") && theModel.getAge() == 0
-                && theModel.getCity().equals("") && theModel.getState().equals("Any") && theModel.getReligion().equals("Any")
-                && theModel.getRace().equals("Any") && theModel.getPolitics().equals("Any")) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Please provide information before searching"));
-            return "UserSearch.xhtml";
-        } else {
 
-            return "UserResults.xhtml";
-        }
-        * 
-        */
-        return "UserResults.xhtml?faces-redirect=true";
+        return "/Search/SearchResults.xhtml?faces-redirect=true";
     }
 }

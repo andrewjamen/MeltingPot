@@ -3,10 +3,8 @@ package controller;
 import dao.UserDAO;
 import java.util.ArrayList;
 import java.util.Properties;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -20,13 +18,13 @@ import model.UserBean;
  */
 @ManagedBean
 @SessionScoped
-public class UserSignUpController {
+public class SignUpController {
 
     private String response;
     private String status = "";
     private UserBean userBean;
 
-    public UserSignUpController() {
+    public SignUpController() {
         userBean = new UserBean();
     }
 
@@ -201,9 +199,9 @@ public class UserSignUpController {
 
         int rowCount = aUserDAO.createProfile(userBean);
         if (rowCount == 1) {
-            return "UserSuccess.xhtml";
+            return "/Account/SignUpSuccess.xhtml?faces-redirect=true";
         } else {
-            return "error.xhml";
+            return "/Home/Error.xhtml?faces-redirect=true";
         }
     }
 

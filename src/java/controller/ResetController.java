@@ -6,7 +6,6 @@
 package controller;
 
 import dao.UserDAO;
-import dao.AdminDAO;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.faces.bean.ManagedBean;
@@ -44,9 +43,9 @@ public class ResetController {
             int status1 = (new UserDAO()).updateProfile(userModel); // Doing anything with the object after this?
 
             if (status1 != 0) {
-                return "Login.xhtml?faces-redirect=true";
+                return "/Account/Login.xhtml?faces-redirect=true";
             } else {
-                return "error.xhtml";
+                return "/Home/Error.xhtml?faces-redirect=true";
             }
         
 
@@ -113,7 +112,7 @@ public class ResetController {
             message.setSubject("Password Reset");
 
             // Send the actual HTML message, as big as you like
-            message.setContent("<a href=\"http://gfish2.it.ilstu.edu/MeltingPot/faces/PasswordUpdate.xhtml?username=" + username
+            message.setContent("<a href=\"http://gfish2.it.ilstu.edu/MeltingPot/faces/Password/PasswordUpdate.xhtml?username=" + username
                              + "&univOrS=" + userBean + "\">Click here to reset your password</a>",
                     "text/html");
 
@@ -123,7 +122,7 @@ public class ResetController {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
-        return "PasswordReset.xhtml";
+        return "/Password/PasswordReset.xhtml?faces-redirect=true";
     }
 
     public String getUsername() {
