@@ -57,16 +57,16 @@
 
                                 <h:form>
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="View Messages (#{messagesController.number()})" action="#{messagesController.goToPage(loginController.theModel.getUsername())}"/><br/><br/><br/>
+                                                     value="View Messages (#{messagesController.number()})" action="#{messagesController.goToPage(loginController.theModel.getUsername())}"/><br/><br/>
 
                                     <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/><br/>
+                                              value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>
 
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="View Friend Requests (#{friendController.numberRequests()})" action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" />
+                                                     value="View Friend Requests (#{friendController.numberRequests()})" action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" /><br/><br/>
                                     
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="View Friends List (#{friendController.numberList()})" action="#{friendController.viewFriendList(loginController.theModel.getUsername())}" />
+                                                     value="View Friends List (#{friendController.numberList()})" action="#{friendController.viewFriendList(loginController.theModel.getUsername())}" /><br/><br/>
                                     
                                     <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                      value="Update Your Information" action="#{updateController.retrieveProfile(loginController.theModel)}" />
