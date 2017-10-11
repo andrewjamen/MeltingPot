@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>User Account</title>
+        <f:metadata>
+            <f:viewAction action="#{messagesController.setUserBean(loginController.theModel)}" />
+            <f:viewAction action="#{friendController.setUserBean(loginController.theModel)}" />
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <ui:composition	template="/WEB-INF/includes/template.xhtml">
+
+            <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="htmlHead">
+                <meta name="description" content="Login" />
+            </ui:define>
+
+            <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="main">
+                <div id="login" style ="width:600px; height:675px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                    <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;float:left">
+                        <h:panelGroup layout="block">
+                            <center>
+                                <h:outputText style="font-size:30px; font-weight: bold;"
+                                              value="#{loginController.theModel.name}'s Account" />
+                            </center><br/><br/>
+
+
+                            <div style="padding-left:25px">
+                                <h3>Location</h3>
+                                City: <h:outputText value="#{loginController.theModel.city}" /><br/>
+                                State: <h:outputText value="#{loginController.theModel.state}" /><br/><br/>
+
+                                <h3>Contact Information:</h3>
+                                Email: <h:outputText value="#{loginController.theModel.email}" /><br/><br/>
+
+                                <h3>Personal Information:</h3>
+                                Age: <h:outputText value="#{loginController.theModel.age}"/><br/>
+                                Gender: <h:outputText value="#{loginController.theModel.gender}"/><br/>
+                                Religion: <h:outputText value="#{loginController.theModel.religion}"/><br/>
+                                Race: <h:outputText value="#{loginController.theModel.race}"/><br/>
+                                Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>                           <h3>Biography:</h3>
+                                <h:outputText value="#{loginController.theModel.bio}" /><br/>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                    <div style="margin-top: 15px">
+                        <h:panelGroup layout="block">
+                            <center>
+                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
+                                              value="Account Tools and Notifications"/><br/><br/><br/>
+
+                                <h:form>
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     value="View Messages (#{messagesController.number()})" action="#{messagesController.goToPage(loginController.theModel.getUsername())}"/><br/><br/><br/>
+
+                                    <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                              value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/><br/>
+
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     value="View Friend Requests (#{friendController.numberRequests()})" action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" />
+                                    
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     value="View Friends List (#{friendController.numberList()})" action="#{friendController.viewFriendList(loginController.theModel.getUsername())}" />
+                                    
+                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                     value="Update Your Information" action="#{updateController.retrieveProfile(loginController.theModel)}" />
+                                </h:form>
+                            </center>
+                        </h:panelGroup>
+                    </div>            
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

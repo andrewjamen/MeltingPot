@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Home</title>
+    </h:head>
+    <h:body>
+        <ui:composition	template="/WEB-INF/includes/template.xhtml">
+
+            <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="htmlHead">
+                <meta name="description" content="Login" />
+            </ui:define>
+
+            <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="main">
+                <div id="login" style ="width:600px; height:450px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8; margin-left: 0px;">
+                    <br/><br/><br/>
+                    <div style="width:255px; height:350px; border-right: 2px solid #888888; margin-top: 0px;margin-left: 15px;padding-left: 25px; float:left">
+                        <center>
+                            <c:if test="${!(loginController.loggedIn || adminLoginController.loggedIn)}">
+                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                          
+                                          value="Login" outcome="/Account/Login.xhtml?faces-redirect=true" /><br/><br/>
+                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                          value="Sign Up" outcome="/Account/SignUp.xhtml?faces-redirect=true" /><br/><br/>
+                            </c:if>
+                            <c:if test="${(loginController.loggedIn)}">
+                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                          value="My Account" outcome="/Account/Account.xhtml?faces-redirect=true" /><br/><br/>
+                            </c:if>
+                            <c:if test="${(adminLoginController.loggedIn)}">
+                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                          value="My Account" outcome="/Admin/AdminAccount.xhtml?faces-redirect=true" /><br/><br/>
+                            </c:if>                        
+                            <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                      value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>
+
+                        </center> 
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>

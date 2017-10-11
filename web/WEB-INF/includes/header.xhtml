@@ -7,34 +7,35 @@
 
         <div style="font-size: 32px;width:750px; float:center; text-align: center; font-family:Arial Black;">Melting Pot</div>
         <div style="width:300px;float:center; padding-top: 15px;">
-            <c:if test="${userLoginController.loggedIn}">
+            <c:if test="${loginController.loggedIn}">
 
                 <h:panelGroup layout="block">
                     <h:form>
-                        <h:commandLink action="index.xhtml?faces-redirect=true" value="Home" /> |
-                        <h:commandLink action="UserAccount?faces-redirect=true" value="#{userLoginController.theModel.username}" /> |
-                        <h:commandLink action="#{userLoginController.logout()}" value="Logout" />
+                        <h:commandLink action="/Home/Home.xhtml?faces-redirect=true" value="Home" /> |
+                        <h:commandLink action="/Account/Account.xhtml?faces-redirect=true" value="#{loginController.theModel.username}" /> |
+                        <h:commandLink action="#{loginController.logout()}" value="Logout" />
                     </h:form>
                 </h:panelGroup>
 
             </c:if>
+     
             <c:if test="${adminLoginController.loggedIn}">
 
                 <h:panelGroup layout="block">
                     <h:form>
-                        <h:commandLink action="index.xhtml?faces-redirect=true" value="Home" /> |
-                        <h:commandLink action="AdminAccount?faces-redirect=true" value="#{adminLoginController.theModel.username}" /> |
+                        <h:commandLink action="/Home/Home.xhtml?faces-redirect=true" value="Home" /> |
+                        <h:commandLink action="/Admin/AdminAccount?faces-redirect=true" value="#{adminLoginController.theModel.username}" /> |
                         <h:commandLink action="#{adminLoginController.logout()}" value="Logout" />
                     </h:form>
                 </h:panelGroup>
 
             </c:if>
-            <c:if test="${!(userLoginController.loggedIn || adminLoginController.loggedIn)}">
+            <c:if test="${!(loginController.loggedIn || adminLoginController.loggedIn)}">
 
                 <h:panelGroup layout="block">
                     <h:form> |
-                        <h:commandLink action="index.xhtml?faces-redirect=true" value="Home" /> |
-                        <h:commandLink action="UserSignUp" value="Sign Up" /> |
+                        <h:commandLink action="/Home/Home.xhtml?faces-redirect=true" value="Home" /> |
+                        <h:commandLink action="/Account/SignUp.xhtml?faces-redirect=true" value="Sign Up" /> |
                     </h:form>
                 </h:panelGroup>
 

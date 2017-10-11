@@ -14,7 +14,7 @@
     </h:head>
     <h:body>
 
-        <ui:composition	template="./WEB-INF/includes/template.xhtml">
+        <ui:composition	template="/WEB-INF/includes/template.xhtml">
 
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
@@ -28,25 +28,25 @@
                     <h:form>
                         <div style="margin-left: 50px;">
                             
-                            <h:outputText value="#{userUpdateController.status}" style="color:#ff0000"/><br/>
+                            <h:outputText value="#{updateController.status}" style="color:#ff0000"/><br/>
                             
-                            Name:<br/><h:inputText style="width:300px" id="lastNameID" value="#{userUpdateController.userBean.name}"/><br/><br/>
+                            Name:<br/><h:inputText style="width:300px" id="lastNameID" value="#{updateController.userBean.name}"/><br/><br/>
 
-                            Password:<h:inputSecret style="width:300px" id="passwordID" value="#{userUpdateController.userBean.password}">  
+                            Password:<h:inputSecret style="width:300px" id="passwordID" value="#{updateController.userBean.password}">  
                                 <f:ajax event="keyup"/><br/>
                             </h:inputSecret><br/><br/>         
 
-                            Confirm Password:<br/><h:inputSecret style="width:300px" id="confirmID" value="#{userUpdateController.userBean.confirm}">
+                            Confirm Password:<br/><h:inputSecret style="width:300px" id="confirmID" value="#{updateController.userBean.confirm}">
                                 <f:ajax event="keyup" render="matchID"/>
                             </h:inputSecret><br/>
-                            <h:outputText style="width:300px" id="matchID" escape="false" value="#{userUpdateController.checkMatch()}"/><br/><br/>
+                            <h:outputText style="width:300px" id="matchID" escape="false" value="#{updateController.checkMatch()}"/><br/><br/>
 
-                            Email:<br/><h:inputText style="width:300px" id="emailID" value="#{userUpdateController.userBean.email}"/><br/><br/>    
+                            Email:<br/><h:inputText style="width:300px" id="emailID" value="#{updateController.userBean.email}"/><br/><br/>    
 
-                            City:<br/><h:inputText style="width:300px" id="cityID" value="#{userUpdateController.userBean.city}"/><br/><br/>  
+                            City:<br/><h:inputText style="width:300px" id="cityID" value="#{updateController.userBean.city}"/><br/><br/>  
 
                             State: <br/>
-                            <h:selectOneMenu id="stateID" style="width:300px"  value="#{userUpdateController.userBean.state}">
+                            <h:selectOneMenu id="stateID" style="width:300px"  value="#{updateController.userBean.state}">
                                 <f:selectItem itemValue="Alabama" itemLabel="Alabama" />
                                 <f:selectItem itemValue="Alaska" itemLabel="Alaska" />
                                 <f:selectItem itemValue="Arizona" itemLabel="Arizona" />
@@ -99,16 +99,16 @@
                             </h:selectOneMenu><br/><br/><br/>
 
                             Gender: <br/>
-                            <h:selectOneMenu id="genderID" style="width:300px"  value="#{userUpdateController.userBean.gender}">
+                            <h:selectOneMenu id="genderID" style="width:300px"  value="#{updateController.userBean.gender}">
                                 <f:selectItem itemValue="Male" itemLabel="Male" />
                                 <f:selectItem itemValue="Female" itemLabel="Female" />
                                 <f:selectItem itemValue="Other" itemLabel="Other" />
                             </h:selectOneMenu><br/><br/>
 
-                            Age:<br/><h:inputText style="width:300px" id="ageID" value="#{userUpdateController.userBean.age}"/><br/><br/>   
+                            Age:<br/><h:inputText style="width:300px" id="ageID" value="#{updateController.userBean.age}"/><br/><br/>   
 
                             Religion: <br/>
-                            <h:selectOneMenu id="religionID" style="width:300px"  value="#{userSignUpController.userBean.religion}">
+                            <h:selectOneMenu id="religionID" style="width:300px"  value="#{updateController.userBean.religion}">
                                 <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
                                 <f:selectItem itemValue="Christian" itemLabel="Christian" />
                                 <f:selectItem itemValue="Islamic" itemLabel="Islamic" />
@@ -120,7 +120,7 @@
                             </h:selectOneMenu><br/><br/>
 
                             Race: <br/>
-                            <h:selectOneMenu id="raceID" style="width:300px"  value="#{userUpdateController.userBean.race}">
+                            <h:selectOneMenu id="raceID" style="width:300px"  value="#{updateController.userBean.race}">
                                 <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
                                 <f:selectItem itemValue="White" itemLabel="White" />
                                 <f:selectItem itemValue="Black" itemLabel="African American or Black" />
@@ -131,7 +131,7 @@
                             </h:selectOneMenu><br/><br/>
 
                             Political Views:<br/>
-                            <h:selectOneMenu id="politicsID" style="width:300px"  value="#{userUpdateController.userBean.politics}">
+                            <h:selectOneMenu id="politicsID" style="width:300px"  value="#{updateController.userBean.politics}">
                                 <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
                                 <f:selectItem itemValue="Liberal" itemLabel="Liberal" />
                                 <f:selectItem itemValue="Conservative" itemLabel="Conservative" />
@@ -140,11 +140,11 @@
                                 <f:selectItem itemValue="Other" itemLabel="Other" />
                             </h:selectOneMenu><br/><br/>
 
-                            Biography:<br/><h:inputTextarea id="statementID" rows="10" cols="40" value="#{userUpdateController.userBean.bio}"/><br/><br/><br/><br/>
+                            Biography:<br/><h:inputTextarea id="statementID" rows="10" cols="40" value="#{updateController.userBean.bio}"/><br/><br/><br/><br/>
 
 
                             <center><h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
-                                                     id="submitID" value="Submit" action="#{userUpdateController.updateUser()}"/></center>
+                                                     id="submitID"  value="Submit" action="#{updateController.updateUser()}"/></center>
                         </div>
                     </h:form>
                 </div>

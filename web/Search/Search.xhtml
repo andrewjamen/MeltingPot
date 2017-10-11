@@ -5,10 +5,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>User Search</title>
+        <title>Search</title>
+        <f:metadata>
+            <f:viewAction action="#{searchController.setSearcher(loginController.theModel.username)}" />
+        </f:metadata>
     </h:head>
     <h:body>
-        <ui:composition	template="./WEB-INF/includes/template.xhtml">
+        <ui:composition	template="/WEB-INF/includes/template.xhtml">
 
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
@@ -20,14 +23,14 @@
                 <div id="login" style ="padding-left: 25px; width:600px; height:700px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
                     <center><h2>User Search</h2></center><br/>
                     <h:form>
-                        Name:<br/><h:inputText  style="width:300px" id="nameID" value="#{userSearchController.theModel.name}">
+                        Name:<br/><h:inputText  style="width:300px" id="nameID" value="#{searchController.theModel.name}">
                         </h:inputText><br/><br/>
 
-                        Age:<br/><h:inputText style="width:300px" id="ageID" value="#{userSearchController.theModel.age}">
+                        Age:<br/><h:inputText style="width:300px" id="ageID" value="#{searchController.theModel.age}">
                         </h:inputText><br/><br/>
 
                         Gender: <br/>
-                        <h:selectOneMenu id="genderID" style="width:300px"  value="#{userSearchController.theModel.gender}">
+                        <h:selectOneMenu id="genderID" style="width:300px"  value="#{searchController.theModel.gender}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Male" itemLabel="Male" />
                             <f:selectItem itemValue="Female" itemLabel="Female" />
@@ -35,7 +38,7 @@
                         </h:selectOneMenu><br/><br/><br/>
 
                         Religion: <br/>
-                        <h:selectOneMenu id="religionID" style="width:300px"  value="#{userSearchController.theModel.religion}">
+                        <h:selectOneMenu id="religionID" style="width:300px"  value="#{searchController.theModel.religion}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Christian" itemLabel="Christian" />
                             <f:selectItem itemValue="Islamic" itemLabel="Islamic" />
@@ -45,11 +48,11 @@
                             <f:selectItem itemValue="Atheist" itemLabel="Atheist" />
                         </h:selectOneMenu><br/><br/>
 
-                        City:<br/><h:inputText style="width:300px" id="cityID" value="#{userSearchController.theModel.city}">
+                        City:<br/><h:inputText style="width:300px" id="cityID" value="#{searchController.theModel.city}">
                         </h:inputText><br/><br/>             
 
                         State: <br/>
-                        <h:selectOneMenu id="stateID" style="width:300px"  value="#{userSearchController.theModel.state}">
+                        <h:selectOneMenu id="stateID" style="width:300px"  value="#{searchController.theModel.state}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Alabama" itemLabel="Alabama" />
                             <f:selectItem itemValue="Alaska" itemLabel="Alaska" />
@@ -103,7 +106,7 @@
                         </h:selectOneMenu><br/><br/><br/>
 
                         Race: <br/>
-                        <h:selectOneMenu id="raceID" style="width:300px"  value="#{userSearchController.theModel.race}">
+                        <h:selectOneMenu id="raceID" style="width:300px"  value="#{searchController.theModel.race}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="White" itemLabel="White" />
                             <f:selectItem itemValue="Black" itemLabel="African American or Black" />
@@ -114,7 +117,7 @@
                         </h:selectOneMenu><br/><br/><br/>
 
                         Political Views:<br/>
-                        <h:selectOneMenu id="politicsID" style="width:300px"  value="#{userSearchController.theModel.politics}">
+                        <h:selectOneMenu id="politicsID" style="width:300px"  value="#{searchController.theModel.politics}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Liberal" itemLabel="Liberal" />
                             <f:selectItem itemValue="Conservative" itemLabel="Conservative" />
@@ -127,7 +130,7 @@
 
                         <center>
                             <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
-                                             id="submitID" value="Search" action="#{userSearchController.search()}"/>
+                                             id="submitID" value="Search" action="#{searchController.search()}"/>
                         </center>
                     </h:form>
                 </div>
