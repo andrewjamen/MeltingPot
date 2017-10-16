@@ -2,6 +2,7 @@
 --Create a database named "MeltingPotLocal" with username "melt" and password "pot" (w/o quotes).
 --Run this SQL file in Netbeans with "MeltingPotLocal" selected in the connection field.
 --Run this file again whenever a team member makes changes to the database structure.
+--Edit this file to add new tables to the database.
 
 --Drops any previously created tables.
 DROP TABLE MELT.Users;
