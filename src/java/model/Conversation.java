@@ -23,6 +23,10 @@ public class Conversation {
         //TODO: Values for testing only. Change later.
         this.username = "default-sender";
         this.partnerUsername = "default-receiver";
+        
+        //TODO: Remove this:
+        messages.add(new Message("pdkaufm"));
+        messages.add(new Message("pdkaufm"));
     }
     
     public Conversation(String username, String partnerUsername) {

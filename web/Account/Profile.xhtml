@@ -18,12 +18,13 @@
 
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
+                <link href="../../Resources/Styles/ConversationStyles.css" rel="stylesheet" type="text/css"/>
                 <meta name="description" content="Login" />
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:750px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" style ="width:900px; height:750px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
                     <div style="width:255px; height:470; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
 
                         <h:panelGroup layout="block">
@@ -58,21 +59,37 @@
                         <div style="margin-top: 15px">
                             <h:panelGroup layout="block">
                                 <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Profile Options"/><br/><br/><br/><br/><br/>
+                                              value="Profile Options"/><br/><br/>
 
                                 <h:form>
-                                    <!--<c:if test="loginController.loggedIn">
+                                    <c:if test="#{loginController.loggedIn}">
                                         <div class="message_board">
-                                            <p:repeat id="messages" value="#{conversationController.conversationModel.messages}">
-                                            
+                                            <p:repeat id="messages" value="#{conversationController.conversationModel.messages}" var="mesg">
+                                                <p class="#{mesg.getType(loginController.theModel.username)}"
+                                                   title="#{mesg.dateTime}">
+                                                    <h:outputText value="#{mesg.content}" />
+                                                </p>
                                             </p:repeat>
                                         </div>
-                                    </c:if>-->
+                                        <table class="message_input_table">
+                                            <tr>
+                                                <td>
+                                                  <p:inputText styleClass="message_text_input" />  
+                                                </td>
+                                                <td>
+                                                    <p:commandButton value="send" styleClass="message_send_button">
+                                                        
+                                                    </p:commandButton>
+                                                </td>
+                                                
+                                            </tr>
+                                        </table>
+                                    </c:if>
                                     
                                     <c:if test="${loginController.loggedIn}">
-                                        <h:inputTextarea rows="8" cols="30" binding="#{message}" a:placeholder="Enter a message you would like to send this user (no special char's)"/><br/>
+                                        <!--<h:inputTextarea rows="8" cols="30" binding="#{message}" a:placeholder="Enter a message you would like to send this user (no special char's)"/><br/>
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Send Message" onclick="alert('Message Sent!');" action="#{profileController.sendMessage(loginController.theModel.username, message.value)}" /><br/><br/><br/>
+                                                         value="Send Message" onclick="alert('Message Sent!');" action="#{profileController.sendMessage(loginController.theModel.username, message.value)}" /><br/><br/><br/>-->
 
                                         <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
                                             <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"

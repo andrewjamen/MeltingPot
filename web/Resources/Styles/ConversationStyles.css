@@ -54,7 +54,7 @@
 .message_send_button {
     background-color: blue;
     color: white;
-    padding: 2px 15px;
+    padding: 0px 2px;
     font-size: inherit;
     border: none;
     border-radius: 25px;
