@@ -4,6 +4,7 @@ import dao.UserDAO;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.UserBean;
 
 /**
@@ -30,7 +31,14 @@ public class ProfileController {
 
     public String getProfilePage(String username) {
         findProfile(username);
+        prepareConversation(username);
         return "/Account/Profile.xhtml?faces-redirect=true";
+    }
+    
+    public void prepareConversation(String username) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ConversationController conversation = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{conversationController}", ConversationController.class);
+        conversation.startConversation(username);
     }
 
     public void sendMessage(String sender, String message) {

@@ -60,9 +60,15 @@
                                 <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
                                               value="Profile Options"/><br/><br/><br/><br/><br/>
 
-                                <h:form>  
-
-
+                                <h:form>
+                                    <!--<c:if test="loginController.loggedIn">
+                                        <div class="message_board">
+                                            <p:repeat id="messages" value="#{conversationController.conversationModel.messages}">
+                                            
+                                            </p:repeat>
+                                        </div>
+                                    </c:if>-->
+                                    
                                     <c:if test="${loginController.loggedIn}">
                                         <h:inputTextarea rows="8" cols="30" binding="#{message}" a:placeholder="Enter a message you would like to send this user (no special char's)"/><br/>
                                         <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
@@ -71,7 +77,8 @@
                                         <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
                                             <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                              value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
-                                        </c:if>    
+                                        
+                                        </c:if>
                                     </c:if>
                                     <c:if test="${!loginController.loggedIn}">
                                         <center><h3>Login to see additional tools!</h3></center>
