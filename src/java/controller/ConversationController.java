@@ -46,13 +46,11 @@ public class ConversationController {
 
     public void sendMessage() {
         conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), this.content, new Date()));
-        System.out.println("Username: " + username + " Content: " + this.content);
         this.content="";
     }
     
     public void receiveMessages() {
         conversationModel.receiveMessages();
-        System.out.println("Message Received");
     }
     
     public Conversation getConversationModel() {
