@@ -6,8 +6,9 @@
 package controller;
 
 import java.util.Date;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Conversation;
 import model.Message;
@@ -16,12 +17,14 @@ import model.Message;
  *
  * @author Perry
  */
+@ManagedBean
 @Named(value = "conversationController")
-@Dependent
+@SessionScoped
 public class ConversationController {
 
     private Conversation conversationModel = null;
     private String username = null;
+    private String content = "";
     
     /**
      * Creates a new instance of ConversationController
@@ -36,15 +39,20 @@ public class ConversationController {
     }
     
     public void startConversation(String partnerUsername) {
+        content="";
         conversationModel = new Conversation(this.username, partnerUsername);
+        System.out.println("Conversation started.");
     }
 
-    public void sendMessage(String content) {
-        conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), content, new Date()));
+    public void sendMessage() {
+        conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), this.content, new Date()));
+        System.out.println("Username: " + username + " Content: " + this.content);
+        this.content="";
     }
     
     public void receiveMessages() {
         conversationModel.receiveMessages();
+        System.out.println("Message Received");
     }
     
     public Conversation getConversationModel() {
@@ -53,6 +61,14 @@ public class ConversationController {
 
     public void setConversationModel(Conversation conversation) {
         this.conversationModel = conversation;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
     
     

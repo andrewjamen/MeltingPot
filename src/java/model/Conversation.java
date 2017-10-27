@@ -12,21 +12,19 @@ import java.util.ArrayList;
  * @author Perry
  */
 public class Conversation {
-    private int id; 
+    private int id;
+    private int idLastReceived;
     private ArrayList<Message> messages;
     String username;
     String partnerUsername;
 
     public Conversation() {
         this.id = 0;
+        this.idLastReceived = -1;
         this.messages = new ArrayList();
         //TODO: Values for testing only. Change later.
         this.username = "default-sender";
         this.partnerUsername = "default-receiver";
-        
-        //TODO: Remove this:
-        messages.add(new Message("pdkaufm"));
-        messages.add(new Message("pdkaufm"));
     }
     
     public Conversation(String username, String partnerUsername) {
@@ -36,10 +34,12 @@ public class Conversation {
         //TODO: Get existing conversation from database if exists.
         
         //TODO: If conversation does not exist, create conversation.
+        
+        //TODO: Initialize idLastReceived, partnerUsername, and messages.
     }
     
     /**
-     * 
+     * Add new message to array and database from the user.
      * @param message
      */
     public void sendMessage(Message message) {
@@ -47,11 +47,19 @@ public class Conversation {
         //TODO: Create message in database.
     }
     
+    /**
+     * Check database for new messages to be received.
+     */
     public void receiveMessages() {
-        //TODO: Read new messages from database.
-        Message message = new Message();
+        //addMessage(new Message()); //Uncomment to test poll
         
-        addMessage(message);
+        ArrayList<Message> receivedMessages = new ArrayList();
+        
+        //TODO: Read new messages from database.
+        
+        for (int i = 0; i < receivedMessages.size(); i++) {
+            addMessage(receivedMessages.get(i));
+        }
     }
 
     public ArrayList<Message> getMessages() {

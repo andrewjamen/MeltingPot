@@ -38,13 +38,13 @@ public class Message {
         this.sender = sender;
     }
     
-    public Message(String receiver, String sender) {
+    public Message(String sender, String receiver) {
         this(sender);
         this.receiver = receiver;
     }
     
-    public Message(String receiver, String sender, String content, Date dateTime) {
-        this(receiver, sender);
+    public Message(String sender, String receiver, String content, Date dateTime) {
+        this(sender, receiver);
         this.content = content;
         this.dateTime = dateTime;
     }
