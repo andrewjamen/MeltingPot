@@ -41,10 +41,10 @@ public class ConversationController {
     public void startConversation(String partnerUsername) {
         content="";
         conversationModel = new Conversation(this.username, partnerUsername);
-        System.out.println("Conversation started.");
     }
 
     public void sendMessage() {
+        if (content.equals("")) return;
         conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), this.content, new Date()));
         this.content="";
     }
