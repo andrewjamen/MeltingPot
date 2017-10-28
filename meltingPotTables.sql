@@ -35,18 +35,19 @@ INSERT INTO MELT.Users VALUES ('pdkaufm', '123', 'Perry', 26, 'Male', 'Normal', 
 
 --Conversation Table
 CREATE TABLE MELT.Conversations(
-    CHAT_ID                 INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    CONV_ID                  INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     USERNAME_A               VARCHAR(25),
     USERNAME_B               VARCHAR(25)
 );
 
 --Message Table
 CREATE TABLE MELT.Messages(
-    CHAT_ID                 INTEGER,
     MESSAGE_ID              INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    CONV_ID                 INTEGER,
     SENDER                  VARCHAR(25),
     RECEIVER                VARCHAR(25),
-    DATETIME                TIMESTAMP
+    DATETIME                TIMESTAMP,
+    CONTENT                 VARCHAR(280)
 );
 
 --TODO: Add admin table.
