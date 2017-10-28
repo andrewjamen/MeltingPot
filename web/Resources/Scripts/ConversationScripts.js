@@ -1,4 +1,7 @@
-var i = 0;
+
+$(document).ready(function() {
+    scrollToBottom();
+});
 
 function onSendComplete() {
     scrollToBottom();
@@ -8,12 +11,12 @@ function onSendComplete() {
 };
 
 function onReceiveComplete() {
-    //TODO: make this conditional on scrollheight having changed.
     scrollToBottom();
 }
 
 function scrollToBottom() {
     //Scroll message board to the bottom.
+    //TODO: Make this conditional new new messages having been received or posted.
     var board = $('#message_form\\:message_board');
     board.scrollTop(board.prop("scrollHeight"));
 }

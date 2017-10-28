@@ -15,7 +15,7 @@ import model.Message;
 
 /**
  *
- * @author Perry
+ * @author Perry Kaufman
  */
 @ManagedBean
 @Named(value = "conversationController")
@@ -38,6 +38,10 @@ public class ConversationController {
         }
     }
     
+    /**
+     * Initializes the conversation model.
+     * @param partnerUsername 
+     */
     public void startConversation(String partnerUsername) {
         content="";
         conversationModel = new Conversation(this.username, partnerUsername);

@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Perry
+ * @author Perry Kaufman
  */
 public class Message {
     public static final int CHARACTER_LIMIT = 280;
@@ -47,6 +47,11 @@ public class Message {
         this(sender, receiver);
         this.content = content;
         this.dateTime = dateTime;
+    }
+    
+    public Message(int id, String sender, String receiver, String content, Date dateTime) {
+        this(sender, receiver, content, dateTime);
+        this.id = id;
     }
 
     public String getType(String username) {
