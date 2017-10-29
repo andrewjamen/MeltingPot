@@ -18,8 +18,8 @@ public class Conversation {
 
     private int id;
     private ArrayList<Message> messages;
-    String username;
-    String partnerUsername;
+    private String username;
+    private String partnerUsername;
 
     public Conversation() {
         this.id = -1;
@@ -67,7 +67,7 @@ public class Conversation {
      *
      * @return
      */
-    public final boolean getConversationIfExists() {
+    private final boolean getConversationIfExists() {
         this.id = ConversationDAO.getConversation(username, partnerUsername);
         if (id > -1) {
             this.messages = ConversationDAO.getAllMessages(id);
@@ -81,7 +81,7 @@ public class Conversation {
      *
      * @throws Exception If conversation could not be created.
      */
-    public void createConversation() throws Exception {
+    private void createConversation() throws Exception {
         this.id = ConversationDAO.createConversation(username, partnerUsername);
         if (id < 0) {
             throw new Exception("Conversation not created.");
