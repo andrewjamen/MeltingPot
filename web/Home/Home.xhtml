@@ -13,33 +13,36 @@
 
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
-                <h:outputScript name="../Resources/css/ConversationStyles.css" />
+                <link href="../../Resources/Styles/main.css" rel="stylesheet" type="text/css"/>
                 <meta name="description" content="Login" />
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:450px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8; margin-left: 0px;">
+                <div id="login" class ="sticker" style = "height: 300px; margin-top: 150px; padding: 10px" >
+                    
+                    <center><h2 style="text-align: center;">Home </h2></center>
                     <br/><br/><br/>
-                    <div style="width:255px; height:350px; border-right: 2px solid #888888; margin-top: 0px;margin-left: 15px;padding-left: 25px; float:left">
+                    <div>
                         <center>
                             <c:if test="${!(loginController.loggedIn || adminLoginController.loggedIn)}">
-                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                
+                                <h:button
                                           
-                                          value="Login" outcome="/Account/Login.xhtml?faces-redirect=true" /><br/><br/>
-                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                          value="Sign Up" outcome="/Account/SignUp.xhtml?faces-redirect=true" /><br/><br/>
+                                         class="button" value="Login" outcome="/Account/Login.xhtml?faces-redirect=true" />&nbsp;&nbsp;
+                                <h:button  class="button"
+                                          value="Sign Up" outcome="/Account/SignUp.xhtml?faces-redirect=true" />&nbsp;&nbsp;
                             </c:if>
                             <c:if test="${(loginController.loggedIn)}">
-                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                          value="My Account" outcome="/Account/Account.xhtml?faces-redirect=true" /><br/><br/>
+                                <h:button class="button"
+                                          value="My Account" outcome="/Account/Account.xhtml?faces-redirect=true" />&nbsp;&nbsp;
                             </c:if>
                             <c:if test="${(adminLoginController.loggedIn)}">
-                                <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                          value="My Account" outcome="/Admin/AdminAccount.xhtml?faces-redirect=true" /><br/><br/>
+                                <h:button class="button"
+                                          value="My Account" outcome="/Admin/AdminAccount.xhtml?faces-redirect=true" />&nbsp;&nbsp;
                             </c:if>                        
-                            <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                      value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>
+                            <h:button class="button"
+                                      value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" />
 
                         </center> 
                     </div>

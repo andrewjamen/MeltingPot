@@ -12,21 +12,22 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
+                 <link href="../../Resources/Styles/main.css" rel="stylesheet" type="text/css"/>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
-            <ui:define name="main">
-                <div id="login" style ="padding-left: 25px; width:600px; height:400px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
+            <ui:define name="main" >
+                <div id="login" class ="sticker" style ="width: 450px;" >
                     
-                    <h2>User Results:</h2><br/>
-                    <h:dataTable id="studentResults" value="#{searchController.getResults()}" var="aRow"
+                    <h2 style = "margin-left: 20px;">User Results:</h2><br/>
+                    <h:dataTable style = "margin-left: 20px;" id="studentResults" value="#{searchController.getResults()}" var="aRow"
                                  border="0" cellpadding="0" cellspacing="0">
                         <h:column>
                             <h3><h:outputText value="#{aRow.name}"/>&#160;&#160;&#160;</h3>
                         </h:column>
                         <h:column>
                             <h:form>
-                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
+                                <h:commandButton  class = "button"
                                 value="Go to profile" action="#{profileController.getProfilePage(aRow.username)}"/>&#160;&#160;&#160;
                             </h:form>
 

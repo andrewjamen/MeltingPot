@@ -18,11 +18,12 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
+                <link href="../../Resources/Styles/main.css" rel="stylesheet" type="text/css"/>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:675px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" class = "sticker" style = "height:900px; ">
                     <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;float:left">
                         <h:panelGroup layout="block">
                             <center>
@@ -32,19 +33,21 @@
 
 
                             <div style="padding-left:25px">
-                                <h3>Location</h3>
+                                <h2>Location</h2>
                                 City: <h:outputText value="#{loginController.theModel.city}" /><br/>
                                 State: <h:outputText value="#{loginController.theModel.state}" /><br/><br/>
 
-                                <h3>Contact Information:</h3>
+                                <h2>Contact Information:</h2>
                                 Email: <h:outputText value="#{loginController.theModel.email}" /><br/><br/>
 
-                                <h3>Personal Information:</h3>
+                                <h2>Personal Information:</h2>
                                 Age: <h:outputText value="#{loginController.theModel.age}"/><br/>
                                 Gender: <h:outputText value="#{loginController.theModel.gender}"/><br/>
                                 Religion: <h:outputText value="#{loginController.theModel.religion}"/><br/>
                                 Race: <h:outputText value="#{loginController.theModel.race}"/><br/>
-                                Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>                           <h3>Biography:</h3>
+                                Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>                           
+                                
+                                <h2>Biography:</h2>
                                 <h:outputText value="#{loginController.theModel.bio}" /><br/>
                             </div>
                         </h:panelGroup>
@@ -56,19 +59,19 @@
                                               value="Account Tools and Notifications"/><br/><br/><br/>
 
                                 <h:form>
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    <h:commandButton class="button" style ="font-style:italic;"
                                                      value="View Messages (#{messagesController.number()})" action="#{messagesController.goToPage(loginController.theModel.getUsername())}"/><br/><br/>
 
-                                    <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    <h:button  class="button" 
                                               value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>
 
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    <h:commandButton class="button" style ="font-style:italic;" 
                                                      value="View Friend Requests (#{friendController.numberRequests()})" action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" /><br/><br/>
                                     
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    <h:commandButton class="button" 
                                                      value="View Friends List (#{friendController.numberList()})" action="#{friendController.viewFriendList(loginController.theModel.getUsername())}" /><br/><br/>
                                     
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                    <h:commandButton class="button" 
                                                      value="Update Your Information" action="#{updateController.retrieveProfile(loginController.theModel)}" />
                                 </h:form>
                             </center>

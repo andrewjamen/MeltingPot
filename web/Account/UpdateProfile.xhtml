@@ -19,11 +19,12 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
+                <link href="../../Resources/Styles/main.css" rel="stylesheet" type="text/css"/>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style="width:600px; height:1100px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
+                <div id="login" class = "sticker" style = "height:1100px;">
                     <center><h3>Account Update</h3></center>
                     <h:form>
                         <div style="margin-left: 50px;">
@@ -143,7 +144,7 @@
                             Biography:<br/><h:inputTextarea id="statementID" rows="10" cols="40" value="#{updateController.userBean.bio}"/><br/><br/><br/><br/>
 
 
-                            <center><h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                            <center><h:commandButton class ="button"
                                                      id="submitID"  value="Submit" action="#{updateController.updateUser()}"/></center>
                         </div>
                     </h:form>

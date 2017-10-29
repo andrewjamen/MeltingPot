@@ -16,11 +16,12 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
+                <link href="../../Resources/Styles/main.css" rel="stylesheet" type="text/css"/>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="padding-left: 25px; width:600px; height:700px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
+                <div id="login" class = "sticker" style = "height:840px; opacity: 0.96; padding-left: 50px;">
                     <center><h2>User Search</h2></center><br/>
                     <h:form>
                         Name:<br/><h:inputText  style="width:300px" id="nameID" value="#{searchController.theModel.name}">
@@ -129,7 +130,7 @@
                         <!--TODO: put in min rating-->
 
                         <center>
-                            <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                            <h:commandButton class = "button"
                                              id="submitID" value="Search" action="#{searchController.search()}"/>
                         </center>
                     </h:form>

@@ -5,12 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>User Sign Up</title>
-        <style>
-            inputStyle{
-                width: 400px;
-            }
-        </style>    
+        <title>User Sign Up</title> 
     </h:head>
     <h:body>
 
@@ -19,39 +14,50 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
+                <link href="../../Resources/Styles/main.css" rel="stylesheet" type="text/css"/>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="sign up" style="width:600px; height:1200px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8;">
-                    <center><h3>Sign Up</h3></center>
+                <div id="sign up" class = "sticker" style = "height:1500px; opacity: 0.96;">
+                    <h3>Sign Up</h3>
                     <h:form>
                         <div style="margin-left: 50px;">
                             
-                            <h:outputText value="#{signUpController.status}" style="color:#ff0000"/><br/>
+                            <h:outputText value="#{signUpController.status}" style="color:red"/><br/>
                             
                             Name:<br/><h:inputText style="width:300px" id="lastNameID" value="#{signUpController.userBean.name}"/><br/><br/>
 
-                            User Name:<br/><h:inputText style="width:300px" id="userNameID" value="#{signUpController.userBean.username}">
+                              User Name:<br/>
+                              <div class="tooltip"> <h:inputText style="width:300px" id="userNameID" value="#{signUpController.userBean.username}">
                                 <f:ajax event="keyup" render="availableID"/>
-                            </h:inputText><br/>
-                            <h:outputText id="availableID" escape="false" value="#{signUpController.checkAvailable()}"/><br/><br/>
+                            </h:inputText>
+                              
+                              
+                                  <h:outputText class="tooltiptext tooltip-right" style ="font-size: 9px;"  id="availableID" escape="false" value="#{signUpController.checkAvailable()}"/>
+                              </div>
+                            <br/><br/>
+                              
 
-                            Password:<h:inputSecret style="width:300px" id="passwordID" value="#{signUpController.userBean.password}">  
+                            Password:
+                            <h:inputSecret style="width:300px" id="passwordID" value="#{signUpController.userBean.password}">  
                                 <f:ajax event="keyup"/><br/>
                             </h:inputSecret><br/><br/>         
 
-                            Confirm Password:<br/><h:inputSecret style="width:300px" id="confirmID" value="#{signUpController.userBean.confirm}">
+                            Confirm Password:<br/>
+                            <div class="tooltip"> <h:inputSecret style="width:300px" id="confirmID" value="#{signUpController.userBean.confirm}">
                                 <f:ajax event="keyup" render="matchID"/>
                             </h:inputSecret><br/>
-                            <h:outputText style="width:300px" id="matchID" escape="false" value="#{signUpController.checkMatch()}"/><br/><br/>
-
+                            <h:outputText style="font-size: 9px;" class="tooltiptext tooltip-right" id="matchID" escape="false" value="#{signUpController.checkMatch()}"/>
+                            </div>
+                            <br></br>
+                            <br></br>
                             Email:<br/><h:inputText style="width:300px" id="emailID" value="#{signUpController.userBean.email}"/><br/><br/>    
 
                             City:<br/><h:inputText style="width:300px" id="cityID" value="#{signUpController.userBean.city}"/><br/><br/>  
 
                             State: <br/>
-                            <h:selectOneMenu id="stateID" style="width:300px"  value="#{signUpController.userBean.state}">
+                            <h:selectOneMenu id="stateID" style="width:300px "  value="#{signUpController.userBean.state}">
                                 <f:selectItem itemValue="Alabama" itemLabel="Alabama" />
                                 <f:selectItem itemValue="Alaska" itemLabel="Alaska" />
                                 <f:selectItem itemValue="Arizona" itemLabel="Arizona" />
@@ -101,7 +107,7 @@
                                 <f:selectItem itemValue="West Virginia" itemLabel="West Virginia" />
                                 <f:selectItem itemValue="Wisonsin" itemLabel="Wisonsin" />
                                 <f:selectItem itemValue="Wyoming" itemLabel="Wyoming" />
-                            </h:selectOneMenu><br/><br/><br/>
+                            </h:selectOneMenu><br/><br/>
 
                             Gender: <br/>
                             <h:selectOneMenu id="genderID" style="width:300px"  value="#{signUpController.userBean.gender}">
@@ -148,7 +154,7 @@
                             Biography:<br/><h:inputTextarea id="statementID" rows="10" cols="40" value="#{signUpController.userBean.bio}"/><br/><br/><br/><br/>
 
 
-                            <center><h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                            <center><h:commandButton class = "button"
                                                      id="submitID" value="Submit" action="#{signUpController.createProfile()}"/></center>
                         </div>
                     </h:form>
