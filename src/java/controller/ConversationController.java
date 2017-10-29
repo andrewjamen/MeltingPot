@@ -6,22 +6,25 @@
 package controller;
 
 import java.util.Date;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Conversation;
 import model.Message;
 
 /**
  *
- * @author Perry
+ * @author Perry Kaufman
  */
+@ManagedBean
 @Named(value = "conversationController")
-@Dependent
+@SessionScoped
 public class ConversationController {
 
     private Conversation conversationModel = null;
     private String username = null;
+    private String content = "";
     
     /**
      * Creates a new instance of ConversationController
@@ -35,12 +38,19 @@ public class ConversationController {
         }
     }
     
+    /**
+     * Initializes the conversation model.
+     * @param partnerUsername 
+     */
     public void startConversation(String partnerUsername) {
+        content="";
         conversationModel = new Conversation(this.username, partnerUsername);
     }
 
-    public void sendMessage(String content) {
-        conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), content, new Date()));
+    public void sendMessage() {
+        if (content.equals("")) return;
+        conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), this.content, new Date()));
+        this.content="";
     }
     
     public void receiveMessages() {
@@ -53,6 +63,14 @@ public class ConversationController {
 
     public void setConversationModel(Conversation conversation) {
         this.conversationModel = conversation;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
     
     

@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Perry
+ * @author Perry Kaufman
  */
 public class Message {
     public static final int CHARACTER_LIMIT = 280;
@@ -17,6 +17,9 @@ public class Message {
     //Types of messages
     public static final String LEFT_TYPE = "left_message";
     public static final String RIGHT_TYPE = "right_message";
+    
+    //String ID Template
+    public static final String ID_TEMPLATE = "conv_message_";
     
     //Data
     private int id;
@@ -38,15 +41,21 @@ public class Message {
         this.sender = sender;
     }
     
-    public Message(String receiver, String sender) {
+    public Message(String sender, String receiver) {
         this(sender);
         this.receiver = receiver;
     }
     
-    public Message(String receiver, String sender, String content, Date dateTime) {
-        this(receiver, sender);
+    public Message(String sender, String receiver, String content, Date dateTime) {
+        this(sender, receiver);
+        if (content.length() > CHARACTER_LIMIT) content = content.substring(0, CHARACTER_LIMIT);
         this.content = content;
         this.dateTime = dateTime;
+    }
+    
+    public Message(int id, String sender, String receiver, String content, Date dateTime) {
+        this(sender, receiver, content, dateTime);
+        this.id = id;
     }
 
     public String getType(String username) {
@@ -73,5 +82,13 @@ public class Message {
 
     public int getId() {
         return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getStringId() {
+        return ID_TEMPLATE + this.id;
     }
 }
