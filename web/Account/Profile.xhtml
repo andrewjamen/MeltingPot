@@ -66,7 +66,7 @@
                                     <c:if test="#{loginController.loggedIn}">
                                         <h:panelGroup id="message_board" layout="block" styleClass="message_board">
                                             <ui:repeat id="messages" value="#{conversationController.conversationModel.messages}" var="mesg">
-                                                <p class="#{mesg.getType(loginController.theModel.username)}"
+                                                <p id="#{mesg.stringId}" class="#{mesg.getType(loginController.theModel.username)}"
                                                    title="#{mesg.dateTime}">
                                                     <h:outputText value="#{mesg.content}" />
                                                 </p>

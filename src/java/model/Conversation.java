@@ -52,10 +52,13 @@ public class Conversation {
         }
 
         //Add message to database.
-        ConversationDAO.addMessage(this.id, message);
+        message = ConversationDAO.addMessage(this.id, message);
 
+        if (message == null) return; //Error
+        
         //Add message to array.
-        addMessage(message);
+        this.addMessage(message);
+        this.limitHistory();
     }
 
     /**
@@ -100,6 +103,15 @@ public class Conversation {
         //Add new messages to array.
         for (int i = 0; i < receivedMessages.size(); i++) {
             addMessage(receivedMessages.get(i));
+            this.limitHistory();
+        }
+    }
+    
+    private void limitHistory() {
+        //TODO: Make this more efficient for multiple deletions.
+        if (messages.size() > MAX_HISTORY) {
+            Message message = messages.remove(0);
+            ConversationDAO.deleteMessageByID(message.getId());
         }
     }
 

@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,16 +41,13 @@ public class ConversationDAO {
     private final static String M_CONTENT = "CONTENT";
     private final static String M_DATETIME = "DATETIME";
 
-    public static void main(String args[]) {
-        addMessage(1, new Message("pdkaufm", "test", "Test message 1.", new Date()));
-        addMessage(1, new Message("pdkaufm", "test", "Test message 2.", new Date()));
-    }
-    
     /**
-     * Returns the conversation id of a conversation between two users if it exists. Returns -1 otherwise.
+     * Returns the conversation id of a conversation between two users if it
+     * exists. Returns -1 otherwise.
+     *
      * @param username
      * @param partnerUsername
-     * @return 
+     * @return
      */
     public static int getConversation(String username, String partnerUsername) {
         int conv_id = -1;
@@ -71,6 +69,9 @@ public class ConversationDAO {
                 conv_id = rs.getInt(C_CONV_ID);
             }
 
+            pstmt.close();
+            conn.close();
+            rs.close();
         } catch (Exception e) {
             System.err.println("ERROR: Problem with Conversation Selection");
             e.printStackTrace();
@@ -80,10 +81,12 @@ public class ConversationDAO {
     }
 
     /**
-     * Creates a conversation between two users and returns the conversation id. Returns -1 if this fails.
+     * Creates a conversation between two users and returns the conversation id.
+     * Returns -1 if this fails.
+     *
      * @param username
      * @param partnerUsername
-     * @return 
+     * @return
      */
     public static int createConversation(String username, String partnerUsername) {
         int rowCount = 0;
@@ -113,40 +116,61 @@ public class ConversationDAO {
 
     /**
      * Deletes a conversation by conversation id.
+     *
      * @param id
-     * @return 
+     * @return
      */
     public static boolean deleteConversationByID(int convID) {
         //TODO
         return false;
     }
-    
-    /**
-     * Deletes a message by message id.
-     * @param id
-     * @return 
-     */
-    public static boolean deleteMessageByID(int mesgID) {
-        //TODO
-        return false;
-    }
-    
+
     /**
      * Deletes messages by conversation id.
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public static boolean deleteMessagesByConversation(int convID) {
+    public static boolean deleteMessagesByConversationID(int convID) {
         //TODO
         return false;
     }
 
     /**
+     * Deletes a message by message id.
+     *
+     * @param id
+     * @return
+     */
+    public static boolean deleteMessageByID(int mesgID) {
+        int rowCount = -1;
+        
+        try {
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+            
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM " + M_TABLE_NAME + " WHERE " + M_MESG_ID + " = ?");
+            pstmt.setInt(1, mesgID);
+            
+            rowCount = pstmt.executeUpdate();
+            System.out.println("DELETE " + mesgID);
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("ERROR: Problem with Message Delete");
+            e.printStackTrace();
+        }
+        if (rowCount > 0) return true;
+        return false;
+    }
+
+    /**
      * Gets all messages sent to a specified user after a specified message id.
+     *
      * @param convID
      * @param lastMessageID
      * @param username
-     * @return 
+     * @return
      */
     public static ArrayList getNewMessagesTo(int convID, int lastMessageID, String username) {
         ArrayList<Message> messages = new ArrayList();
@@ -164,6 +188,9 @@ public class ConversationDAO {
 
             messages = processMessageResultSet(rs);
 
+            pstmt.close();
+            conn.close();
+            rs.close();
         } catch (Exception e) {
             System.err.println("ERROR: Problem with Message Select");
             e.printStackTrace();
@@ -173,8 +200,9 @@ public class ConversationDAO {
 
     /**
      * Gets all messages of a conversation.
+     *
      * @param convID
-     * @return 
+     * @return
      */
     public static ArrayList getAllMessages(int convID) {
         ArrayList<Message> messages = new ArrayList();
@@ -190,6 +218,9 @@ public class ConversationDAO {
 
             messages = processMessageResultSet(rs);
 
+            pstmt.close();
+            conn.close();
+            rs.close();
         } catch (Exception e) {
             System.err.println("ERROR: Problem with Message Select");
             e.printStackTrace();
@@ -199,17 +230,18 @@ public class ConversationDAO {
 
     /**
      * Adds a message to a conversation of a specified id.
+     *
      * @param convID
      * @param message
-     * @return 
+     * @return
      */
-    public static boolean addMessage(int convID, Message message) {
-        int rowCount = 0;
+    public static Message addMessage(int convID, Message message) {
+        int rowCount = -1;
         try {
             DBHelper.loadDriver(DRIVER_STRING);
             Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
 
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + M_TABLE_NAME + " VALUES(DEFAULT,?,?,?,?,?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + M_TABLE_NAME + " VALUES(DEFAULT,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1, convID);
             pstmt.setString(2, message.getSender());
             pstmt.setString(3, message.getReceiver());
@@ -218,21 +250,31 @@ public class ConversationDAO {
 
             rowCount = pstmt.executeUpdate();
 
+            ResultSet rs = pstmt.getGeneratedKeys();
+            
+            if (rs.next()) {
+                message.setId(rs.getInt(1));
+            }
+            
+            pstmt.close();
+            conn.close();
         } catch (Exception e) {
             System.err.println("ERROR: Problem with Message Insertion");
             e.printStackTrace();
         }
-        if (rowCount == 1) {
-            return true;
+        if (rowCount != 1) {
+            System.err.println("ERROR: Message Insertion failed.");
+            return null;
         }
-        return false;
+        return message;
     }
 
     /**
      * Processes a ResultSet into an ArrayList of messages.
+     *
      * @param rs
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     private static ArrayList<Message> processMessageResultSet(ResultSet rs) throws Exception {
         ArrayList<Message> messages = new ArrayList();
@@ -251,9 +293,10 @@ public class ConversationDAO {
 
     /**
      * Returns an ArrayList containing the two strings in lexicographical order.
+     *
      * @param str_1
      * @param str_2
-     * @return 
+     * @return
      */
     private static ArrayList<String> sortStringPair(String str_1, String str_2) {
         ArrayList<String> orderedList = new ArrayList();

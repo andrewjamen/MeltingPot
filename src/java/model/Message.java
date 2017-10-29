@@ -18,6 +18,9 @@ public class Message {
     public static final String LEFT_TYPE = "left_message";
     public static final String RIGHT_TYPE = "right_message";
     
+    //String ID Template
+    public static final String ID_TEMPLATE = "conv_message_";
+    
     //Data
     private int id;
     private String receiver;
@@ -45,6 +48,7 @@ public class Message {
     
     public Message(String sender, String receiver, String content, Date dateTime) {
         this(sender, receiver);
+        if (content.length() > CHARACTER_LIMIT) content = content.substring(0, CHARACTER_LIMIT);
         this.content = content;
         this.dateTime = dateTime;
     }
@@ -78,5 +82,13 @@ public class Message {
 
     public int getId() {
         return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getStringId() {
+        return ID_TEMPLATE + this.id;
     }
 }

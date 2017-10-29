@@ -16,7 +16,7 @@ function onReceiveComplete() {
 
 function scrollToBottom() {
     //Scroll message board to the bottom.
-    //TODO: Make this conditional new new messages having been received or posted.
+    //TODO: Make this conditional new new messages having been received or posted?
     var board = $('#message_form\\:message_board');
     board.scrollTop(board.prop("scrollHeight"));
 }
