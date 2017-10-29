@@ -96,10 +96,6 @@
                                 </h:form>
                                 <h:form>
                                     <c:if test="${loginController.loggedIn}">
-                                        <!--<h:inputTextarea rows="8" cols="30" binding="#{message}" a:placeholder="Enter a message you would like to send this user (no special char's)"/><br/>
-                                        <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                         value="Send Message" onclick="alert('Message Sent!');" action="#{profileController.sendMessage(loginController.theModel.username, message.value)}" /><br/><br/><br/>-->
-
                                         <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
                                             <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
                                                              value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
