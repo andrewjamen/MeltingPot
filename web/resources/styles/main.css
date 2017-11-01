@@ -7,6 +7,11 @@
     background-color: black;
 }
 
+.banner_content {
+    margin: auto;
+    width: 800px;
+}
+
 .banner_title {
     font-family: fantasy;
     float: left;
