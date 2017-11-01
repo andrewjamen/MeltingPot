@@ -18,8 +18,10 @@
 
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
-                <link href="../../Resources/Styles/ConversationStyles.css" rel="stylesheet" type="text/css"/>
-                 <script src="../../Resources/Scripts/ConversationScripts.js"></script>
+                
+                <h:outputScript name="scripts/ConversationScripts.js" />
+                <h:outputStylesheet name="styles/ConversationStyles.css" />
+                
                 <meta name="description" content="Login" />
             </ui:define>
 

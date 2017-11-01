@@ -6,16 +6,12 @@
       xmlns:f="http://java.sun.com/jsf/core"
       >
     <h:head>
-        <script>function initialize(){}</script>
-        <link rel="stylesheet" type="text/css" href="resources/stylesheet.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./resources/script.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./resources/jquery-1.4.1.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./resources/jquery.datePicker.js"></script>
-          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <ui:insert name="htmlHead" />
-        
+        <script>function initialize() {}</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <h:outputStylesheet name="styles/main.css" />
     </h:head>
     <h:body onload="initialize()">
         <center>
@@ -23,22 +19,19 @@
                 <h:panelGroup layout="block" >
                     <ui:include src="/WEB-INF/includes/header.xhtml" />
                 </h:panelGroup>
-        
-                <div style ="min-height: 850px; border-bottom: 1px solid #888888;padding:0 ; background-image: url(../map.jpg); background-color: royalblue;">
 
-               
-                <h:panelGrid>
-                   
-                    <h:panelGroup layout="block">
-                        <!-- Display page provides HTML fragment named as "main" -->
-                        <ui:insert name="main" />
-                    </h:panelGroup>
-                </h:panelGrid>
-            </div>
-       
-            <h:panelGroup layout="block" >
-                <ui:include src="/WEB-INF/includes/footer.xhtml" />
-            </h:panelGroup>
+                <div class="page_body">
+                    <h:panelGrid>
+                        <h:panelGroup layout="block">
+                            <!-- Display page provides HTML fragment named as "main" -->
+                            <ui:insert name="main" />
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </div>
+
+                <h:panelGroup layout="block" >
+                    <ui:include src="/WEB-INF/includes/footer.xhtml" />
+                </h:panelGroup>
             </div>
         </center>
     </h:body>
