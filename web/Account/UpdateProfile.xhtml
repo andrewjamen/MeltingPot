@@ -3,9 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        
+
         <style>
             inputStyle{
                 width: 400px;
@@ -24,129 +25,166 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" class = "sticker" style = "height:1100px;">
-                    <center><h3>Account Update</h3></center>
+                <div id="login" class="sticker">
+                    <h3>Account Update</h3>
                     <h:form>
-                        <div style="margin-left: 50px;">
+                        <div class="input_table_container">
+                            <table class="input_table">
+                                <tr>
+                                    <td colspan="2"><h:outputText value="#{updateController.status}" style="color:#ff0000"/></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Name:</td>
+                                    <td><p:inputText style="width:300px" id="lastNameID" value="#{updateController.userBean.name}"/></td>
+                                </tr>
+
+                                <tr><td class="label">Password:</td>
+                                    <td><h:inputSecret style="width:300px" id="passwordID" value="#{updateController.userBean.password}">  
+                                            <f:ajax event="keyup"/>
+                                        </h:inputSecret></td>
+                                </tr>
+
+                                <tr><td class="label">Confirm Password:</td>
+                                    <td><h:inputSecret style="width:300px" id="confirmID" value="#{updateController.userBean.confirm}">
+                                            <f:ajax event="keyup" render="matchID"/>
+                                        </h:inputSecret></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td><h:outputText style="width:300px" id="matchID" escape="false" value="#{updateController.checkMatch()}"/></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Email:</td>
+                                    <td><h:inputText style="width:300px" id="emailID" value="#{updateController.userBean.email}"/></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">City:</td>
+                                    <td><h:inputText style="width:300px" id="cityID" value="#{updateController.userBean.city}"/></td>
+                                </tr> 
+
+                                <tr>
+                                    <td class="label">State:</td>
+                                    <td><h:selectOneMenu id="stateID" style="width:300px"  value="#{updateController.userBean.state}">
+                                            <f:selectItem itemValue="Alabama" itemLabel="Alabama" />
+                                            <f:selectItem itemValue="Alaska" itemLabel="Alaska" />
+                                            <f:selectItem itemValue="Arizona" itemLabel="Arizona" />
+                                            <f:selectItem itemValue="Arkansas" itemLabel="Arkansas" />
+                                            <f:selectItem itemValue="California" itemLabel="California" />
+                                            <f:selectItem itemValue="Colorado" itemLabel="Colorado" />
+                                            <f:selectItem itemValue="Connecticut" itemLabel="Connecticut" />
+                                            <f:selectItem itemValue="Delaware" itemLabel="Delaware" />
+                                            <f:selectItem itemValue="Florida" itemLabel="Florida" />
+                                            <f:selectItem itemValue="Georgia" itemLabel="Georgia" />
+                                            <f:selectItem itemValue="Hawaii" itemLabel="Hawaii" />
+                                            <f:selectItem itemValue="Idaho" itemLabel="Idaho" />
+                                            <f:selectItem itemValue="Illinois" itemLabel="Illinois" />
+                                            <f:selectItem itemValue="Inidana" itemLabel="Inidana" />
+                                            <f:selectItem itemValue="Iowa" itemLabel="Iowa" />
+                                            <f:selectItem itemValue="Kansas" itemLabel="Kansas" />
+                                            <f:selectItem itemValue="Kentucky" itemLabel="Kentucky" />
+                                            <f:selectItem itemValue="Louisiana" itemLabel="Louisiana" />
+                                            <f:selectItem itemValue="Maine" itemLabel="Maine" />
+                                            <f:selectItem itemValue="Maryland" itemLabel="Maryland" />
+                                            <f:selectItem itemValue="Massachusetts" itemLabel="Massachusetts" />
+                                            <f:selectItem itemValue="Michigan" itemLabel="Michigan" />
+                                            <f:selectItem itemValue="Minnesota" itemLabel="Minnesota" />
+                                            <f:selectItem itemValue="Mississippi" itemLabel="Mississippi" />
+                                            <f:selectItem itemValue="Missouri" itemLabel="Missouri" />
+                                            <f:selectItem itemValue="Montana" itemLabel="Montana" />
+                                            <f:selectItem itemValue="Nebraska" itemLabel="Nebraska" />
+                                            <f:selectItem itemValue="Nevada" itemLabel="Nevada" />
+                                            <f:selectItem itemValue="New Hampshire" itemLabel="New Hampshire" />
+                                            <f:selectItem itemValue="New Jersey" itemLabel="New Jersey" />
+                                            <f:selectItem itemValue="New Mexico" itemLabel="New Mexico" />
+                                            <f:selectItem itemValue="New York" itemLabel="New York" />
+                                            <f:selectItem itemValue="North Carolina" itemLabel="North Carolina" />
+                                            <f:selectItem itemValue="North Dakota" itemLabel="North Dakota" />
+                                            <f:selectItem itemValue="Ohio" itemLabel="Ohio" />
+                                            <f:selectItem itemValue="Oklahoma" itemLabel="Oklahoma" />
+                                            <f:selectItem itemValue="Oregon" itemLabel="Oregon" />
+                                            <f:selectItem itemValue="Pennsylvania" itemLabel="Pennsylvania" />
+                                            <f:selectItem itemValue="Rhode Ilsand" itemLabel="Rhode Ilsand" />
+                                            <f:selectItem itemValue="South Carolina" itemLabel="South Carolina" />
+                                            <f:selectItem itemValue="Tennessee" itemLabel="Tennessee" />
+                                            <f:selectItem itemValue="Texas" itemLabel="Texas" />
+                                            <f:selectItem itemValue="Utah" itemLabel="Utah" />
+                                            <f:selectItem itemValue="Vermont" itemLabel="Vermont" />
+                                            <f:selectItem itemValue="Virginia" itemLabel="Virginia" />
+                                            <f:selectItem itemValue="Washington" itemLabel="Washington" />
+                                            <f:selectItem itemValue="West Virginia" itemLabel="West Virginia" />
+                                            <f:selectItem itemValue="Wisonsin" itemLabel="Wisonsin" />
+                                            <f:selectItem itemValue="Wyoming" itemLabel="Wyoming" />
+                                        </h:selectOneMenu></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Gender:</td>
+                                    <td><h:selectOneMenu id="genderID" style="width:300px"  value="#{updateController.userBean.gender}">
+                                            <f:selectItem itemValue="Male" itemLabel="Male" />
+                                            <f:selectItem itemValue="Female" itemLabel="Female" />
+                                            <f:selectItem itemValue="Other" itemLabel="Other" />
+                                        </h:selectOneMenu></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Age:</td>
+                                    <td><h:inputText style="width:300px" id="ageID" value="#{updateController.userBean.age}"/></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Religion:</td>
+                                    <td><h:selectOneMenu id="religionID" style="width:300px"  value="#{updateController.userBean.religion}">
+                                            <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
+                                            <f:selectItem itemValue="Christian" itemLabel="Christian" />
+                                            <f:selectItem itemValue="Islamic" itemLabel="Islamic" />
+                                            <f:selectItem itemValue="Hindu" itemLabel="Hindu" />
+                                            <f:selectItem itemValue="Buddhist" itemLabel="Buddhist" />
+                                            <f:selectItem itemValue="Jewish" itemLabel="Jewsih" />
+                                            <f:selectItem itemValue="Atheist" itemLabel="Atheist" />
+                                            <f:selectItem itemValue="Other" itemLabel="Other" />
+                                        </h:selectOneMenu></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Race:</td>
+                                    <td><h:selectOneMenu id="raceID" style="width:300px"  value="#{updateController.userBean.race}">
+                                            <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
+                                            <f:selectItem itemValue="White" itemLabel="White" />
+                                            <f:selectItem itemValue="Black" itemLabel="African American or Black" />
+                                            <f:selectItem itemValue="Hispanic" itemLabel="Hispanic or Latino" />
+                                            <f:selectItem itemValue="Asian" itemLabel="Asian" />
+                                            <f:selectItem itemValue="American Native" itemLabel="American Native" />
+                                            <f:selectItem itemValue="Other" itemLabel="Other" />
+                                        </h:selectOneMenu></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Political Views:</td>
+                                    <td><h:selectOneMenu id="politicsID" style="width:300px"  value="#{updateController.userBean.politics}">
+                                            <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
+                                            <f:selectItem itemValue="Liberal" itemLabel="Liberal" />
+                                            <f:selectItem itemValue="Conservative" itemLabel="Conservative" />
+                                            <f:selectItem itemValue="Libertarian" itemLabel="Libertarian" />
+                                            <f:selectItem itemValue="Authoritarian " itemLabel="Authoritarian " />
+                                            <f:selectItem itemValue="Other" itemLabel="Other" />
+                                        </h:selectOneMenu></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Biography:</td>
+                                    <td><h:inputTextarea id="statementID" styleClass="input_textarea" value="#{updateController.userBean.bio}"/></td>
+                                </tr>
+
+                            </table>
                             
-                            <h:outputText value="#{updateController.status}" style="color:#ff0000"/><br/>
                             
-                            Name:<br/><h:inputText style="width:300px" id="lastNameID" value="#{updateController.userBean.name}"/><br/><br/>
 
-                            Password:<h:inputSecret style="width:300px" id="passwordID" value="#{updateController.userBean.password}">  
-                                <f:ajax event="keyup"/><br/>
-                            </h:inputSecret><br/><br/>         
-
-                            Confirm Password:<br/><h:inputSecret style="width:300px" id="confirmID" value="#{updateController.userBean.confirm}">
-                                <f:ajax event="keyup" render="matchID"/>
-                            </h:inputSecret><br/>
-                            <h:outputText style="width:300px" id="matchID" escape="false" value="#{updateController.checkMatch()}"/><br/><br/>
-
-                            Email:<br/><h:inputText style="width:300px" id="emailID" value="#{updateController.userBean.email}"/><br/><br/>    
-
-                            City:<br/><h:inputText style="width:300px" id="cityID" value="#{updateController.userBean.city}"/><br/><br/>  
-
-                            State: <br/>
-                            <h:selectOneMenu id="stateID" style="width:300px"  value="#{updateController.userBean.state}">
-                                <f:selectItem itemValue="Alabama" itemLabel="Alabama" />
-                                <f:selectItem itemValue="Alaska" itemLabel="Alaska" />
-                                <f:selectItem itemValue="Arizona" itemLabel="Arizona" />
-                                <f:selectItem itemValue="Arkansas" itemLabel="Arkansas" />
-                                <f:selectItem itemValue="California" itemLabel="California" />
-                                <f:selectItem itemValue="Colorado" itemLabel="Colorado" />
-                                <f:selectItem itemValue="Connecticut" itemLabel="Connecticut" />
-                                <f:selectItem itemValue="Delaware" itemLabel="Delaware" />
-                                <f:selectItem itemValue="Florida" itemLabel="Florida" />
-                                <f:selectItem itemValue="Georgia" itemLabel="Georgia" />
-                                <f:selectItem itemValue="Hawaii" itemLabel="Hawaii" />
-                                <f:selectItem itemValue="Idaho" itemLabel="Idaho" />
-                                <f:selectItem itemValue="Illinois" itemLabel="Illinois" />
-                                <f:selectItem itemValue="Inidana" itemLabel="Inidana" />
-                                <f:selectItem itemValue="Iowa" itemLabel="Iowa" />
-                                <f:selectItem itemValue="Kansas" itemLabel="Kansas" />
-                                <f:selectItem itemValue="Kentucky" itemLabel="Kentucky" />
-                                <f:selectItem itemValue="Louisiana" itemLabel="Louisiana" />
-                                <f:selectItem itemValue="Maine" itemLabel="Maine" />
-                                <f:selectItem itemValue="Maryland" itemLabel="Maryland" />
-                                <f:selectItem itemValue="Massachusetts" itemLabel="Massachusetts" />
-                                <f:selectItem itemValue="Michigan" itemLabel="Michigan" />
-                                <f:selectItem itemValue="Minnesota" itemLabel="Minnesota" />
-                                <f:selectItem itemValue="Mississippi" itemLabel="Mississippi" />
-                                <f:selectItem itemValue="Missouri" itemLabel="Missouri" />
-                                <f:selectItem itemValue="Montana" itemLabel="Montana" />
-                                <f:selectItem itemValue="Nebraska" itemLabel="Nebraska" />
-                                <f:selectItem itemValue="Nevada" itemLabel="Nevada" />
-                                <f:selectItem itemValue="New Hampshire" itemLabel="New Hampshire" />
-                                <f:selectItem itemValue="New Jersey" itemLabel="New Jersey" />
-                                <f:selectItem itemValue="New Mexico" itemLabel="New Mexico" />
-                                <f:selectItem itemValue="New York" itemLabel="New York" />
-                                <f:selectItem itemValue="North Carolina" itemLabel="North Carolina" />
-                                <f:selectItem itemValue="North Dakota" itemLabel="North Dakota" />
-                                <f:selectItem itemValue="Ohio" itemLabel="Ohio" />
-                                <f:selectItem itemValue="Oklahoma" itemLabel="Oklahoma" />
-                                <f:selectItem itemValue="Oregon" itemLabel="Oregon" />
-                                <f:selectItem itemValue="Pennsylvania" itemLabel="Pennsylvania" />
-                                <f:selectItem itemValue="Rhode Ilsand" itemLabel="Rhode Ilsand" />
-                                <f:selectItem itemValue="South Carolina" itemLabel="South Carolina" />
-                                <f:selectItem itemValue="Tennessee" itemLabel="Tennessee" />
-                                <f:selectItem itemValue="Texas" itemLabel="Texas" />
-                                <f:selectItem itemValue="Utah" itemLabel="Utah" />
-                                <f:selectItem itemValue="Vermont" itemLabel="Vermont" />
-                                <f:selectItem itemValue="Virginia" itemLabel="Virginia" />
-                                <f:selectItem itemValue="Washington" itemLabel="Washington" />
-                                <f:selectItem itemValue="West Virginia" itemLabel="West Virginia" />
-                                <f:selectItem itemValue="Wisonsin" itemLabel="Wisonsin" />
-                                <f:selectItem itemValue="Wyoming" itemLabel="Wyoming" />
-                            </h:selectOneMenu><br/><br/><br/>
-
-                            Gender: <br/>
-                            <h:selectOneMenu id="genderID" style="width:300px"  value="#{updateController.userBean.gender}">
-                                <f:selectItem itemValue="Male" itemLabel="Male" />
-                                <f:selectItem itemValue="Female" itemLabel="Female" />
-                                <f:selectItem itemValue="Other" itemLabel="Other" />
-                            </h:selectOneMenu><br/><br/>
-
-                            Age:<br/><h:inputText style="width:300px" id="ageID" value="#{updateController.userBean.age}"/><br/><br/>   
-
-                            Religion: <br/>
-                            <h:selectOneMenu id="religionID" style="width:300px"  value="#{updateController.userBean.religion}">
-                                <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
-                                <f:selectItem itemValue="Christian" itemLabel="Christian" />
-                                <f:selectItem itemValue="Islamic" itemLabel="Islamic" />
-                                <f:selectItem itemValue="Hindu" itemLabel="Hindu" />
-                                <f:selectItem itemValue="Buddhist" itemLabel="Buddhist" />
-                                <f:selectItem itemValue="Jewish" itemLabel="Jewsih" />
-                                <f:selectItem itemValue="Atheist" itemLabel="Atheist" />
-                                <f:selectItem itemValue="Other" itemLabel="Other" />
-                            </h:selectOneMenu><br/><br/>
-
-                            Race: <br/>
-                            <h:selectOneMenu id="raceID" style="width:300px"  value="#{updateController.userBean.race}">
-                                <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
-                                <f:selectItem itemValue="White" itemLabel="White" />
-                                <f:selectItem itemValue="Black" itemLabel="African American or Black" />
-                                <f:selectItem itemValue="Hispanic" itemLabel="Hispanic or Latino" />
-                                <f:selectItem itemValue="Asian" itemLabel="Asian" />
-                                <f:selectItem itemValue="American Native" itemLabel="American Native" />
-                                <f:selectItem itemValue="Other" itemLabel="Other" />
-                            </h:selectOneMenu><br/><br/>
-
-                            Political Views:<br/>
-                            <h:selectOneMenu id="politicsID" style="width:300px"  value="#{updateController.userBean.politics}">
-                                <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
-                                <f:selectItem itemValue="Liberal" itemLabel="Liberal" />
-                                <f:selectItem itemValue="Conservative" itemLabel="Conservative" />
-                                <f:selectItem itemValue="Libertarian" itemLabel="Libertarian" />
-                                <f:selectItem itemValue="Authoritarian " itemLabel="Authoritarian " />
-                                <f:selectItem itemValue="Other" itemLabel="Other" />
-                            </h:selectOneMenu><br/><br/>
-
-                            Biography:<br/><h:inputTextarea id="statementID" rows="10" cols="40" value="#{updateController.userBean.bio}"/><br/><br/><br/><br/>
-
-
-                            <center><h:commandButton class ="button"
-                                                     id="submitID"  value="Submit" action="#{updateController.updateUser()}"/></center>
                         </div>
+                        <h:commandButton class ="button input_button" id="submitID"  value="Submit" action="#{updateController.updateUser()}"/>
                     </h:form>
                 </div>
             </ui:define>

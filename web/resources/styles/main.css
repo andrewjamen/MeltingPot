@@ -1,7 +1,31 @@
+.banner {
+    width: 100%;
+    overflow: auto;
+    position: relative;
+    color: white;
+    font-family: serif;
+    background-color: black;
+}
+
+.banner_title {
+    font-family: fantasy;
+    float: left;
+    padding: 0px 0px 0px 16px;
+    font-size: 36px;
+    text-decoration: none;
+}
+
+.banner_options {
+    font-size: 18px;
+    float: right;
+    padding: 16px 26px 0px 0px;
+    color: white;
+}
+
 .page_body {
     min-height: 850px;
     border-bottom: 1px solid #888888;
-    padding:0;
+    padding: 30px 0px 50px 0px;
     background-image: url(../images/map.jpg);
     background-color: royalblue;
 }
@@ -30,12 +54,13 @@ h3{
 }
 
 h2{
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .sticker{
-    width:700px; 
-    height:600px; 
+    padding: 10px 0px 10px 0px;
+    width: 700px; 
+    min-height:600px; 
     margin-top: 10%; 
     background-color: whitesmoke; 
     margin-left: 0px; 
@@ -44,7 +69,7 @@ h2{
 }
 
 .landingpage{
-        width:700px; 
+    width:700px; 
     height:600px; 
     margin-top: 10%; 
     margin-left: 0px; 
@@ -52,7 +77,32 @@ h2{
     font-weight: bolder;
 }
 
-input[type=text], input[type="password"],select {
+.input_table_container {
+    width: auto;
+    margin: auto;
+    padding: 0 100px 0 0;
+}
+
+.input_table {
+    padding: 1px 5px;
+    text-align: center;
+    margin: auto;
+}
+
+.input_table .label {
+    text-align: right !important;
+}
+
+.input_textarea {
+    resize: none;
+    height: 76px;
+}
+
+.input_button {
+    margin: auto;
+}
+
+input[type=text], input[type="password"],select, .input_textarea {
     width: 100%;
     padding: 2px 20px;
     margin: 4px 0;
@@ -60,7 +110,6 @@ input[type=text], input[type="password"],select {
     border: 1px solid seagreen;
     border-radius: 7px;
     box-sizing: border-box;
-    font-size: 12;
 }
 
 /*
