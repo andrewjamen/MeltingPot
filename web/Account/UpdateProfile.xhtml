@@ -36,39 +36,39 @@
 
                                 <tr>
                                     <td class="label">Name:</td>
-                                    <td><p:inputText style="width:300px" id="lastNameID" value="#{updateController.userBean.name}"/></td>
+                                    <td><p:inputText id="lastNameID" styleClass="input_table_input" value="#{updateController.userBean.name}"/></td>
                                 </tr>
 
                                 <tr><td class="label">Password:</td>
-                                    <td><h:inputSecret style="width:300px" id="passwordID" value="#{updateController.userBean.password}">  
+                                    <td><h:inputSecret id="passwordID" styleClass="input_table_input" value="#{updateController.userBean.password}">  
                                             <f:ajax event="keyup"/>
                                         </h:inputSecret></td>
                                 </tr>
 
                                 <tr><td class="label">Confirm Password:</td>
-                                    <td><h:inputSecret style="width:300px" id="confirmID" value="#{updateController.userBean.confirm}">
+                                    <td><h:inputSecret id="confirmID" styleClass="input_table_input" value="#{updateController.userBean.confirm}">
                                             <f:ajax event="keyup" render="matchID"/>
                                         </h:inputSecret></td>
                                 </tr>
 
                                 <tr>
                                     <td></td>
-                                    <td><h:outputText style="width:300px" id="matchID" escape="false" value="#{updateController.checkMatch()}"/></td>
+                                    <td><h:outputText id="matchID" styleClass="input_table_input" escape="false" value="#{updateController.checkMatch()}"/></td>
                                 </tr>
 
                                 <tr>
                                     <td class="label">Email:</td>
-                                    <td><h:inputText style="width:300px" id="emailID" value="#{updateController.userBean.email}"/></td>
+                                    <td><h:inputText id="emailID" styleClass="input_table_input" value="#{updateController.userBean.email}"/></td>
                                 </tr>
 
                                 <tr>
                                     <td class="label">City:</td>
-                                    <td><h:inputText style="width:300px" id="cityID" value="#{updateController.userBean.city}"/></td>
+                                    <td><h:inputText id="cityID" styleClass="input_table_input" value="#{updateController.userBean.city}"/></td>
                                 </tr> 
 
                                 <tr>
                                     <td class="label">State:</td>
-                                    <td><h:selectOneMenu id="stateID" style="width:300px"  value="#{updateController.userBean.state}">
+                                    <td><h:selectOneMenu id="stateID" styleClass="input_table_input" value="#{updateController.userBean.state}">
                                             <f:selectItem itemValue="Alabama" itemLabel="Alabama" />
                                             <f:selectItem itemValue="Alaska" itemLabel="Alaska" />
                                             <f:selectItem itemValue="Arizona" itemLabel="Arizona" />
@@ -123,7 +123,7 @@
 
                                 <tr>
                                     <td class="label">Gender:</td>
-                                    <td><h:selectOneMenu id="genderID" style="width:300px"  value="#{updateController.userBean.gender}">
+                                    <td><h:selectOneMenu id="genderID" styleClass="input_table_input" value="#{updateController.userBean.gender}">
                                             <f:selectItem itemValue="Male" itemLabel="Male" />
                                             <f:selectItem itemValue="Female" itemLabel="Female" />
                                             <f:selectItem itemValue="Other" itemLabel="Other" />
@@ -132,12 +132,12 @@
 
                                 <tr>
                                     <td class="label">Age:</td>
-                                    <td><h:inputText style="width:300px" id="ageID" value="#{updateController.userBean.age}"/></td>
+                                    <td><h:inputText id="ageID" styleClass="input_table_input" value="#{updateController.userBean.age}"/></td>
                                 </tr>
 
                                 <tr>
                                     <td class="label">Religion:</td>
-                                    <td><h:selectOneMenu id="religionID" style="width:300px"  value="#{updateController.userBean.religion}">
+                                    <td><h:selectOneMenu id="religionID" styleClass="input_table_input" value="#{updateController.userBean.religion}">
                                             <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
                                             <f:selectItem itemValue="Christian" itemLabel="Christian" />
                                             <f:selectItem itemValue="Islamic" itemLabel="Islamic" />
@@ -151,7 +151,7 @@
 
                                 <tr>
                                     <td class="label">Race:</td>
-                                    <td><h:selectOneMenu id="raceID" style="width:300px"  value="#{updateController.userBean.race}">
+                                    <td><h:selectOneMenu id="raceID" styleClass="input_table_input" value="#{updateController.userBean.race}">
                                             <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
                                             <f:selectItem itemValue="White" itemLabel="White" />
                                             <f:selectItem itemValue="Black" itemLabel="African American or Black" />
@@ -164,7 +164,7 @@
 
                                 <tr>
                                     <td class="label">Political Views:</td>
-                                    <td><h:selectOneMenu id="politicsID" style="width:300px"  value="#{updateController.userBean.politics}">
+                                    <td><h:selectOneMenu id="politicsID" styleClass="input_table_input" value="#{updateController.userBean.politics}">
                                             <f:selectItem itemValue="None" itemLabel="Prefer not to Answer" />
                                             <f:selectItem itemValue="Liberal" itemLabel="Liberal" />
                                             <f:selectItem itemValue="Conservative" itemLabel="Conservative" />
@@ -176,7 +176,7 @@
 
                                 <tr>
                                     <td class="label">Biography:</td>
-                                    <td><h:inputTextarea id="statementID" styleClass="input_textarea" value="#{updateController.userBean.bio}"/></td>
+                                    <td><h:inputTextarea id="statementID" styleClass="input_textarea input_table_input" value="#{updateController.userBean.bio}"/></td>
                                 </tr>
 
                             </table>

@@ -63,9 +63,9 @@ h2{
 }
 
 .sticker{
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0px 20px 0px;
     width: 700px; 
-    height:600px; 
+    min-height:600px; 
     margin-top: 10%; 
     background-color: whitesmoke; 
     margin-left: 0px; 
@@ -115,6 +115,10 @@ input[type=text], input[type="password"],select, .input_textarea {
     border: 1px solid seagreen;
     border-radius: 7px;
     box-sizing: border-box;
+}
+
+.input_table_input {
+    width: 300px !important;
 }
 
 /*
