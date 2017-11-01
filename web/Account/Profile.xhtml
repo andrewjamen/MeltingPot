@@ -76,9 +76,7 @@
                                             </ui:repeat>
                                         </h:panelGroup>
                                         <p:poll interval="3"
-                                                listener="#{conversationController.receiveMessages()}"
-                                                update="message_board"
-                                                oncomplete="onReceiveComplete()" />
+                                                listener="#{conversationController.receiveMessages()}" />
                                         <table class="message_input_table">
                                             <tr>
                                                 <td>

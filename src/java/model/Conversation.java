@@ -67,7 +67,7 @@ public class Conversation {
      *
      * @return
      */
-    private final boolean getConversationIfExists() {
+    private boolean getConversationIfExists() {
         this.id = ConversationDAO.getConversation(username, partnerUsername);
         if (id > -1) {
             this.messages = ConversationDAO.getAllMessages(id);
@@ -90,14 +90,15 @@ public class Conversation {
 
     /**
      * Receives new messages if they exist in the database.
+     * @return true if new messages, false otherwise.
      */
-    public void receiveMessages() {
+    public boolean receiveMessages() {
         //addMessage(new Message()); //Uncomment to test poll
 
         //Read new messages from database;
         ArrayList<Message> receivedMessages = ConversationDAO.getNewMessagesTo(this.id, this.getLastIDReceived(), this.username);
-        if (receivedMessages == null) {
-            return;
+        if (receivedMessages == null || receivedMessages.isEmpty()) {
+            return false;
         }
 
         //Add new messages to array.
@@ -105,6 +106,7 @@ public class Conversation {
             addMessage(receivedMessages.get(i));
             this.limitHistory();
         }
+        return true;
     }
     
     private void limitHistory() {

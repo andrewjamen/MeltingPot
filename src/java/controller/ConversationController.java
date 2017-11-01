@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Conversation;
 import model.Message;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -22,6 +23,9 @@ import model.Message;
 @SessionScoped
 public class ConversationController {
 
+    private static final String MESSAGE_BOARD_ID = "message_form:message_board";
+    private static final String SCROLL_FUNCTION = "scrollToBottom()";
+    
     private Conversation conversationModel = null;
     private String username = null;
     private String content = "";
@@ -54,7 +58,11 @@ public class ConversationController {
     }
     
     public void receiveMessages() {
-        conversationModel.receiveMessages();
+        if(conversationModel.receiveMessages()) {
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update(MESSAGE_BOARD_ID);
+            requestContext.execute(SCROLL_FUNCTION);
+        }
     }
     
     public Conversation getConversationModel() {

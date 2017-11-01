@@ -1,8 +1,15 @@
 
-$(document).ready(function() {
+/*
+ * Starts the message board scrolled to the bottom.
+ */
+$(function() {
     scrollToBottom();
 });
 
+/*
+ * Scrolls message board to the bottom and focuses the input text field.
+ * Call after a message is sent and the board is rerendered.
+ */
 function onSendComplete() {
     scrollToBottom();
     
@@ -10,13 +17,11 @@ function onSendComplete() {
     input.focus();
 };
 
-function onReceiveComplete() {
-    scrollToBottom();
-}
-
+/*
+ * Scroll message board to the bottom.
+ * Call whenever messages are rendered.
+ */
 function scrollToBottom() {
-    //Scroll message board to the bottom.
-    //TODO: Make this conditional new new messages having been received or posted?
     var board = $('#message_form\\:message_board');
     board.scrollTop(board.prop("scrollHeight"));
 }

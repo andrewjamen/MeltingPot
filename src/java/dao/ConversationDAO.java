@@ -40,7 +40,7 @@ public class ConversationDAO {
     private final static String M_RECEIVER = "RECEIVER";
     private final static String M_CONTENT = "CONTENT";
     private final static String M_DATETIME = "DATETIME";
-
+    
     /**
      * Returns the conversation id of a conversation between two users if it
      * exists. Returns -1 otherwise.
