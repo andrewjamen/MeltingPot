@@ -8,7 +8,6 @@
     <h:head>
         <title>User Account</title>
         <f:metadata>
-            <f:viewAction action="#{messagesController.setUserBean(loginController.theModel)}" />
             <f:viewAction action="#{friendController.setUserBean(loginController.theModel)}" />
         </f:metadata>
     </h:head>
@@ -60,7 +59,7 @@
 
                                 <h:form>
                                     <h:commandButton class="button" style ="font-style:italic;"
-                                                     value="View Messages (#{messagesController.number()})" action="#{messagesController.goToPage(loginController.theModel.getUsername())}"/><br/><br/>
+                                                     value="View Conversations (CLICK)" onclick="alert('Still need to show number of unopned messages, and list of all conversations');"/><br/><br/>
 
                                     <h:button  class="button" 
                                               value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>

@@ -37,8 +37,8 @@ public class ResetController {
     
     public String reset() {
 
-            ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
-            userModel = tmp.get(0);
+            
+            userModel = UserDAO.findByUsername(username);
             userModel.setPassword(password);
             int status1 = (new UserDAO()).updateProfile(userModel); // Doing anything with the object after this?
 
@@ -70,9 +70,8 @@ public class ResetController {
     }
     
     public String sendReset() {
-
-            ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
-            userModel = tmp.get(0);
+        
+            userModel = UserDAO.findByUsername(username);
             email = userModel.getEmail();
  
 

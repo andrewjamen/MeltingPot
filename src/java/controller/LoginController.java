@@ -96,11 +96,8 @@ public class LoginController {
     }
 
     private UserBean findProfile() {
-
-        UserDAO aUserDAO = new UserDAO();
-        ArrayList<UserBean> allUsers = aUserDAO.findByUsername(theModel.getUsername());
-
-        theModel = allUsers.get(0);
+        
+        theModel = UserDAO.findByUsername(theModel.getUsername());
 
         return theModel;
     }

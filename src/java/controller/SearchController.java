@@ -40,8 +40,8 @@ public class SearchController {
     }
 
     public ArrayList<UserBean> getResults() {
-        UserDAO userDAO = new UserDAO();
-        ArrayList<UserBean> users = userDAO.searchForUsers(theModel.getName(), theModel.getGender(), theModel.getAge(),
+        
+        ArrayList<UserBean> users = UserDAO.searchForUsers(theModel.getName(), theModel.getGender(), theModel.getAge(),
                 theModel.getCity(), theModel.getState(), theModel.getReligion(), theModel.getRace(), theModel.getPolitics());
 
         //dont show your own profile

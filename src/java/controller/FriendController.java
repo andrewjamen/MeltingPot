@@ -1,5 +1,6 @@
 package controller;
 
+import dao.FriendsDAO;
 import dao.UserDAO;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -49,14 +50,12 @@ public class FriendController {
     }
 
     public String viewFriendRequests(String username) {
-        ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
-        userBean = tmp.get(0);
+        userBean = UserDAO.findByUsername(username);
         return "/Friend/FriendRequest.xhtml?faces-redirect=true";
     }
 
     public String viewFriendList(String username) {
-        ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
-        userBean = tmp.get(0);
+        userBean = UserDAO.findByUsername(username);
         return "/Friend/FriendList.xhtml?faces-redirect=true";
     }
 
@@ -121,8 +120,7 @@ public class FriendController {
         int index = request.indexOf(" ");
         String username = request.substring(0, index);
 
-        ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
-        UserBean theBean = tmp.get(0);
+        UserBean theBean = UserDAO.findByUsername(username);
 
         String sender = theBean.getUsername();
 
@@ -131,17 +129,25 @@ public class FriendController {
 
     public String confrimFriend(String username) {
 
-        UserDAO aUserDAO = new UserDAO();
         String allFriends = "";
+        String updateNewFriend = "";
+        UserBean friend = UserDAO.findByUsername(username);
 
         if (!userBean.getFriendList().equals("")) {
             allFriends = userBean.getFriendList();
         }
 
+        if (!friend.getFriendList().equals("")) {
+            allFriends = friend.getFriendList();
+        }
+
+        updateNewFriend += userBean.getUsername() + "\n";
         allFriends += username + "\n";
 
-        aUserDAO.addFriend(userBean, allFriends);
-        aUserDAO.removeRequest(userBean, userBean.getFriendRequest());
+        FriendsDAO.addFriend(userBean, allFriends);
+        FriendsDAO.addFriend(UserDAO.findByUsername(username), updateNewFriend);
+        
+        denyFriend(username);
 
         //TODO: reload and update page
         return "/Friend/FriendRequest.xhtml?faces-redirect=true";
@@ -149,7 +155,6 @@ public class FriendController {
 
     public String denyFriend(String username) {
 
-        UserDAO aUserDAO = new UserDAO();
         String allRequests = "";
 
         if (!userBean.getFriendRequest().equals("")) {
@@ -169,7 +174,7 @@ public class FriendController {
             }
         }
 
-        aUserDAO.removeRequest(userBean, allRequests);
+        FriendsDAO.removeRequest(userBean, allRequests);
 
         //TODO: reload and update page
         return "/Friend/FriendRequest.xhtml?faces-redirect=true";

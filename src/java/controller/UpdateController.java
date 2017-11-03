@@ -55,9 +55,9 @@ public class UpdateController {
 
     public String retrieveProfile(UserBean theBean) {
         userBean = theBean;
-        UserDAO aStudentDAO = new UserDAO();
-        ArrayList users = aStudentDAO.findByUsername(userBean.getUsername());
-        userBean = (UserBean) users.get(0);
+
+        userBean = UserDAO.findByUsername(userBean.getUsername());
+
         if (userBean != null) {
             return "/Account/UpdateProfile.xhtml?faces-redirect=true";
         } else {

@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,22 +14,20 @@ import model.UserBean;
  */
 public class UserDAO {
 
-    public int createProfile(UserBean aUserBean) {
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
+    //Database Connection Info
+    private final static String CONNECTION_STRING = "jdbc:derby://localhost:1527/MeltingPotLocal";
+    private final static String DRIVER_STRING = "org.apache.derby.jdbc.ClientDriver";
+    private final static String USERNAME = "melt";
+    private final static String PASSWORD = "pot";
+    private final static String TABLE_NAME = "MELT.Users";
 
+    public static int createProfile(UserBean aUserBean) {
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/MeltingPotLocal";
-            Connection DBConn = DriverManager.getConnection(myDB, "melt", "pot");
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
 
-            String insertString;
-            Statement stmt = DBConn.createStatement();
-            insertString = "INSERT INTO MELT.Users VALUES ('"
+            String createString = "INSERT INTO " + TABLE_NAME + " VALUES('"
                     + aUserBean.getUsername()
                     + "','" + aUserBean.getPassword()
                     + "','" + aUserBean.getName()
@@ -42,31 +39,35 @@ public class UserDAO {
                     + "','" + aUserBean.getRace()
                     + "','" + aUserBean.getPolitics()
                     + "','" + aUserBean.getBio()
-                    + "'," + aUserBean.getRating()
-                    + ",'" + aUserBean.getEmail()
-                    + "','','','')";
+                    + "','" + aUserBean.getEmail()
+                    + "','','')";
 
-            rowCount = stmt.executeUpdate(insertString);
-            System.out.println("insert string =" + insertString);
-            DBConn.close();
+            PreparedStatement pstmt = conn.prepareStatement(createString);
+
+            rowCount = pstmt.executeUpdate();
+
+            pstmt.close();
+            conn.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-
-        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
+        if (rowCount != 1) {
+            System.err.println("ERROR: Message Insertion failed.");
+        }
         return rowCount;
     }
 
-    public ArrayList findAll() {
+    public static ArrayList<UserBean> findAll() {
 
-        String query = "SELECT * FROM MELT.Users";
-        ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
+        String query = "SELECT * FROM " + TABLE_NAME;
+        ArrayList<UserBean> aStudentBeanCollection = selectProfilesFromDB(query);
         return aStudentBeanCollection;
 
     }
 
-    private ArrayList selectProfilesFromDB(String query) {
-        ArrayList aUserBeanCollection = new ArrayList();
+    //TODO: make prepared statments
+    private static ArrayList<UserBean> selectProfilesFromDB(String query) {
+        ArrayList<UserBean> aUserBeanCollection = new ArrayList();
         Connection DBConn = null;
         try {
             DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
@@ -99,14 +100,12 @@ public class UserDAO {
                 race = rs.getString("Race");
                 politics = rs.getString("Politics");
                 bio = rs.getString("Bio");
-                rating = rs.getDouble("Rating");
                 email = rs.getString("Email");
-                messages = rs.getString("Messages");
                 friendRequest = rs.getString("FriendRequest");
                 friendList = rs.getString("FriendList");
 
                 // make a ProfileBean object out of the values
-                aUserBean = new UserBean(username, password, name, age, gender, city, state, religion, race, politics, bio, rating, email, messages, friendRequest, friendList);
+                aUserBean = new UserBean(username, password, name, age, gender, city, state, religion, race, politics, bio, email, friendRequest, friendList);
                 // add the newly created object to the collection
                 aUserBeanCollection.add(aUserBean);
             }
@@ -124,69 +123,69 @@ public class UserDAO {
         return aUserBeanCollection;
     }
 
-    public ArrayList findByUsername(String aName) {
+    public static UserBean findByUsername(String aName) {
         // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
         String query = "SELECT * FROM MELT.Users ";
         query += "WHERE UserName = '" + aName + "'";
 
-        ArrayList aUserBeanCollection = selectProfilesFromDB(query);
-        return aUserBeanCollection;
+        ArrayList<UserBean> aUserBean = selectProfilesFromDB(query);
+
+        
+        if (aUserBean.isEmpty()){
+            return null;
+        }
+
+        return aUserBean.get(0);
     }
 
-    public ArrayList findByName(String name) {
+    public static ArrayList<UserBean> findByName(String name) {
         // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
         String query = "SELECT * FROM MELT.Users ";
         query += "WHERE Name = '" + name + "' ";
 
-        ArrayList aStudentBeanCollection = selectProfilesFromDB(query);
+        ArrayList<UserBean> aStudentBeanCollection = selectProfilesFromDB(query);
         return aStudentBeanCollection;
     }
 
-    public int updateProfile(UserBean profile) {
-        Connection DBConn = null;
+    public static int updateProfile(UserBean profile) {
+        int rowCount = -1;
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
-        int rowCount = 0;
-        try {
-            String myDB = "jdbc:derby://localhost:1527/MeltingPotLocal";
-            DBConn = DriverManager.getConnection(myDB, "melt", "pot");
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
 
-            String updateString;
-            Statement stmt = DBConn.createStatement();
-
-            updateString = "UPDATE MELT.Users SET "
+            String updateString = "UPDATE " + TABLE_NAME + " SET "
                     + "Name = '" + profile.getName() + "', "
                     + "Password = '" + profile.getPassword() + "', "
                     + "Email = '" + profile.getEmail() + "', "
                     + "City = '" + profile.getCity() + "', "
                     + "State = '" + profile.getState() + "', "
                     + "Age = " + profile.getAge() + ", "
-                    + "Rating = " + profile.getRating() + ", "
                     + "Gender = '" + profile.getGender() + "', "
                     + "Religion = '" + profile.getReligion() + "', "
                     + "Race = '" + profile.getRace() + "', "
                     + "Bio = '" + profile.getBio() + "', "
                     + "Politics = '" + profile.getPolitics() + "', "
-                    + "Messages = '" + profile.getMessages() + "', "
                     + "FriendRequest = '" + profile.getFriendRequest() + "', "
                     + "FriendList = '" + profile.getFriendList() + "' "
                     + "WHERE UserName = '" + profile.getUsername() + "'";
-            rowCount = stmt.executeUpdate(updateString);
-            System.out.println("updateString =" + updateString);
-            DBConn.close();
+
+            PreparedStatement pstmt = conn.prepareStatement(updateString);
+
+            rowCount = pstmt.executeUpdate();
+
+            pstmt.close();
+            conn.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
+        if (rowCount != 1) {
+            System.err.println("ERROR: Message Insertion failed.");
+        }
         return rowCount;
 
     }
 
-    public ArrayList searchForUsers(String name, String gender, int age, String city,
+    public static ArrayList<UserBean> searchForUsers(String name, String gender, int age, String city,
             String state, String religion, String race, String politics) {
         String query = "SELECT * FROM MELT.Users WHERE ";
         query += "LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
@@ -212,187 +211,8 @@ public class UserDAO {
             query += "AND Politics = '" + politics + "' ";
         }
 
-        ArrayList aUserBeanCollection = selectProfilesFromDB(query);
+        ArrayList<UserBean> aUserBeanCollection = selectProfilesFromDB(query);
         return aUserBeanCollection;
     }
 
-    //TODO: move to new MessageDAO class
-    public int insertMessage(UserBean profile, String messages) {
-        Connection DBConn = null;
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
-        int rowCount = 0;
-        try {
-            String myDB = "jdbc:derby://localhost:1527/MeltingPotLocal";
-            DBConn = DriverManager.getConnection(myDB, "melt", "pot");
-
-            String updateString = "";
-            Statement stmt = DBConn.createStatement();
-
-            updateString = "UPDATE MELT.Users SET "
-                    + "Name = '" + profile.getName() + "', "
-                    + "Password = '" + profile.getPassword() + "', "
-                    + "Email = '" + profile.getEmail() + "', "
-                    + "City = '" + profile.getCity() + "', "
-                    + "State = '" + profile.getState() + "', "
-                    + "Age = " + profile.getAge() + ", "
-                    + "Rating = " + profile.getRating() + ", "
-                    + "Gender = '" + profile.getGender() + "', "
-                    + "Religion = '" + profile.getReligion() + "', "
-                    + "Race = '" + profile.getRace() + "', "
-                    + "Bio = '" + profile.getBio() + "', "
-                    + "Politics = '" + profile.getPolitics() + "', "
-                    + "Messages = '" + messages + "', "
-                    + "FriendRequest = '" + profile.getFriendRequest() + "', "
-                    + "FriendList = '" + profile.getFriendList() + "' "
-                    + "WHERE UserName = '" + profile.getUsername() + "'";
-            rowCount = stmt.executeUpdate(updateString);
-            System.out.println("updateString =" + updateString);
-            DBConn.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
-        return rowCount;
-
-    }
-
-    //TODO: move to new FriendDAO class
-    public int sendFriendRequest(UserBean profile, String requests) {
-        Connection DBConn = null;
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
-        int rowCount = 0;
-        try {
-            String myDB = "jdbc:derby://localhost:1527/MeltingPotLocal";
-            DBConn = DriverManager.getConnection(myDB, "melt", "pot");
-
-            String updateString = "";
-            Statement stmt = DBConn.createStatement();
-
-            updateString = "UPDATE MELT.Users SET "
-                    + "Name = '" + profile.getName() + "', "
-                    + "Password = '" + profile.getPassword() + "', "
-                    + "Email = '" + profile.getEmail() + "', "
-                    + "City = '" + profile.getCity() + "', "
-                    + "State = '" + profile.getState() + "', "
-                    + "Age = " + profile.getAge() + ", "
-                    + "Rating = " + profile.getRating() + ", "
-                    + "Gender = '" + profile.getGender() + "', "
-                    + "Religion = '" + profile.getReligion() + "', "
-                    + "Race = '" + profile.getRace() + "', "
-                    + "Bio = '" + profile.getBio() + "', "
-                    + "Politics = '" + profile.getPolitics() + "', "
-                    + "Messages = '" + profile.getMessages() + "', "
-                    + "FriendRequest = '" + requests + "', "
-                    + "FriendList = '" + profile.getFriendList() + "' "
-                    + "WHERE UserName = '" + profile.getUsername() + "'";
-            rowCount = stmt.executeUpdate(updateString);
-            System.out.println("updateString =" + updateString);
-            DBConn.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
-        return rowCount;
-
-    }
-
-    //TODO: move to new FriendDAO class
-    public int addFriend(UserBean profile, String friends) {
-        Connection DBConn = null;
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
-        int rowCount = 0;
-        try {
-            String myDB = "jdbc:derby://localhost:1527/MeltingPotLocal";
-            DBConn = DriverManager.getConnection(myDB, "melt", "pot");
-
-            String updateString = "";
-            Statement stmt = DBConn.createStatement();
-
-            updateString = "UPDATE MELT.Users SET "
-                    + "Name = '" + profile.getName() + "', "
-                    + "Password = '" + profile.getPassword() + "', "
-                    + "Email = '" + profile.getEmail() + "', "
-                    + "City = '" + profile.getCity() + "', "
-                    + "State = '" + profile.getState() + "', "
-                    + "Age = " + profile.getAge() + ", "
-                    + "Rating = " + profile.getRating() + ", "
-                    + "Gender = '" + profile.getGender() + "', "
-                    + "Religion = '" + profile.getReligion() + "', "
-                    + "Race = '" + profile.getRace() + "', "
-                    + "Bio = '" + profile.getBio() + "', "
-                    + "Politics = '" + profile.getPolitics() + "', "
-                    + "Messages = '" + profile.getMessages() + "', "
-                    + "FriendRequest = '" + profile.getFriendRequest() + "', "
-                    + "FriendList = '" + friends + "' "
-                    + "WHERE UserName = '" + profile.getUsername() + "'";
-            rowCount = stmt.executeUpdate(updateString);
-            System.out.println("updateString =" + updateString);
-            DBConn.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
-        return rowCount;
-
-    }
-
-    //TODO: move to new FriendDAO class
-    public int removeRequest(UserBean profile, String requests) {
-        Connection DBConn = null;
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
-        int rowCount = 0;
-        try {
-            String myDB = "jdbc:derby://localhost:1527/MeltingPotLocal";
-            DBConn = DriverManager.getConnection(myDB, "melt", "pot");
-
-            String updateString = "";
-            Statement stmt = DBConn.createStatement();
-
-            updateString = "UPDATE MELT.Users SET "
-                    + "Name = '" + profile.getName() + "', "
-                    + "Password = '" + profile.getPassword() + "', "
-                    + "Email = '" + profile.getEmail() + "', "
-                    + "City = '" + profile.getCity() + "', "
-                    + "State = '" + profile.getState() + "', "
-                    + "Age = " + profile.getAge() + ", "
-                    + "Rating = " + profile.getRating() + ", "
-                    + "Gender = '" + profile.getGender() + "', "
-                    + "Religion = '" + profile.getReligion() + "', "
-                    + "Race = '" + profile.getRace() + "', "
-                    + "Bio = '" + profile.getBio() + "', "
-                    + "Politics = '" + profile.getPolitics() + "', "
-                    + "Messages = '" + profile.getMessages() + "', "
-                    + "FriendRequest = '" + requests + "', "
-                    + "FriendList = '" + profile.getFriendList() + "' "
-                    + "WHERE UserName = '" + profile.getUsername() + "'";
-            rowCount = stmt.executeUpdate(updateString);
-            System.out.println("updateString =" + updateString);
-            DBConn.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
-        return rowCount;
-
-    }
 }

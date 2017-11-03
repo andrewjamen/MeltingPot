@@ -1,11 +1,11 @@
 package controller;
 
 import dao.UserDAO;
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.UserBean;
+import dao.FriendsDAO;
 
 /**
  *
@@ -40,26 +40,11 @@ public class ProfileController {
         ConversationController conversation = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{conversationController}", ConversationController.class);
         conversation.startConversation(username);
     }
-
-    public void sendMessage(String sender, String message) {
-
-        UserDAO aUserDAO = new UserDAO();
-        String allMessages = "";
-
-        if (!userModel.getMessages().equals("")) {
-            allMessages = userModel.getMessages() + "\n";
-        }
-
-        allMessages += "Message from " + sender
-                + ":  \t" + message;
-
-        aUserDAO.insertMessage(userModel, allMessages);
-    }
+    
     
     //TODO: make it so you cant add a friend twice
     public void addFriend(String sender){
     
-        UserDAO aUserDAO = new UserDAO();
         String allRequests= "";
 
         if (!userModel.getFriendRequest().equals("")) {
@@ -68,16 +53,29 @@ public class ProfileController {
 
         allRequests += sender + " added you as a friend!";
 
-        aUserDAO.sendFriendRequest(userModel, allRequests);
+        FriendsDAO.sendFriendRequest(userModel, allRequests);
     }
     
     public boolean isFriend(String username){
         
-        return userModel.getFriendList().contains(username) ;
+        String isFriend = userModel.getFriendList();
+        
+        return isFriend.contains(username);
    }
+    
+    public boolean pendingRequest(String username){
+        
+        
+        String pendingRequest = userModel.getFriendRequest();   
+        UserBean profile = UserDAO.findByUsername(username);
+        
+        String otherWay = profile.getFriendRequest();
+        
+        
+        return pendingRequest.contains(username) || otherWay.contains(userModel.getUsername());
+    }
 
     public void findProfile(String username){
-        ArrayList<UserBean> tmp = (new UserDAO()).findByUsername(username);
-        userModel = tmp.get(0);
+        userModel = UserDAO.findByUsername(username);
     }
 }

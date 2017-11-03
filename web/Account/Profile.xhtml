@@ -8,9 +8,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        
+
         <f:metadata>
-            <f:viewAction action="#{messagesController.setUserBean(loginController.theModel)}" />
         </f:metadata>
     </h:head>
     <h:body>
@@ -18,10 +17,10 @@
 
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
-                
+
                 <h:outputScript name="scripts/ConversationScripts.js" />
                 <h:outputStylesheet name="styles/ConversationStyles.css" />
-                
+
                 <meta name="description" content="Login" />
                 <title>User Profile</title>
             </ui:define>
@@ -97,9 +96,17 @@
                                 <h:form>
                                     <c:if test="${loginController.loggedIn}">
                                         <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
-                                            <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                             value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
+                                            <c:if test="${!profileController.pendingRequest(loginController.theModel.username)}">
+                                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                                 value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
 
+                                            </c:if>
+                                        </c:if>
+                                        <c:if test="${profileController.isFriend(loginController.theModel.username)}">
+                                            <h:outputText value="#{profileController.userModel.name} is your friend" /><br/><br/>
+                                        </c:if>
+                                        <c:if test="${profileController.pendingRequest(loginController.theModel.username)}">
+                                            <h:outputText value="A friend request is pending with #{profileController.userModel.name}" /><br/><br/>
                                         </c:if>
                                     </c:if>
                                     <c:if test="${!loginController.loggedIn}">

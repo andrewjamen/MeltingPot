@@ -124,8 +124,8 @@ public class SignUpController {
             return "Enter a username!";
         }
         boolean goodLogin = true;
-        UserDAO aUserDAO = new UserDAO();
-        ArrayList<UserBean> allUsers = aUserDAO.findAll();
+        
+        ArrayList<UserBean> allUsers = UserDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
             if (userBean.getUsername().equals(allUsers.get(i).getUsername())) {
@@ -161,14 +161,13 @@ public class SignUpController {
     public String createProfile() {
         status = "";
 
-        UserDAO aUserDAO = new UserDAO();
-        ArrayList<UserBean> users = aUserDAO.findByUsername(userBean.getUsername());
+        UserBean match = UserDAO.findByUsername(userBean.getUsername());
 
         if (userBean.getUsername().equals("") || userBean.getUsername() == null) {
             status = "Enter a Username!";
             return "";
         }
-        if (users.size() > 0) {
+        if (match != null) {
             status = "Username Already Exists!";
             return "";
         }
@@ -197,7 +196,7 @@ public class SignUpController {
             return "";
         }
 
-        int rowCount = aUserDAO.createProfile(userBean);
+        int rowCount = UserDAO.createProfile(userBean);
         if (rowCount == 1) {
             return "/Account/SignUpSuccess.xhtml?faces-redirect=true";
         } else {

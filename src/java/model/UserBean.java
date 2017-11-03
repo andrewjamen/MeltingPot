@@ -18,9 +18,7 @@ public class UserBean {
     private String race;
     private String politics;
     private String bio;
-    private double rating;
     private String email;
-    private String messages;
     private String friendRequest;
     private String friendList;
 
@@ -29,7 +27,7 @@ public class UserBean {
 
     public UserBean(String username, String password, String name, int age, String gender,
             String city, String state, String religion, String race, String politics,
-            String bio, double rating, String email, String messages, String friendRequest, String friendList) {
+            String bio, String email, String friendRequest, String friendList) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -41,9 +39,7 @@ public class UserBean {
         this.race = race;
         this.politics = politics;
         this.bio = bio;
-        this.rating = rating;
         this.email = email;
-        this.messages = messages;
         this.friendRequest = friendRequest;
         this.friendList = friendList;
     }
@@ -144,28 +140,12 @@ public class UserBean {
         this.bio = bio;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getMessages() {
-        return messages;
-    }
-
-    public void setMessages(String messages) {
-        this.messages = messages;
     }
 
     public String getFriendRequest() {
