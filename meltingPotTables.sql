@@ -28,8 +28,9 @@ CREATE TABLE MELT.Users(
 );
 
 --Sample User accounts (to be used for testing).
-INSERT INTO MELT.Users VALUES ('test', '123', 'tester', 99, 'Other', 'Anchorage', 'Alaska', 'Other', 'Other', 'Other', 'I am a test account.', 5.0, 'test@ilstu.edu', '', '', '');
-INSERT INTO MELT.Users VALUES ('pdkaufm', '123', 'Perry', 26, 'Male', 'Normal', 'Illinois', 'Athiest', 'White', 'Other', 'This is a bio...', 5.0, 'pdkaufm@ilstu.edu', '', '', '');
+INSERT INTO MELT.Users VALUES ('test', '123', 'tester', 99, 'Other', 'Anchorage', 'Alaska', 'Other', 'Other', 'Other', 'I am a test account.', 'test@ilstu.edu', '', '');
+INSERT INTO MELT.Users VALUES ('pdkaufm', '123', 'Perry', 26, 'Male', 'Normal', 'Illinois', 'Athiest', 'White', 'Other', 'This is a bio...', 'pdkaufm@ilstu.edu', '', '');
+INSERT INTO MELT.Users VALUES ('ajamen', '123', 'Andrew', 26, 'Male', 'Normal', 'Illinois', 'None', 'White', 'Liberal', 'Skiier', 'ajamen@ilstu.edu', '', '');
 
 --Conversation Table
 CREATE TABLE MELT.Conversations(
