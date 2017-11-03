@@ -136,7 +136,6 @@ input[type=submit] {
 }*/
 
 .tooltip{
-    
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted #ccc;
@@ -168,7 +167,7 @@ input[type=submit] {
 }
 
 .tooltip-right::after{
-   content: "";
+    content: "";
     position: absolute;
     top: 50%;
     right: 100%;
@@ -179,7 +178,7 @@ input[type=submit] {
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
- .tooltip:hover .tooltiptext  {
+.tooltip:hover .tooltiptext  {
     visibility: visible;
     opacity: 1;
 }
