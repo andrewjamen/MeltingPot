@@ -22,9 +22,7 @@ CREATE TABLE MELT.Users(
     RACE                    VARCHAR(20),
     POLITICS                VARCHAR(20),
     BIO                     VARCHAR(250),
-    RATING                  DOUBLE,
     EMAIL                   VARCHAR(35),
-    MESSAGES                VARCHAR(500),
     FRIENDREQUEST           VARCHAR(250),
     FRIENDLIST              VARCHAR(250)
 );
