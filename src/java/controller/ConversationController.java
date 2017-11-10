@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
@@ -27,6 +28,7 @@ public class ConversationController {
     private static final String SCROLL_FUNCTION = "scrollToBottom()";
     
     private Conversation conversationModel = null;
+    private ArrayList<Conversation> conversations;
     private String username = null;
     private String content = "";
     
@@ -40,7 +42,7 @@ public class ConversationController {
             LoginController login = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class);
             this.username = login.getTheModel().getUsername();
         }
-    }
+    }    
     
     /**
      * Initializes the conversation model.
@@ -50,7 +52,7 @@ public class ConversationController {
         content="";
         conversationModel = new Conversation(this.username, partnerUsername);
     }
-
+    
     public void sendMessage() {
         if (content.equals("")) return;
         conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), this.content, new Date()));
