@@ -59,7 +59,7 @@
 
                                 <h:form>
                                     <h:commandButton class="button" style ="font-style:italic;"
-                                                     value="View Conversations (CLICK)" onclick="alert('Still need to show number of unopned messages, and list of all conversations');"/><br/><br/>
+                                                     value="Conversations (#{conversationController.conversationCount()})" action="/Account/Conversations.xhtml?faces-redirect=true"/><br/><br/>
 
                                     <h:button  class="button" 
                                               value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>

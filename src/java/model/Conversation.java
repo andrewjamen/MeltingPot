@@ -41,6 +41,7 @@ public class Conversation {
      * @param message
      */
     public void sendMessage(Message message) {
+        //TODO: MAKE SURE CONVERSATION STILL EXISTS IN DATABASE.
         try {
             if (this.id < 0 && !getConversationIfExists()) {
                 this.createConversation();
@@ -92,10 +93,12 @@ public class Conversation {
      * @return true if new messages, false otherwise.
      */
     public boolean receiveMessages() {
-         if (this.id < 0) {
-             getConversationIfExists();
-             return true;
-         }
+        //TODO: MAKE SURE CONVERSATION STILL EXISTS IN DATABASE
+        
+        if (this.id < 0) {
+            getConversationIfExists();
+            return true;
+        }
          
         //Read new messages from database;
         ArrayList<Message> receivedMessages = ConversationDAO.getNewMessagesTo(this.id, this.getLastIDReceived(), this.username);

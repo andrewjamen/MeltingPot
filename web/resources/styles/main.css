@@ -182,3 +182,10 @@ input[type=submit] {
     visibility: visible;
     opacity: 1;
 }
+
+.conv_table {
+    margin: auto;
+}
+.conv_table h3 {
+    padding: 0 20px 0 0;
+}

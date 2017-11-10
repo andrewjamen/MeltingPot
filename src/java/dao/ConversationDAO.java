@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import model.ConversationPair;
 import model.Message;
 
 /**
@@ -47,7 +48,17 @@ public class ConversationDAO {
      */
     public static void main(String args[]) {
         //createConversation("pdkaufm", "test");
-        addMessage(1, new Message("test", "pdkaufm", "message content goes here", new Date()));
+        
+        /*
+        createConversation("pdkaufm", "test1");
+        createConversation("pdkaufm", "test2");
+        ArrayList conversations = getAllConversationsByUsername("pdkaufm");
+        
+        for (int i = 0; i < conversations.size(); i++) {
+            System.out.println(conversations.get(i));
+        }*/
+        
+        //addMessage(1, new Message("test", "pdkaufm", "message content goes here", new Date()));
     }
     
     /**
@@ -152,6 +163,34 @@ public class ConversationDAO {
         return false;
     }
 
+    public static ArrayList<ConversationPair> getAllConversationsByUsername(String username) {
+        ArrayList<ConversationPair> conversations = new ArrayList();
+        try {
+        DBHelper.loadDriver(DRIVER_STRING);
+        Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+        
+        PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + C_TABLE_NAME + " WHERE " + C_USER_A + " = ? OR " + C_USER_B + " = ?");
+        pstmt.setString(1, username);
+        pstmt.setString(2, username);
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        while (rs.next()) {
+            String partnerUsername = rs.getString(C_USER_A);
+            if (partnerUsername.equals(username)) partnerUsername = rs.getString(C_USER_B);
+            
+            conversations.add(new ConversationPair(rs.getInt(C_CONV_ID), username, partnerUsername));
+        }
+        
+        } catch (Exception e) {
+            System.err.println("ERROR: Problem get all conversations by Username.");
+            e.printStackTrace();
+        }
+        
+        
+        return conversations;
+    }
+    
     /**
      * Deletes a message by message id.
      *
