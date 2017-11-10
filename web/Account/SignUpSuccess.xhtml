@@ -17,14 +17,14 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="stuSuccsess" style ="width:600px; height:550px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8; margin-left: 50px;">
+                <div class = "sticker">
                     <h:form style="padding-left: 30px">
-                        <center><h2 style="padding-right:30px">Sign Up Successful!</h2></center>
+                        <h2 class = "big">Sign Up Successful!</h2>
                         <h:outputText id="result" escape="false" value="#{signUpController.response}"/>
-                        <center>
-                        <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:400px; height:50px"
+                   
+                        <h:button class ="button"
                             value="Login" outcome="/Account/Login.xhtml?faces-redirect=true" />
-                        </center>
+               
                     </h:form>          
                 </div>
             </ui:define>

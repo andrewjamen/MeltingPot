@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Search</title>
+        
         <f:metadata>
             <f:viewAction action="#{searchController.setSearcher(loginController.theModel.username)}" />
         </f:metadata>
@@ -16,29 +16,41 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
-                <link href="../../Resources/Styles/main.css" rel="stylesheet" type="text/css"/>
+               <title>Search</title>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" class = "sticker" style = "height:840px; opacity: 0.96; padding-left: 50px;">
-                    <center><h2>User Search</h2></center><br/>
+                <div id="login" class = "sticker">
+                    <h2 class = "big">User Search</h2>
                     <h:form>
-                        Name:<br/><h:inputText  style="width:300px" id="nameID" value="#{searchController.theModel.name}">
-                        </h:inputText><br/><br/>
-
-                        Age:<br/><h:inputText style="width:300px" id="ageID" value="#{searchController.theModel.age}">
-                        </h:inputText><br/><br/>
-
-                        Gender: <br/>
-                        <h:selectOneMenu id="genderID" style="width:300px"  value="#{searchController.theModel.gender}">
+                        <div class="input_table_container">
+                        <table class="input_table">
+                        
+                        <tr>
+                            <td class="label">Name:</td> 
+                            <td><h:inputText  style="width:300px" id="nameID" value="#{searchController.theModel.name}"></h:inputText></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Age: </td> 
+                            <td> <h:inputText style="width:300px" id="ageID" value="#{searchController.theModel.age}"> </h:inputText> </td>
+                         </tr>
+                            
+                            <tr>
+                                <td>Gender: </td>
+                             <td> <h:selectOneMenu id="genderID" style="width:300px"  value="#{searchController.theModel.gender}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Male" itemLabel="Male" />
                             <f:selectItem itemValue="Female" itemLabel="Female" />
                             <f:selectItem itemValue="Other" itemLabel="Other" />
-                        </h:selectOneMenu><br/><br/><br/>
+                                </h:selectOneMenu></td>
+                            </tr>
+                         
 
-                        Religion: <br/>
+                            <tr>
+                                <td>Religion: </td>
+                                                            <td>
                         <h:selectOneMenu id="religionID" style="width:300px"  value="#{searchController.theModel.religion}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Christian" itemLabel="Christian" />
@@ -47,13 +59,22 @@
                             <f:selectItem itemValue="Buddhist" itemLabel="Buddhist" />
                             <f:selectItem itemValue="Jewish" itemLabel="Jewsih" />
                             <f:selectItem itemValue="Atheist" itemLabel="Atheist" />
-                        </h:selectOneMenu><br/><br/>
+                        </h:selectOneMenu>
+                            </td>
+                            </tr>
 
-                        City:<br/><h:inputText style="width:300px" id="cityID" value="#{searchController.theModel.city}">
-                        </h:inputText><br/><br/>             
-
-                        State: <br/>
-                        <h:selectOneMenu id="stateID" style="width:300px"  value="#{searchController.theModel.state}">
+                            
+                            <tr>
+                                <td>City: </td>
+                                <td> <h:inputText style="width:300px" id="cityID" value="#{searchController.theModel.city}">
+                        </h:inputText></td>
+                            </tr>
+                         
+                            <tr>
+                                <td>State: </td>
+                                <td>
+                                    
+                                    <h:selectOneMenu id="stateID" style="width:300px"  value="#{searchController.theModel.state}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Alabama" itemLabel="Alabama" />
                             <f:selectItem itemValue="Alaska" itemLabel="Alaska" />
@@ -104,10 +125,14 @@
                             <f:selectItem itemValue="West Virginia" itemLabel="West Virginia" />
                             <f:selectItem itemValue="Wisonsin" itemLabel="Wisonsin" />
                             <f:selectItem itemValue="Wyoming" itemLabel="Wyoming" />
-                        </h:selectOneMenu><br/><br/><br/>
+                        </h:selectOneMenu>
+                                </td>
+                            </tr>
 
-                        Race: <br/>
-                        <h:selectOneMenu id="raceID" style="width:300px"  value="#{searchController.theModel.race}">
+           
+                            <tr>
+                                <td>Race: </td>
+                                <td> <h:selectOneMenu id="raceID" style="width:300px"  value="#{searchController.theModel.race}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="White" itemLabel="White" />
                             <f:selectItem itemValue="Black" itemLabel="African American or Black" />
@@ -115,24 +140,29 @@
                             <f:selectItem itemValue="Asian" itemLabel="Asian" />
                             <f:selectItem itemValue="American Native" itemLabel="American Native" />
                             <f:selectItem itemValue="Other" itemLabel="Other" />
-                        </h:selectOneMenu><br/><br/><br/>
-
-                        Political Views:<br/>
-                        <h:selectOneMenu id="politicsID" style="width:300px"  value="#{searchController.theModel.politics}">
+                        </h:selectOneMenu></td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Political Views:</td>
+                                <td><h:selectOneMenu id="politicsID" style="width:300px"  value="#{searchController.theModel.politics}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Liberal" itemLabel="Liberal" />
                             <f:selectItem itemValue="Conservative" itemLabel="Conservative" />
                             <f:selectItem itemValue="Libertarian" itemLabel="Libertarian" />
                             <f:selectItem itemValue="Authoritarian " itemLabel="Authoritarian " />
                             <f:selectItem itemValue="Other" itemLabel="Other" />
-                        </h:selectOneMenu><br/><br/>
-
+                        </h:selectOneMenu></td>
+                                
+                            </tr>
+                           
                         <!--TODO: put in min rating-->
-
-                        <center>
+                            </table>
+                            </div>
+                        <br></br>
                             <h:commandButton class = "button"
                                              id="submitID" value="Search" action="#{searchController.search()}"/>
-                        </center>
+                        
                     </h:form>
                 </div>
             </ui:define>

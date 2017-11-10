@@ -17,18 +17,18 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main" >
-                <div id="login" class ="sticker" style ="width: 450px;" >
+                <div id="login" class ="sticker" style ="width: 450px; height: 700px; " >
                     
-                    <h2 style = "margin-left: 20px;">User Results:</h2><br/>
-                    <h:dataTable style = "margin-left: 20px;" id="studentResults" value="#{searchController.getResults()}" var="aRow"
+                    <h2 class = "big" style = "text-align:center;">User Results:</h2><br/>
+                    <h:dataTable style = "margin-left: 50px; " id="studentResults" value="#{searchController.getResults()}" var="aRow"
                                  border="0" cellpadding="0" cellspacing="0">
                         <h:column>
-                            <h3><h:outputText value="#{aRow.name}"/>&#160;&#160;&#160;</h3>
+                            <h3><h:outputText style = "font-family: acme;" value="#{aRow.name}"/>&#160;&#160;&#160;</h3><br></br>
                         </h:column>
                         <h:column>
                             <h:form>
                                 <h:commandButton  class = "button"
-                                value="Go to profile" action="#{profileController.getProfilePage(aRow.username)}"/>&#160;&#160;&#160;
+                                                  value="Go to profile" action="#{profileController.getProfilePage(aRow.username)}"/><br></br><br></br>
                             </h:form>
 
                         </h:column>

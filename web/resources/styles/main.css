@@ -1,19 +1,46 @@
+/** Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+    .banner_content {
+    margin: auto;
+    /*width: 1000px;*/
+}
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+    .banner_content {
+    margin: auto;
+    width: 800px;
+}
+}
+
+
+@font-face {
+    font-family: "acme";
+    src: url(Acme-Regular.ttf);
+   
+}
+
+
+
 .banner {
     width: 100%;
     overflow: auto;
     position: relative;
     color: white;
-    font-family: serif;
+    font-family: "acme";
+    font-size: 110%;
     background-color: black;
 }
 
-.banner_content {
+/*took out and added CSS media queries*/
+/*.banner_content {
     margin: auto;
     width: 800px;
-}
+}*/
 
 .banner_title {
-    font-family: fantasy;
+    font-family: "acme";
     float: left;
     padding: 0px 0px 0px 16px;
     font-size: 36px;
@@ -25,7 +52,10 @@
     float: right;
     padding: 16px 26px 0px 0px;
     color: white;
+    
 }
+
+
 
 .page_body {
     min-height: 850px;
@@ -33,6 +63,8 @@
     padding: 30px 0px 50px 0px;
     background-image: url(../images/map.jpg);
     background-color: royalblue;
+    font-family: "acme";
+
 }
 
 .button{
@@ -48,29 +80,31 @@
     cursor: pointer;
     display: inline-block;
     position: relative;
+    font-family: "acme";
+    font-size: 110%;
+
 }
 
-h3{
-    font-family: "Courier New", Courier, monospace;
-    font-weight: bold;
-    font-size: 30px;
+
+
+.big{
+        font-weight: bold;
+    font-family: acme;
     text-align: center;
-    margin-left: 50px;
+    font-size: 300%;
 }
 
-h2{
-    font-weight: bold;
-}
 
 .sticker{
     padding: 10px 0px 20px 0px;
     width: 700px; 
-    min-height:600px; 
+    min-height:400px; 
     margin-top: 10%; 
     background-color: whitesmoke; 
     margin-left: 0px; 
     opacity: 0.93;
     text-align: center;
+    font-family: "acme";
 }
 
 .landingpage{
@@ -115,6 +149,8 @@ input[type=text], input[type="password"],select, .input_textarea {
     border: 1px solid seagreen;
     border-radius: 7px;
     box-sizing: border-box;
+
+     
 }
 
 .input_table_input {
@@ -143,7 +179,7 @@ input[type=submit] {
 }
 
 .tooltip .tooltiptext {
-    visibility: hidden;
+    visibility: visible;
     position: absolute;
     width: 120px;
     background-color: #555;
@@ -152,14 +188,11 @@ input[type=submit] {
     padding: 5px 0;
     border-radius: 6px;
     z-index: 1;
-    opacity: 0;
+    /*opacity: 0;*/
     transition: opacity 1s;
 }
 
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
+
 
 .tooltip-right{
     top:6px;
@@ -177,8 +210,8 @@ input[type=submit] {
     border-color: transparent #555 transparent transparent;  
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext  {
+/* Show the tooltip text when you mouse over the tooltip container 
+*/.tooltip:hover .tooltiptext  {
     visibility: visible;
     opacity: 1;
 }

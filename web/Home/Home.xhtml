@@ -21,10 +21,10 @@
             <ui:define name="main">
                 <div id="login" class ="sticker" style = "height: 300px; margin-top: 80px; padding: 10px" >
                     
-                    <center><h2 style="text-align: center;">Home </h2></center>
+                    <h2 class = "big">Home</h2>
                     <br/><br/><br/>
                     <div>
-                        <center>
+                        
                             <c:if test="${!(loginController.loggedIn || adminLoginController.loggedIn)}">
                                 
                                 <h:button
@@ -44,7 +44,7 @@
                             <h:button class="button"
                                       value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" />
 
-                        </center> 
+                        
                     </div>
                 </div>
             </ui:define>

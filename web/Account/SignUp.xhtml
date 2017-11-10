@@ -20,12 +20,12 @@
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
                 <div id="sign up" class = "sticker">
-                    <h3>Sign Up</h3>
+                    <h3 class = "big">Sign Up</h3>
                     <h:form>
                         <div class="input_table_container">
                             <table class="input_table">
                                 <tr>
-                                    <td colspan="2"><h:outputText value="#{signUpController.status}" style="color:red"/></td>
+                                    <td colspan="2"><h:outputText value="#{signUpController.status}" style="color:red; margin-left:100px;"/></td>
                                 </tr>
 
                                 <tr>
@@ -38,7 +38,7 @@
                                     <td><div class="tooltip"> <h:inputText id="userNameID" styleClass="input_table_input" value="#{signUpController.userBean.username}">
                                                 <f:ajax event="keyup" render="availableID"/>
                                             </h:inputText>
-                                        <h:outputText class="tooltiptext tooltip-right" style ="font-size: 9px;"  id="availableID" escape="false" value="#{signUpController.checkAvailable()}"/></div></td>
+                                        <h:outputText class="tooltiptext tooltip-right" style ="font-size: 11px;"  id="availableID" escape="false" value="#{signUpController.checkAvailable()}"/></div></td>
                                 </tr>
                                 <tr>
                                     <td class="label">Password:</td>
@@ -51,7 +51,7 @@
                                     <td><div class="tooltip"> <h:inputSecret id="confirmID" styleClass="input_table_input" value="#{signUpController.userBean.confirm}">
                                                 <f:ajax event="keyup" render="matchID"/>
                                             </h:inputSecret>
-                                            <h:outputText style="font-size: 9px;" class="tooltiptext tooltip-right" id="matchID" escape="false" value="#{signUpController.checkMatch()}"/>
+                                            <h:outputText style="font-size: 11px;" class="tooltiptext tooltip-right" id="matchID" escape="false" value="#{signUpController.checkMatch()}"/>
                                         </div></td>
                                 </tr>
                                 <tr>
