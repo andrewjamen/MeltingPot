@@ -67,6 +67,8 @@ public class FriendsDAO {
 
             rowCount = pstmt.executeUpdate();
 
+            
+            
             pstmt.close();
             conn.close();
         } catch (SQLException e) {

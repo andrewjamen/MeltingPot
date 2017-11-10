@@ -27,12 +27,12 @@ public class FriendController {
         return userBean;
     }
 
-    public void setUserBean(UserBean studentBean) {
-        this.userBean = studentBean;
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean; // why is green user bean correct but this -> userBean not correct? 
     }
 
     public ArrayList<String> getFriendRequests() {
-        string2requests(userBean.getFriendRequest());
+        friendRequests = string2requests(userBean.getFriendRequest());
         return friendRequests;
     }
 
@@ -41,7 +41,7 @@ public class FriendController {
     }
 
     public ArrayList<String> getFriendList() {
-        string2list(userBean.getFriendList());
+        friendList = string2list(userBean.getFriendList());
         return friendList;
     }
 
@@ -76,12 +76,11 @@ public class FriendController {
     }
 
     public ArrayList<String> string2list(String str) {
+        
+        friendList.clear();
 
         if (str.equals("") || str.equals("\n")) {
             return friendList;
-        }
-        if (friendList.size() > 0) {
-            str = "";
         }
 
         String lines[] = str.split("\\r?\\n");
@@ -97,11 +96,10 @@ public class FriendController {
 
     public ArrayList<String> string2requests(String str) {
 
+        friendRequests.clear();
+
         if (str.equals("") || str.equals("\n")) {
             return friendRequests;
-        }
-        if (friendRequests.size() > 0) {
-            str = "";
         }
 
         String lines[] = str.split("\\r?\\n");
@@ -127,7 +125,7 @@ public class FriendController {
         return sender;
     }
 
-    public String confrimFriend(String username) {
+    public void confrimFriend(String username) {
 
         String allFriends = "";
         String updateNewFriend = "";
@@ -146,14 +144,11 @@ public class FriendController {
 
         FriendsDAO.addFriend(userBean, allFriends);
         FriendsDAO.addFriend(UserDAO.findByUsername(username), updateNewFriend);
-        
-        denyFriend(username);
 
-        //TODO: reload and update page
-        return "/Friend/FriendRequest.xhtml?faces-redirect=true";
+        removeRequest(username);
     }
 
-    public String denyFriend(String username) {
+    public String removeRequest(String username) {
 
         String allRequests = "";
 
@@ -175,6 +170,14 @@ public class FriendController {
         }
 
         FriendsDAO.removeRequest(userBean, allRequests);
+
+        //trying to update the model
+        userBean = UserDAO.findByUsername(userBean.getUsername());
+        setUserBean(userBean); //this doesnt seem to be working?
+
+        //setFriendRequests(string2requests(allRequests));//not passing right param?
+        LoginController lc = new LoginController();
+        lc.setTheModel(userBean);
 
         //TODO: reload and update page
         return "/Friend/FriendRequest.xhtml?faces-redirect=true";

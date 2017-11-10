@@ -7,6 +7,9 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Friend Requests</title>
+        <f:metadata>
+
+        </f:metadata>
     </h:head>
     <h:body>
         <ui:composition	template="/WEB-INF/includes/template.xhtml">
@@ -39,7 +42,7 @@
                             </h:column>
                             <h:column>
                                 <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
-                                                 value="Deny" action="#{friendController.denyFriend(friendController.getRequestSender(aRow))}"/>
+                                                 value="Deny" action="#{friendController.removeRequest(friendController.getRequestSender(aRow))}"/>
                             </h:column>
 
 
