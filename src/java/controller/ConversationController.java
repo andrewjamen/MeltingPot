@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Conversation;
+import model.Conversations;
 import model.Message;
 import org.primefaces.context.RequestContext;
 
@@ -28,7 +29,7 @@ public class ConversationController {
     private static final String SCROLL_FUNCTION = "scrollToBottom()";
     
     private Conversation conversationModel = null;
-    private ArrayList<Conversation> conversations;
+    private Conversations conversations = null;
     private String username = null;
     private String content = "";
     
@@ -37,6 +38,7 @@ public class ConversationController {
      */
     public ConversationController() {
         if (conversationModel == null) conversationModel = new Conversation();
+        if (conversations == null) conversations = new Conversations(username);
         if (username == null) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             LoginController login = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class);
@@ -51,6 +53,25 @@ public class ConversationController {
     public void startConversation(String partnerUsername) {
         content="";
         conversationModel = new Conversation(this.username, partnerUsername);
+    }
+    
+    public void prepareConversations() {
+        //TODO: If not logged in, redirect to home.
+        this.updateConversations();
+    }
+    
+    public void updateConversations() {
+        if (conversations == null) conversations = new Conversations(username);
+        else conversations.update(username);
+    }
+    
+    public void deleteListedConversation(int index) {
+        conversations.deleteConversation(index);
+    }
+    
+    public int conversationCount() {
+        this.updateConversations();
+        return conversations.getCount();
     }
     
     public void sendMessage() {
@@ -82,7 +103,12 @@ public class ConversationController {
     public void setContent(String content) {
         this.content = content;
     }
-    
-    
-    
+
+    public Conversations getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(Conversations conversations) {
+        this.conversations = conversations;
+    }    
 }
