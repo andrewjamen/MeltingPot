@@ -42,6 +42,15 @@ public class ConversationDAO {
     private final static String M_DATETIME = "DATETIME";
     
     /**
+     * For testing only.
+     * @param args 
+     */
+    public static void main(String args[]) {
+        //createConversation("pdkaufm", "test");
+        addMessage(1, new Message("test", "pdkaufm", "message content goes here", new Date()));
+    }
+    
+    /**
      * Returns the conversation id of a conversation between two users if it
      * exists. Returns -1 otherwise.
      *
@@ -90,18 +99,25 @@ public class ConversationDAO {
      */
     public static int createConversation(String username, String partnerUsername) {
         int rowCount = 0;
+        int id = -1;
         try {
             DBHelper.loadDriver(DRIVER_STRING);
             Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
 
             ArrayList<String> orderedList = sortStringPair(username, partnerUsername);
 
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + C_TABLE_NAME + " VALUES(DEFAULT,?,?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + C_TABLE_NAME + " VALUES(DEFAULT,?,?)", Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, orderedList.get(0));
             pstmt.setString(2, orderedList.get(1));
 
             rowCount = pstmt.executeUpdate();
 
+            ResultSet rs = pstmt.getGeneratedKeys();
+            
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            
             pstmt.close();
             conn.close();
         } catch (Exception e) {
@@ -109,7 +125,7 @@ public class ConversationDAO {
             e.printStackTrace();
         }
         if (rowCount == 1) {
-            return getConversation(username, partnerUsername);
+            return id;
         }
         return -1;
     }

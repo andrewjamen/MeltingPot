@@ -24,9 +24,8 @@ public class Conversation {
     public Conversation() {
         this.id = -1;
         this.messages = new ArrayList();
-        //TODO: Values for testing only. Change later.
-        this.username = "default-sender";
-        this.partnerUsername = "default-receiver";
+        this.username = "";
+        this.partnerUsername = "";
     }
 
     public Conversation(String username, String partnerUsername) {
@@ -93,8 +92,11 @@ public class Conversation {
      * @return true if new messages, false otherwise.
      */
     public boolean receiveMessages() {
-        //addMessage(new Message()); //Uncomment to test poll
-
+         if (this.id < 0) {
+             getConversationIfExists();
+             return true;
+         }
+         
         //Read new messages from database;
         ArrayList<Message> receivedMessages = ConversationDAO.getNewMessagesTo(this.id, this.getLastIDReceived(), this.username);
         if (receivedMessages == null || receivedMessages.isEmpty()) {
@@ -134,7 +136,7 @@ public class Conversation {
             }
         }
 
-        return -1;
+        return 0;
     }
 
     public ArrayList<Message> getMessages() {
