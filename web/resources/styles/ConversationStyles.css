@@ -1,9 +1,14 @@
+.message_board_wrapper {
+    width: 100%;
+}
+
 .message_board {
+    margin: auto;
     font-family: sans-serif;
     background-color: white;
     border: 2px solid grey;
     border-radius: 5px;
-    width: 500px;
+    width: 95%;
     height: 500px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -39,25 +44,44 @@
     float: right;
 }
 
-.message_input_table {
+.message_input_text_wrapper {
+    display: block;
+    overflow: hidden;
+    padding: 0px 5px;
+}
+
+.message_input_box {
+    overflow: hidden;
+    width: 95%;
     margin: auto;
 }
 
+.message_send_button, .message_text_input {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .message_text_input {
-    width: 400px !important;
+    margin: 5px 0 !important;
+    height: 28px !important;
+    width: 100% !important;
     font-size: inherit !important;
     border-radius: 25px !important;
     border: 2px solid grey !important;
-    padding: 0px 5px 0px 5px !important;
+    padding: 0px 5px !important;
 }
 
 .message_send_button {
+    margin: 5px 0 !important;
+    height: 28px !important;
     background-color: blue;
     color: white;
-    padding: 0px 2px;
+    padding: 0px 2px !important;
     font-size: inherit;
     border: none;
     border-radius: 25px;
+    float: right;
 }
 
 .message_send_button:active {

@@ -26,96 +26,79 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:900px; height:750px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
-                    <div style="width:255px; height:470; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
+                <div class="sticker">
+                    <div class="profile_content_left">
+                        <h2 class="medium section_title">Profile</h2>
+                        <h3 style = "font-family: acme;">Location</h3>
+                        City: <h:outputText value="#{profileController.userModel.city}" /><br/>
+                        State: <h:outputText value="#{profileController.userModel.state}" /><br/><br/>
 
-                        <h:panelGroup layout="block">
-                            <center>
-                                <h:outputText style="font-size:30px; font-weight: bold;"
-                                              value="#{profileController.userModel.name}'s Profile" />
-                            </center><br/><br/>
+                        <h3 style = "font-family: acme;">Contact Info:</h3>
+                        Email: <h:outputText value="#{profileController.userModel.email}" /><br/><br/>
 
+                        <h3 style = "font-family: acme;">Personal Info:</h3>
+                        Age: <h:outputText value="#{profileController.userModel.age}" /><br/>
+                        Gender: <h:outputText value="#{profileController.userModel.gender}" /><br/>
+                        Religion: <h:outputText value="#{profileController.userModel.religion}" /><br/>
+                        Race: <h:outputText value="#{profileController.userModel.race}" /><br/>
+                        Political Views: <h:outputText value="#{profileController.userModel.politics}" /><br/><br/>
 
-                            <div style="padding-left:25px"><h3 style = "font-family: acme;">Location</h3>
-                                City: <h:outputText value="#{profileController.userModel.city}" /><br/>
-                                State: <h:outputText value="#{profileController.userModel.state}" /><br/><br/>
-
-                                <h3 style = "font-family: acme;">Contact Info:</h3>
-                                Email: <h:outputText value="#{profileController.userModel.email}" /><br/><br/>
-
-                                <h3 style = "font-family: acme;">Personal Info:</h3>
-                                Age: <h:outputText value="#{profileController.userModel.age}" /><br/>
-                                Gender: <h:outputText value="#{profileController.userModel.gender}" /><br/>
-                                Religion: <h:outputText value="#{profileController.userModel.religion}" /><br/>
-                                Race: <h:outputText value="#{profileController.userModel.race}" /><br/>
-                                Political Views: <h:outputText value="#{profileController.userModel.politics}" /><br/><br/>
-
-                                <h3 style = "font-family: acme;">Biography:</h3>
-                                <h:outputText value="#{profileController.userModel.bio}" /><br/><br/>
-
-
-                            </div>    
-                        </h:panelGroup>
+                        <h3 style = "font-family: acme;">Biography:</h3>
+                        <h:outputText value="#{profileController.userModel.bio}" /><br/><br/>
                     </div>
-                    <center>
-                        <div style="margin-top: 15px">
-                            <h:panelGroup layout="block">
-                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Profile Options"/><br/><br/>
+                    <div class="profile_content_right">
+                        <h1 class="big section_title">
+                            #{profileController.userModel.name}
+                        </h1>
+                        <div class="message_board_wrapper">
 
-                                <h:form id="message_form">
-                                    <c:if test="#{loginController.loggedIn}">
-                                        <h:panelGroup id="message_board" layout="block" styleClass="message_board">
-                                            <ui:repeat id="messages" value="#{conversationController.conversationModel.messages}" var="mesg">
-                                                <p id="#{mesg.stringId}" class="#{mesg.getType(loginController.theModel.username)}"
-                                                   title="#{mesg.dateTime}">
-                                                    <h:outputText value="#{mesg.content}" />
-                                                </p>
-                                            </ui:repeat>
-                                        </h:panelGroup>
-                                        <p:poll interval="3"
-                                                listener="#{conversationController.receiveMessages()}" />
-                                        <table class="message_input_table">
-                                            <tr>
-                                                <td>
-                                                    <p:inputText id="content" value="#{conversationController.content}" styleClass="message_text_input" />  
-                                                </td>
-                                                <td>
-                                                    <p:commandButton value="send"
-                                                                     styleClass="message_send_button"
-                                                                     actionListener="#{conversationController.sendMessage()}"
-                                                                     process="@this,content"
-                                                                     update="message_board,content"
-                                                                     oncomplete="onSendComplete()" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </c:if>
-                                </h:form>
-                                <h:form>
-                                    <c:if test="${loginController.loggedIn}">
-                                        <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
-                                            <c:if test="${!profileController.pendingRequest(loginController.theModel.username)}">
-                                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                                 value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
+                            <h:form id="message_form">
+                                <c:if test="#{loginController.loggedIn}">
+                                    <h:panelGroup id="message_board" layout="block" styleClass="message_board">
+                                        <ui:repeat id="messages" value="#{conversationController.conversationModel.messages}" var="mesg">
+                                            <p id="#{mesg.stringId}" class="#{mesg.getType(loginController.theModel.username)}"
+                                               title="#{mesg.dateTime}">
+                                                <h:outputText value="#{mesg.content}" />
+                                            </p>
+                                        </ui:repeat>
+                                    </h:panelGroup>
+                                    <p:poll interval="3"
+                                            listener="#{conversationController.receiveMessages()}" />
+                                    <div class="message_input_box">
+                                        <p:commandButton value="send"
+                                                         styleClass="message_send_button"
+                                                         actionListener="#{conversationController.sendMessage()}"
+                                                         process="@this,content"
+                                                         update="message_board,content"
+                                                         oncomplete="onSendComplete()" />
+                                        <span class="message_input_text_wrapper">        
+                                            <p:inputText id="content" value="#{conversationController.content}" styleClass="message_text_input" />
+                                        </span>
+                                    </div>
+                                </c:if>
+                            </h:form>
+                            <h:form>
+                                <c:if test="${loginController.loggedIn}">
+                                    <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
+                                        <c:if test="${!profileController.pendingRequest(loginController.theModel.username)}">
+                                            <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
+                                                             value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
 
-                                            </c:if>
-                                        </c:if>
-                                        <c:if test="${profileController.isFriend(loginController.theModel.username)}">
-                                            <h:outputText value="#{profileController.userModel.name} is your friend" /><br/><br/>
-                                        </c:if>
-                                        <c:if test="${profileController.pendingRequest(loginController.theModel.username)}">
-                                            <h:outputText value="A friend request is pending with #{profileController.userModel.name}" /><br/><br/>
                                         </c:if>
                                     </c:if>
-                                    <c:if test="${!loginController.loggedIn}">
-                                        <center><h3>Login to see additional tools!</h3></center>
+                                    <c:if test="${profileController.isFriend(loginController.theModel.username)}">
+                                        <h:outputText value="#{profileController.userModel.name} is your friend" /><br/><br/>
                                     </c:if>
-                                </h:form>
-
-                            </h:panelGroup>
+                                    <c:if test="${profileController.pendingRequest(loginController.theModel.username)}">
+                                        <h:outputText value="A friend request is pending with #{profileController.userModel.name}" /><br/><br/>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="${!loginController.loggedIn}">
+                                    <h3>Login to see additional tools!</h3>
+                                </c:if>
+                            </h:form>
                         </div>
-                    </center>
+                    </div>
                 </div>
             </ui:define>
         </ui:composition>

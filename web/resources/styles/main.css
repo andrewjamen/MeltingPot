@@ -85,7 +85,9 @@
 
 }
 
-
+.section_title {
+    margin: 0 0 20px 0 !important;
+}
 
 .big, .medium, .small {
     font-weight: bold;
@@ -94,7 +96,6 @@
 }
 
 .big{
-    
     font-size: 300%;
 }
 
@@ -109,7 +110,7 @@
 
 .sticker{
     padding: 10px 0px 20px 0px;
-    width: 700px; 
+    min-width: 700px; 
     min-height:400px; 
     margin-top: 10%; 
     background-color: whitesmoke; 
@@ -233,4 +234,15 @@ input[type=submit] {
 }
 .conv_table h3 {
     padding: 0 20px 0 0;
+}
+
+.profile_content_left {
+    float: left;
+    width: 40%;
+    padding: 30px 0 0 0;
+}
+
+.profile_content_right {
+    margin-left: 40% !important;
+    width: 60%;
 }
