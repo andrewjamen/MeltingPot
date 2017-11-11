@@ -5,7 +5,6 @@
  */
 package controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
@@ -27,67 +26,93 @@ public class ConversationController {
 
     private static final String MESSAGE_BOARD_ID = "message_form:message_board";
     private static final String SCROLL_FUNCTION = "scrollToBottom()";
-    
-    private Conversation conversationModel = null;
-    private Conversations conversations = null;
-    private String username = null;
-    private String content = "";
-    
+
+    private Conversation conversationModel;
+    private Conversations conversations;
+    private String username;
+    private String content;
+
     /**
      * Creates a new instance of ConversationController
      */
     public ConversationController() {
-        if (conversationModel == null) conversationModel = new Conversation();
-        if (conversations == null) conversations = new Conversations(username);
-        if (username == null) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            LoginController login = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class);
-            this.username = login.getTheModel().getUsername();
-        }
-    }    
-    
+        this.conversationModel = null;
+        this.conversations = null;
+        this.username = null;
+        this.content = "";
+    }
+
     /**
      * Initializes the conversation model.
-     * @param partnerUsername 
+     *
+     * @param partnerUsername
      */
     public void startConversation(String partnerUsername) {
-        content="";
+        if (username == null) {
+            init();
+        }
+
+        content = "";
         conversationModel = new Conversation(this.username, partnerUsername);
     }
-    
+
     public void prepareConversations() {
         //TODO: If not logged in, redirect to home.
         this.updateConversations();
     }
-    
-    public void updateConversations() {
-        if (conversations == null) conversations = new Conversations(username);
-        else conversations.update(username);
+
+    /**
+     * Initializes the username.
+     */
+    public void init() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        this.username = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class).getTheModel().getUsername();
     }
-    
+
+    public void updateConversations() {
+        if (conversations == null) {
+            if (username == null) {
+                init();
+            }
+            conversations = new Conversations(username);
+        } else {
+            conversations.update(username);
+        }
+    }
+
     public void deleteListedConversation(int index) {
         conversations.deleteConversation(index);
     }
-    
+
     public int conversationCount() {
         this.updateConversations();
         return conversations.getCount();
     }
-    
+
     public void sendMessage() {
-        if (content.equals("")) return;
+        if (content.equals("")) {
+            return;
+        }
+        if (conversationModel == null) {
+            System.err.println("Error: cannot send message (\"" + content + "\"). Conversation is null.");
+            return;
+        }
         conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), this.content, new Date()));
-        this.content="";
+        this.content = "";
     }
-    
+
     public void receiveMessages() {
-        if(conversationModel.receiveMessages()) {
+        if (conversationModel == null) {
+            System.err.println("Error: cannot receive messages. Conversation is null.");
+            return;
+        }
+        if (conversationModel.receiveMessages()) {
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update(MESSAGE_BOARD_ID);
             requestContext.execute(SCROLL_FUNCTION);
         }
     }
-    
+
     public Conversation getConversationModel() {
         return conversationModel;
     }
@@ -110,5 +135,5 @@ public class ConversationController {
 
     public void setConversations(Conversations conversations) {
         this.conversations = conversations;
-    }    
+    }
 }

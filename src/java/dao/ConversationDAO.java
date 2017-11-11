@@ -41,14 +41,15 @@ public class ConversationDAO {
     private final static String M_RECEIVER = "RECEIVER";
     private final static String M_CONTENT = "CONTENT";
     private final static String M_DATETIME = "DATETIME";
-    
+
     /**
      * For testing only.
-     * @param args 
+     *
+     * @param args
      */
     public static void main(String args[]) {
         //createConversation("pdkaufm", "test");
-        
+
         /*
         createConversation("pdkaufm", "test1");
         createConversation("pdkaufm", "test2");
@@ -57,10 +58,11 @@ public class ConversationDAO {
         for (int i = 0; i < conversations.size(); i++) {
             System.out.println(conversations.get(i));
         }*/
-        
         //addMessage(1, new Message("test", "pdkaufm", "message content goes here", new Date()));
+        
+        //deleteConversationByID(2);
     }
-    
+
     /**
      * Returns the conversation id of a conversation between two users if it
      * exists. Returns -1 otherwise.
@@ -124,11 +126,11 @@ public class ConversationDAO {
             rowCount = pstmt.executeUpdate();
 
             ResultSet rs = pstmt.getGeneratedKeys();
-            
+
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            
+
             pstmt.close();
             conn.close();
         } catch (Exception e) {
@@ -148,7 +150,27 @@ public class ConversationDAO {
      * @return
      */
     public static boolean deleteConversationByID(int convID) {
-        //TODO
+        int rowCount = -1;
+
+        try {
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM " + C_TABLE_NAME + " WHERE " + C_CONV_ID + " = ?");
+            pstmt.setInt(1, convID);
+
+            rowCount = pstmt.executeUpdate();
+            System.out.println("DELETE " + convID);
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("ERROR: Problem with Conversation Delete");
+            e.printStackTrace();
+        }
+        if (rowCount > 0) {
+            deleteMessagesByConversationID(convID);
+            return true;
+        }
         return false;
     }
 
@@ -158,39 +180,59 @@ public class ConversationDAO {
      * @param id
      * @return
      */
-    public static boolean deleteMessagesByConversationID(int convID) {
-        //TODO
+    private static boolean deleteMessagesByConversationID(int convID) {
+        int rowCount = -1;
+
+        try {
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM " + M_TABLE_NAME + " WHERE " + M_CONV_ID + " = ?");
+            pstmt.setInt(1, convID);
+
+            rowCount = pstmt.executeUpdate();
+            System.out.println("DELETE " + convID);
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("ERROR: Problem with All Messages Delete");
+            e.printStackTrace();
+        }
+        if (rowCount > 0) {
+            return true;
+        }
         return false;
     }
 
     public static ArrayList<ConversationPair> getAllConversationsByUsername(String username) {
         ArrayList<ConversationPair> conversations = new ArrayList();
         try {
-        DBHelper.loadDriver(DRIVER_STRING);
-        Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
-        
-        PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + C_TABLE_NAME + " WHERE " + C_USER_A + " = ? OR " + C_USER_B + " = ?");
-        pstmt.setString(1, username);
-        pstmt.setString(2, username);
-        
-        ResultSet rs = pstmt.executeQuery();
-        
-        while (rs.next()) {
-            String partnerUsername = rs.getString(C_USER_A);
-            if (partnerUsername.equals(username)) partnerUsername = rs.getString(C_USER_B);
-            
-            conversations.add(new ConversationPair(rs.getInt(C_CONV_ID), username, partnerUsername));
-        }
-        
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + C_TABLE_NAME + " WHERE " + C_USER_A + " = ? OR " + C_USER_B + " = ?");
+            pstmt.setString(1, username);
+            pstmt.setString(2, username);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String partnerUsername = rs.getString(C_USER_A);
+                if (partnerUsername.equals(username)) {
+                    partnerUsername = rs.getString(C_USER_B);
+                }
+
+                conversations.add(new ConversationPair(rs.getInt(C_CONV_ID), username, partnerUsername));
+            }
+
         } catch (Exception e) {
             System.err.println("ERROR: Problem get all conversations by Username.");
             e.printStackTrace();
         }
-        
-        
+
         return conversations;
     }
-    
+
     /**
      * Deletes a message by message id.
      *
@@ -199,14 +241,14 @@ public class ConversationDAO {
      */
     public static boolean deleteMessageByID(int mesgID) {
         int rowCount = -1;
-        
+
         try {
             DBHelper.loadDriver(DRIVER_STRING);
             Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
-            
+
             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM " + M_TABLE_NAME + " WHERE " + M_MESG_ID + " = ?");
             pstmt.setInt(1, mesgID);
-            
+
             rowCount = pstmt.executeUpdate();
             System.out.println("DELETE " + mesgID);
             pstmt.close();
@@ -215,7 +257,9 @@ public class ConversationDAO {
             System.err.println("ERROR: Problem with Message Delete");
             e.printStackTrace();
         }
-        if (rowCount > 0) return true;
+        if (rowCount > 0) {
+            return true;
+        }
         return false;
     }
 
@@ -306,11 +350,11 @@ public class ConversationDAO {
             rowCount = pstmt.executeUpdate();
 
             ResultSet rs = pstmt.getGeneratedKeys();
-            
+
             if (rs.next()) {
                 message.setId(rs.getInt(1));
             }
-            
+
             pstmt.close();
             conn.close();
         } catch (Exception e) {

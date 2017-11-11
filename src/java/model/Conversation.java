@@ -21,13 +21,11 @@ public class Conversation {
     private String username;
     private String partnerUsername;
 
-    public Conversation() {
+    private Conversation() {
         this.id = -1;
         this.messages = new ArrayList();
-        this.username = "";
-        this.partnerUsername = "";
     }
-
+    
     public Conversation(String username, String partnerUsername) {
         this();
         this.username = username;
@@ -41,65 +39,43 @@ public class Conversation {
      * @param message
      */
     public void sendMessage(Message message) {
-        //TODO: MAKE SURE CONVERSATION STILL EXISTS IN DATABASE.
-        try {
-            if (this.id < 0 && !getConversationIfExists()) {
-                this.createConversation();
+        handleDeletion();
+        
+        if (this.id < 0) {
+            try {
+                if (!getConversationIfExists()) {
+                    this.createConversation();
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+                return; //Message not sent.
             }
-        } catch (Exception e) {
-            System.err.println(e);
-            return; //Message not sent.
         }
 
         //Add message to database.
         message = ConversationDAO.addMessage(this.id, message);
 
-        if (message == null) return; //Error
-        
+        if (message == null) {
+            return; //Error
+        }
         //Add message to array.
         this.addMessage(message);
         this.limitHistory();
     }
-
-    /**
-     * Gets a conversation and its messages from the database if it exists.
-     * Returns true if conversation found and false otherwise.
-     *
-     * @return
-     */
-    private boolean getConversationIfExists() {
-        this.id = ConversationDAO.getConversation(username, partnerUsername);
-        if (id > -1) {
-            this.messages = ConversationDAO.getAllMessages(id);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Creates a conversation.
-     *
-     * @throws Exception If conversation could not be created.
-     */
-    private void createConversation() throws Exception {
-        this.id = ConversationDAO.createConversation(username, partnerUsername);
-        if (id < 0) {
-            throw new Exception("Conversation not created.");
-        }
-    }
-
-    /**
+    
+        /**
      * Receives new messages if they exist in the database.
+     *
      * @return true if new messages, false otherwise.
      */
     public boolean receiveMessages() {
-        //TODO: MAKE SURE CONVERSATION STILL EXISTS IN DATABASE
-        
+        handleDeletion();
+
         if (this.id < 0) {
             getConversationIfExists();
             return true;
         }
-         
+
         //Read new messages from database;
         ArrayList<Message> receivedMessages = ConversationDAO.getNewMessagesTo(this.id, this.getLastIDReceived(), this.username);
         if (receivedMessages == null || receivedMessages.isEmpty()) {
@@ -113,12 +89,50 @@ public class Conversation {
         }
         return true;
     }
-    
+
     private void limitHistory() {
         //TODO: Make this more efficient for multiple deletions.
         if (messages.size() > MAX_HISTORY) {
             Message message = messages.remove(0);
             ConversationDAO.deleteMessageByID(message.getId());
+        }
+    }
+
+    private int getConversationId() {
+        this.id = ConversationDAO.getConversation(username, partnerUsername);
+        return this.id;
+    }
+    
+    /**
+     * Gets a conversation and its messages from the database if it exists.
+     * Returns true if conversation found and false otherwise.
+     *
+     * @return
+     */
+    private boolean getConversationIfExists() {
+        if (getConversationId() > -1) {
+            this.messages = ConversationDAO.getAllMessages(id);
+            return true;
+        }
+        return false;
+    }
+    
+    private void handleDeletion() {
+        if (getConversationId() < 0) {
+            this.id = -1;
+            this.messages = new ArrayList();
+        }
+    }
+
+    /**
+     * Creates a conversation.
+     *
+     * @throws Exception If conversation could not be created.
+     */
+    private void createConversation() throws Exception {
+        this.id = ConversationDAO.createConversation(username, partnerUsername);
+        if (id < 0) {
+            throw new Exception("Conversation not created.");
         }
     }
 

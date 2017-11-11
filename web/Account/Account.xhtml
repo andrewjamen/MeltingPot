@@ -26,26 +26,26 @@
                     <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;float:left">
                         <h:panelGroup layout="block">
                         
-                                <h:outputText style="font-size:30px; font-weight: bold;"
+                                <h:outputText styleClass="medium"
                                               value="#{loginController.theModel.name}'s Account" />
                       <br/><br/>
 
 
                             <div style="padding-left:25px">
-                                <h2 style = "font-family: acme;">Location</h2>
+                                <h2 class="small">Location</h2>
                                 City: <h:outputText value="#{loginController.theModel.city}" /><br/>
                                 State: <h:outputText value="#{loginController.theModel.state}" /><br/><br/>
                                 
-                                <h2 style = "font-family: acme;">Contact Information:</h2>
+                                <h2 class="small">Contact Information:</h2>
                                 Email: <h:outputText value="#{loginController.theModel.email}" /><br/><br/>
 
-                                <h2 style = "font-family: acme;">Personal Information:</h2>
+                                <h2 class="small">Personal Information:</h2>
                                 Age: <h:outputText value="#{loginController.theModel.age}"/><br/>
                                 Gender: <h:outputText value="#{loginController.theModel.gender}"/><br/>
                                 Religion: <h:outputText value="#{loginController.theModel.religion}"/><br/>
                                 Race: <h:outputText value="#{loginController.theModel.race}"/><br/>
                                 Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>  
-                                <h2 style = "font-family: acme;">Biography:</h2>
+                                <h2 class="small">Biography:</h2>
                                 <h:outputText value="#{loginController.theModel.bio}" /><br/>
                             </div>
                         </h:panelGroup>
@@ -53,7 +53,7 @@
                     <div style="margin-top: 15px">
                         <h:panelGroup layout="block">
                     
-                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
+                                <h:outputText styleClass="big"
                                               value="Account Options"/><br/><br/><br/>
 
                                 <h:form>

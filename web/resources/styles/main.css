@@ -87,11 +87,23 @@
 
 
 
-.big{
-        font-weight: bold;
+.big, .medium, .small {
+    font-weight: bold;
     font-family: acme;
     text-align: center;
+}
+
+.big{
+    
     font-size: 300%;
+}
+
+.medium {
+    font-size: 200%;
+}
+
+.small {
+    font-size: 150%;
 }
 
 
