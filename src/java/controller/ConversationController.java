@@ -57,7 +57,12 @@ public class ConversationController {
     }
 
     public void prepareConversations() {
-        //TODO: If not logged in, redirect to home.
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        LoginController lc = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class);
+        if (!lc.isLoggedIn()) {
+            lc.checkIfLoggedIn();
+            return;
+        }
         this.updateConversations();
     }
 

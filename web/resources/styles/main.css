@@ -21,8 +21,6 @@
    
 }
 
-
-
 .banner {
     width: 100%;
     overflow: auto;
@@ -55,8 +53,6 @@
     
 }
 
-
-
 .page_body {
     min-height: 850px;
     border-bottom: 1px solid #888888;
@@ -71,26 +67,28 @@
     background-color: black; 
     border-color: rgba(0,0,0,0.3); 
     text-shadow: 0 1px 0 rgba(0,0,0,0.5); 
-    color: white; 
+    color: white;
     width:200px; 
     height:50px;
     border-radius: 11px;
-    font-weight: bolder;
-    font-size:12px;
     cursor: pointer;
     display: inline-block;
     position: relative;
     font-family: "acme";
-    font-size: 110%;
-
+    font-size: 120%;
 }
 
 .section_title {
     margin: 0 0 20px 0 !important;
 }
 
+.subsection_title {
+    margin: 0 0 5px 0 !important;
+}
+
 .big, .medium, .small {
-    font-weight: bold;
+    font-family: "acme";
+    font-weight: 600;
     font-family: acme;
     text-align: center;
 }
@@ -107,9 +105,8 @@
     font-size: 150%;
 }
 
-
 .sticker{
-    padding: 10px 0px 20px 0px;
+    padding: 10px 0px 30px 0px;
     min-width: 700px; 
     min-height:400px; 
     margin-top: 10%; 
@@ -162,8 +159,6 @@ input[type=text], input[type="password"],select, .input_textarea {
     border: 1px solid seagreen;
     border-radius: 7px;
     box-sizing: border-box;
-
-     
 }
 
 .input_table_input {
@@ -205,9 +200,7 @@ input[type=submit] {
     transition: opacity 1s;
 }
 
-
-
-.tooltip-right{
+.tooltip-right {
     top:6px;
     left:110%;
 }
@@ -232,17 +225,21 @@ input[type=submit] {
 .conv_table {
     margin: auto;
 }
-.conv_table h3 {
+.conv_table_title {
     padding: 0 20px 0 0;
 }
 
 .profile_content_left {
     float: left;
     width: 40%;
-    padding: 30px 0 0 0;
+    padding: 30px 15px 0 15px;
 }
 
 .profile_content_right {
     margin-left: 40% !important;
     width: 60%;
+}
+
+.clear {
+    clear: both;
 }

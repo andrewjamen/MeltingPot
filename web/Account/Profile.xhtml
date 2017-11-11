@@ -6,11 +6,9 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
-
-        <f:metadata>
-        </f:metadata>
     </h:head>
     <h:body>
         <ui:composition	template="/WEB-INF/includes/template.xhtml">
@@ -29,22 +27,23 @@
                 <div class="sticker">
                     <div class="profile_content_left">
                         <h2 class="medium section_title">Profile</h2>
-                        <h3 style = "font-family: acme;">Location</h3>
+
+                        <h3 class="small subsection_title">Location</h3>
                         City: <h:outputText value="#{profileController.userModel.city}" /><br/>
-                        State: <h:outputText value="#{profileController.userModel.state}" /><br/><br/>
+                        State: <h:outputText value="#{profileController.userModel.state}" /><br/>
 
-                        <h3 style = "font-family: acme;">Contact Info:</h3>
-                        Email: <h:outputText value="#{profileController.userModel.email}" /><br/><br/>
+                        <h3 class="small subsection_title">Contact Info:</h3>
+                        Email: <h:outputText value="#{profileController.userModel.email}" /><br/>
 
-                        <h3 style = "font-family: acme;">Personal Info:</h3>
+                        <h3 class="small subsection_title">Personal Info:</h3>
                         Age: <h:outputText value="#{profileController.userModel.age}" /><br/>
                         Gender: <h:outputText value="#{profileController.userModel.gender}" /><br/>
                         Religion: <h:outputText value="#{profileController.userModel.religion}" /><br/>
                         Race: <h:outputText value="#{profileController.userModel.race}" /><br/>
-                        Political Views: <h:outputText value="#{profileController.userModel.politics}" /><br/><br/>
+                        Political Views: <h:outputText value="#{profileController.userModel.politics}" /><br/>
 
-                        <h3 style = "font-family: acme;">Biography:</h3>
-                        <h:outputText value="#{profileController.userModel.bio}" /><br/><br/>
+                        <h3 class="small subsection_title">Bio:</h3>
+                        <h:outputText value="#{profileController.userModel.bio}" />
                     </div>
                     <div class="profile_content_right">
                         <h1 class="big section_title">
@@ -64,6 +63,7 @@
                                     </h:panelGroup>
                                     <p:poll interval="3"
                                             listener="#{conversationController.receiveMessages()}" />
+                                    <p:focus for="content" />
                                     <div class="message_input_box">
                                         <p:commandButton value="send"
                                                          styleClass="message_send_button"
@@ -71,8 +71,10 @@
                                                          process="@this,content"
                                                          update="message_board,content"
                                                          oncomplete="onSendComplete()" />
-                                        <span class="message_input_text_wrapper">        
-                                            <p:inputText id="content" value="#{conversationController.content}" styleClass="message_text_input" />
+                                        <span class="message_input_text_wrapper">
+                                            <p:inputText id="content"
+                                                         value="#{conversationController.content}"
+                                                         styleClass="message_text_input" />
                                         </span>
                                     </div>
                                 </c:if>
@@ -94,11 +96,12 @@
                                     </c:if>
                                 </c:if>
                                 <c:if test="${!loginController.loggedIn}">
-                                    <h3>Login to see additional tools!</h3>
+                                    <h3 class="medium section_title">Login to start a conversation!</h3>
                                 </c:if>
                             </h:form>
                         </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
             </ui:define>
         </ui:composition>

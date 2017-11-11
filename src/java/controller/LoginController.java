@@ -49,12 +49,12 @@ public class LoginController {
         this.loggedIn = loggedIn;
     }
 
+    
     public void checkIfLoggedIn() {
         if (!loggedIn) {
-            // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("Login?faces-redirect=true");
+            nav.performNavigation("/Home/Home.xhtml?faces-redirect=true");
         }
     }
 
