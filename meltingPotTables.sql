@@ -8,6 +8,7 @@
 DROP TABLE MELT.Users;
 DROP TABLE MELT.Conversations;
 DROP TABLE MELT.Messages;
+DROP TABLE MELT.Reports;
 
 --User Table
 CREATE TABLE MELT.Users(
@@ -23,14 +24,16 @@ CREATE TABLE MELT.Users(
     POLITICS                VARCHAR(20),
     BIO                     VARCHAR(250),
     EMAIL                   VARCHAR(35),
+    BANNED                  BOOLEAN,
     FRIENDREQUEST           VARCHAR(250),
     FRIENDLIST              VARCHAR(250)
 );
 
 --Sample User accounts (to be used for testing).
-INSERT INTO MELT.Users VALUES ('test', '123', 'tester', 99, 'Other', 'Anchorage', 'Alaska', 'Other', 'Other', 'Other', 'I am a test account.', 'test@ilstu.edu', '', '');
-INSERT INTO MELT.Users VALUES ('pdkaufm', '123', 'Perry', 26, 'Male', 'Normal', 'Illinois', 'Athiest', 'White', 'Other', 'This is a bio...', 'pdkaufm@ilstu.edu', '', '');
-INSERT INTO MELT.Users VALUES ('ajamen', '123', 'Andrew', 26, 'Male', 'Normal', 'Illinois', 'None', 'White', 'Liberal', 'Skiier', 'ajamen@ilstu.edu', '', '');
+INSERT INTO MELT.Users VALUES ('test', '123', 'tester', 99, 'Other', 'Anchorage', 'Alaska', 'Other', 'Other', 'Other', 'I am a test account.', 'test@ilstu.edu', 'False', '', '');
+INSERT INTO MELT.Users VALUES ('pdkaufm', '123', 'Perry', 26, 'Male', 'Normal', 'Illinois', 'Athiest', 'White', 'Other', 'This is a bio...', 'pdkaufm@ilstu.edu', 'False', '', '');
+INSERT INTO MELT.Users VALUES ('ajamen', '123', 'Andrew', 23, 'Male', 'Normal', 'Illinois', 'None', 'White', 'Liberal', 'Skiier', 'ajamen@ilstu.edu', 'False', '', '');
+INSERT INTO MELT.Users VALUES ('akol', '123', 'Amanda', 23, 'Female', 'LITH', 'Illinois', 'None', 'White', 'Liberal', 'Dogs', 'akol@ilstu.edu', 'False', '', '');
 
 --Conversation Table
 CREATE TABLE MELT.Conversations(
@@ -49,4 +52,10 @@ CREATE TABLE MELT.Messages(
     CONTENT                 VARCHAR(280)
 );
 
---TODO: Add admin table.
+CREATE TABLE MELT.Reports(
+    REPORT_ID               INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    REPORTER                VARCHAR(25),
+    OFFENDER                VARCHAR(25),
+    MESSAGE                 VARCHAR(500)
+);
+
