@@ -6,7 +6,7 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Friend Requests</title>
+        
         <f:metadata>
 
         </f:metadata>
@@ -17,31 +17,32 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
+                <title>Friend Requests</title>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:675px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" class = "sticker">
                     <h:form>
 
                         <h:dataTable id="userNotifs" value="#{friendController.getFriendRequests()}" var="aRow"
-                                     border="1" cellpadding="3" cellspacing="5">
+                                     border="1" cellpadding="1" cellspacing="1">
                             <h:column>
-                                <h4><h:outputText value="#{aRow}"/>&#160;&#160;&#160;</h4>
+                                <h4><h:outputText style="font-family: acme;" value="#{aRow}"/></h4>
                             </h:column>
 
 
                             <h:column>
-                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
+                                <h:commandButton class ="button"
                                                  value="View Profile" action="#{profileController.getProfilePage(friendController.getRequestSender(aRow))}"/>
 
                             </h:column>
                             <h:column>
-                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
+                                <h:commandButton class ="button"
                                                  value="Confrim" action="#{friendController.confrimFriend(friendController.getRequestSender(aRow))}"/>
                             </h:column>
                             <h:column>
-                                <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
+                                <h:commandButton class ="button"
                                                  value="Deny" action="#{friendController.removeRequest(friendController.getRequestSender(aRow))}"/>
                             </h:column>
 
