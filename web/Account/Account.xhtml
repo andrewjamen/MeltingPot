@@ -22,61 +22,57 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" class="sticker" style="height:800px; ">
-                    <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;float:left">
-                        <h:panelGroup layout="block">
+                <div id="login" class="sticker">
+                    <div class="profile_content_left">
+                        <h2 class="medium section_title">Your Account</h2>
+
+                        <h3 class="small subsection_title">Location</h3>
+                        City: <h:outputText value="#{loginController.theModel.city}" /><br/>
+                        State: <h:outputText value="#{loginController.theModel.state}" /><br/>
+
+                        <h3 class="small subsection_title">Contact Info:</h3>
+                        Email: <h:outputText value="#{loginController.theModel.email}" /><br/>
+
+                        <h3 class="small subsection_title">Personal Info:</h3>
+                        Age: <h:outputText value="#{loginController.theModel.age}"/><br/>
+                        Gender: <h:outputText value="#{loginController.theModel.gender}"/><br/>
+                        Religion: <h:outputText value="#{loginController.theModel.religion}"/><br/>
+                        Race: <h:outputText value="#{loginController.theModel.race}"/><br/>
+                        Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>  
                         
-                                <h:outputText style="font-size:30px; font-weight: bold;"
-                                              value="#{loginController.theModel.name}'s Account" />
-                      <br/><br/>
-
-
-                            <div style="padding-left:25px">
-                                <h2 style = "font-family: acme;">Location</h2>
-                                City: <h:outputText value="#{loginController.theModel.city}" /><br/>
-                                State: <h:outputText value="#{loginController.theModel.state}" /><br/><br/>
-                                
-                                <h2 style = "font-family: acme;">Contact Information:</h2>
-                                Email: <h:outputText value="#{loginController.theModel.email}" /><br/><br/>
-
-                                <h2 style = "font-family: acme;">Personal Information:</h2>
-                                Age: <h:outputText value="#{loginController.theModel.age}"/><br/>
-                                Gender: <h:outputText value="#{loginController.theModel.gender}"/><br/>
-                                Religion: <h:outputText value="#{loginController.theModel.religion}"/><br/>
-                                Race: <h:outputText value="#{loginController.theModel.race}"/><br/>
-                                Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>  
-                                <h2 style = "font-family: acme;">Biography:</h2>
-                                <h:outputText value="#{loginController.theModel.bio}" /><br/>
-                            </div>
-                        </h:panelGroup>
+                        <h3 class="small subsection_title">Bio:</h3>
+                        <h:outputText value="#{loginController.theModel.bio}" />
                     </div>
-                    <div style="margin-top: 15px">
-                        <h:panelGroup layout="block">
-                    
-                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Account Options"/><br/><br/><br/>
+                    <div class="profile_content_right">
+                        <h1 class="big section_title">Account Options</h1>
+                        <h:form>
 
-                                <h:form>
+                            <h:commandButton class="button"
+                                             value="Conversations (#{conversationController.conversationCount()})"
+                                             action="/Account/Conversations.xhtml?faces-redirect=true"/>
+                            <br/><br/>
 
-                                    <h:commandButton class="button" style ="font-style:italic;"
-                                                     value="Conversations (#{conversationController.conversationCount()})" action="/Account/Conversations.xhtml?faces-redirect=true"/><br/><br/>
+                            <h:button  class="button" 
+                                       value="User Search"
+                                       outcome="/Search/Search.xhtml?faces-redirect=true" />
+                            <br/><br/>
 
-                                    <h:button  class="button" 
-                                              value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>
+                            <h:commandButton class="button" 
+                                             value="View Friend Requests (#{friendController.numberRequests()})"
+                                             action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" />
+                            <br/><br/>
 
-                                    <h:commandButton class="button" style ="font-style:italic; font-size: 95%;" 
-                                                     value="View Friend Requests (#{friendController.numberRequests()})" action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" /><br/><br/>
-                                    
-                                    <h:commandButton class="button" 
-                                                     value="View Friends List (#{friendController.numberList()})" action="#{friendController.viewFriendList(loginController.theModel.getUsername())}" /><br/><br/>
-                                    
-                                    <h:commandButton class="button" style ="font-size: 95%;" 
-                                                     value="Update Your Information" action="#{updateController.retrieveProfile(loginController.theModel)}" />
-                                </h:form>
-                   
-                                
-                        </h:panelGroup>
-                    </div>            
+                            <h:commandButton class="button" 
+                                             value="View Friends List (#{friendController.numberList()})"
+                                             action="#{friendController.viewFriendList(loginController.theModel.getUsername())}"/>
+                            <br/><br/>
+
+                            <h:commandButton class="button"
+                                             value="Update Your Information"
+                                             action="#{updateController.retrieveProfile(loginController.theModel)}" />
+                        </h:form>         
+                    </div>
+                    <div class="clear"></div>
                 </div>
             </ui:define>
         </ui:composition>

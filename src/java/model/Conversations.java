@@ -36,5 +36,8 @@ public class Conversations {
     public ArrayList<ConversationPair> getConversationsList() {
         return conversationsList;
     }
-
+    
+    public boolean noConversations() {
+        return conversationsList.isEmpty();
+    }
 }

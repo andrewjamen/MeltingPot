@@ -76,7 +76,7 @@ public class FriendController {
     }
 
     public ArrayList<String> string2list(String str) {
-        
+
         friendList.clear();
 
         if (str.equals("") || str.equals("\n")) {
@@ -90,6 +90,20 @@ public class FriendController {
                 friendList.add(lines[i]);
             }
         }
+
+        
+        //remove banned accounts
+        ArrayList<String> removals = new ArrayList<>();      
+        for (String aUsername : friendList) {
+
+            UserBean aProfile = UserDAO.findByUsername(aUsername);
+
+            if (aProfile.isBanned()) {
+                removals.add(aUsername);
+            }
+        }
+        friendList.removeAll(removals);
+        
 
         return friendList;
     }
@@ -109,6 +123,20 @@ public class FriendController {
                 friendRequests.add(lines[i]);
             }
         }
+
+        //remove banned accounts
+        ArrayList<String> removals = new ArrayList<>();
+        for (String aRequest : friendRequests) {
+            
+            String aUsername = aRequest.substring(0, aRequest.indexOf(" "));
+
+            UserBean aProfile = UserDAO.findByUsername(aUsername);
+
+            if (aProfile.isBanned()) {
+                removals.add(aRequest);
+            }
+        }
+        friendRequests.removeAll(removals);
 
         return friendRequests;
     }
@@ -175,9 +203,6 @@ public class FriendController {
         userBean = UserDAO.findByUsername(userBean.getUsername());
         setUserBean(userBean); //this doesnt seem to be working?
 
-        //setFriendRequests(string2requests(allRequests));//not passing right param?
-        LoginController lc = new LoginController();
-        lc.setTheModel(userBean);
 
         //TODO: reload and update page
         return "/Friend/FriendRequest.xhtml?faces-redirect=true";

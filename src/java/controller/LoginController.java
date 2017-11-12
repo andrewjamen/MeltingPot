@@ -20,12 +20,20 @@ public class LoginController {
     UserBean theModel;
     String response;
     int numAttempts;
+    boolean adminVerified = false;
 
     public LoginController() {
+        response = "";
         theModel = new UserBean();
     }
 
     public UserBean getTheModel() {
+        UserBean aModel = UserDAO.findByUsername(theModel.getUsername());
+        
+        if (aModel != null){
+            theModel = aModel;
+        }
+        
         return theModel;
     }
 
@@ -49,26 +57,52 @@ public class LoginController {
         this.loggedIn = loggedIn;
     }
 
+    public boolean isAdminVerified() {
+        return adminVerified;
+    }
+
+    public void setAdminVerified(boolean adminVerified) {
+        this.adminVerified = adminVerified;
+    }
+
     public void checkIfLoggedIn() {
         if (!loggedIn) {
-            // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("Login?faces-redirect=true");
+            nav.performNavigation("/Home/Home.xhtml?faces-redirect=true");
         }
     }
 
     public String processLogin() {
-        if (!isValid()) {
+        if (theModel.getUsername().equals("admin") && theModel.getPassword().equals("123")) {
+            return loginAdmin();
+        } else if (!isValid()) {
             loggedIn = false;
             response = "Invalid username/password!";
             return ""; // stay right at the current page
         } else {
             this.setTheModel(findProfile());
+            
+            if (theModel.isBanned()) {
+                loggedIn = false;
+                response = "Your account has been banned for miscounduct!";
+                return ""; // stay right at the current page
+            }
             loggedIn = true;
+            adminVerified = false;
             response = "";
             return "/Account/Account.xhtml?faces-redirect=true";
         }
+    }
+
+    public String loginAdmin() {
+        adminVerified = true;
+        return "/Admin/AdminAccount.xhtml?faces-redirect=true";
+    }
+
+    public String logoutAdmin() {
+        adminVerified = false;
+        return "/Home/Home.xhtml?faces-redirect=true";
     }
 
     public String logout() {
@@ -96,9 +130,10 @@ public class LoginController {
     }
 
     private UserBean findProfile() {
-        
+
         theModel = UserDAO.findByUsername(theModel.getUsername());
 
         return theModel;
     }
+
 }

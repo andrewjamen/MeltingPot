@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core">
-
     <h:head>
         <title>Admin Account</title>
         <f:metadata>
-            <f:viewAction action="#{adminReviewsController.setAdminBean(adminLoginController.theModel)}" />
+            
         </f:metadata>
     </h:head>
     <h:body>
@@ -17,30 +17,35 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
+                <title>Admin Account</title>
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:500px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
-                    <div style="width:255px; height:370; border-right: 2px solid #888888; margin-top: 15px;margin-left: 15px;padding-left: 25px; float:left">
+                <div id="login" class="sticker" style="height:800px; ">
+                    <div style="margin-top: 15px">
+                        <h:panelGroup layout="block">
+                            <c:if test="#{loginController.isAdminVerified() == false}">
+                                <h:outputText value="Youre Not an Admin, Bud"/>
+                            </c:if>
 
-                         
-                        
-                                <h:outputText style="padding-right:15px; font-size:30px; font-weight: bold;"
-                                              value="Account Tools and Notifications"/><br/><br/><br/>
-
+                            <c:if test="#{loginController.isAdminVerified() == true}">
                                 <h:form>
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                     value="View Reviews (#{adminReviewsController.number()})" action="#{adminReviewsController.goToPage(adminLoginController.theModel.getUsername())}"/><br/><br/><br/>
 
+                                    <h:commandButton class="button" style ="font-style:italic;"
+                                                     value="View Reports (#{adminController.getReports().size()})" action="/Admin/Reports.xhtml?faces-redirect=true"/><br/><br/>
 
-                                    <h:button style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                              value="User Search" outcome="/Search/Search.xhtml" /><br/><br/><br/>
+                                    <h:commandButton class="button" style ="font-style:italic;"
+                                                     value="View Banned Accoutns (#{adminController.getBannedAccounts().size()})" action="/Admin/BannedAccounts.xhtml?faces-redirect=true"/><br/><br/>
+
+                                    <h:button  class="button" 
+                                               value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>
 
                                 </h:form>
-                      
-                    </div>
 
+                            </c:if>
+                        </h:panelGroup>
+                    </div>            
                 </div>
             </ui:define>
         </ui:composition>

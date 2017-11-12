@@ -132,6 +132,10 @@ public class SignUpController {
                 goodLogin = false;
             }
         }
+        
+        if (userBean.getUsername().toUpperCase().equals("ADMIN")){
+            goodLogin = false;
+        }
 
         if (goodLogin == false) {
             return "Username already taken!";
@@ -167,7 +171,7 @@ public class SignUpController {
             status = "Enter a Username!";
             return "";
         }
-        if (match != null) {
+        if (match != null || userBean.getUsername().toUpperCase().equals("ADMIN")) {
             status = "Username Already Exists!";
             return "";
         }
