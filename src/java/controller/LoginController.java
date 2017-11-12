@@ -20,6 +20,7 @@ public class LoginController {
     UserBean theModel;
     String response;
     int numAttempts;
+    boolean adminVerified = false;
 
     public LoginController() {
         theModel = new UserBean();
@@ -49,6 +50,13 @@ public class LoginController {
         this.loggedIn = loggedIn;
     }
 
+    public boolean isAdminVerified() {
+        return adminVerified;
+    }
+
+    public void setAdminVerified(boolean adminVerified) {
+        this.adminVerified = adminVerified;
+    }
     
     public void checkIfLoggedIn() {
         if (!loggedIn) {
@@ -59,16 +67,29 @@ public class LoginController {
     }
 
     public String processLogin() {
-        if (!isValid()) {
+        if (theModel.getUsername().equals("admin") && theModel.getPassword().equals("123")) {
+            return loginAdmin();
+        } else if (!isValid()) {
             loggedIn = false;
             response = "Invalid username/password!";
             return ""; // stay right at the current page
         } else {
             this.setTheModel(findProfile());
             loggedIn = true;
+            adminVerified = false;
             response = "";
             return "/Account/Account.xhtml?faces-redirect=true";
         }
+    }
+
+    public String loginAdmin() {
+        adminVerified = true;
+        return "/Admin/AdminAccount.xhtml?faces-redirect=true";
+    }
+    
+    public String logoutAdmin(){
+        adminVerified = false;
+        return "/Home/Home.xhtml?faces-redirect=true";
     }
 
     public String logout() {
@@ -96,9 +117,11 @@ public class LoginController {
     }
 
     private UserBean findProfile() {
-        
+
         theModel = UserDAO.findByUsername(theModel.getUsername());
 
         return theModel;
     }
+    
+    
 }

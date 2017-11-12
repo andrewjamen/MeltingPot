@@ -40,7 +40,7 @@ public class UserDAO {
                     + "','" + aUserBean.getPolitics()
                     + "','" + aUserBean.getBio()
                     + "','" + aUserBean.getEmail()
-                    + "','','')";
+                    + "','False','', '')";
 
             PreparedStatement pstmt = conn.prepareStatement(createString);
 
@@ -60,31 +60,25 @@ public class UserDAO {
     public static ArrayList<UserBean> findAll() {
 
         String query = "SELECT * FROM " + TABLE_NAME;
-        ArrayList<UserBean> aStudentBeanCollection = selectProfilesFromDB(query);
-        return aStudentBeanCollection;
+        ArrayList<UserBean> aUserBeanCollection = selectProfilesFromDB(query);
+        return aUserBeanCollection;
 
     }
 
-    //TODO: make prepared statments
-    private static ArrayList<UserBean> selectProfilesFromDB(String query) {
+    public static ArrayList<UserBean> selectProfilesFromDB(String query) {
         ArrayList<UserBean> aUserBeanCollection = new ArrayList();
-        Connection DBConn = null;
-        try {
-            DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-            // if doing the above in Oracle: DBHelper.loadDriver("oracle.jdbc.driver.OracleDriver");
-            String myDB = "jdbc:derby://localhost:1527/MeltingPotLocal";
-            // if doing the above in Oracle:  String myDB = "jdbc:oracle:thin:@oracle.itk.ilstu.edu:1521:ora478";
-            DBConn = DBHelper.connect2DB(myDB, "melt", "pot");
 
-            // With the connection made, create a statement to talk to the DB server.
-            // Create a SQL statement to query, retrieve the rows one by one (by going to the
-            // columns), and formulate the result string to send back to the client.
-            Statement stmt = DBConn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+        try {
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+
+            ResultSet rs = pstmt.executeQuery();
             String username, password, email, city, state, name, gender, religion,
-                    race, politics, bio, messages, friendRequest, friendList;
+                    race, politics, bio, friendRequest, friendList;
             int age;
-            double rating;
+            boolean banned;
             UserBean aUserBean;
             while (rs.next()) {
                 // 1. if a float (say PRICE) is to be retrieved, use rs.getFloat("PRICE");
@@ -101,25 +95,25 @@ public class UserDAO {
                 politics = rs.getString("Politics");
                 bio = rs.getString("Bio");
                 email = rs.getString("Email");
+                banned = rs.getBoolean("Banned");
                 friendRequest = rs.getString("FriendRequest");
                 friendList = rs.getString("FriendList");
 
                 // make a ProfileBean object out of the values
-                aUserBean = new UserBean(username, password, name, age, gender, city, state, religion, race, politics, bio, email, friendRequest, friendList);
+                aUserBean = new UserBean(username, password, name, age, gender, city, state, religion, race, politics, bio, email, banned, friendRequest, friendList);
                 // add the newly created object to the collection
                 aUserBeanCollection.add(aUserBean);
             }
+
             rs.close();
-            stmt.close();
+            pstmt.close();
+            conn.close();
+
         } catch (Exception e) {
-            System.err.println("ERROR: Problems with SQL select");
+            System.err.println("ERROR: Problem with Conversation Selection");
             e.printStackTrace();
         }
-        try {
-            DBConn.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
+
         return aUserBeanCollection;
     }
 
@@ -128,10 +122,10 @@ public class UserDAO {
         String query = "SELECT * FROM MELT.Users ";
         query += "WHERE UserName = '" + aName + "'";
 
-        ArrayList<UserBean> aUserBean = selectProfilesFromDB(query);
+        ArrayList<UserBean> aUserBean = new ArrayList<>();
+        aUserBean = selectProfilesFromDB(query);
 
-        
-        if (aUserBean.isEmpty()){
+        if (aUserBean.isEmpty()) {
             return null;
         }
 

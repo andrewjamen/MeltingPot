@@ -17,22 +17,23 @@
                     </h:panelGroup>
 
                 </c:if>
-                <c:if test="${adminLoginController.loggedIn}">
+                <c:if test="${loginController.adminVerified}">
                     <h:panelGroup layout="block">
                         <h:form>
-                            <h:commandLink action="/Home/Home.xhtml?faces-redirect=true"  ><i class="fa fa-home"></i></h:commandLink> |
-                            <h:commandLink action="/Admin/AdminAccount?faces-redirect=true" value="#{adminLoginController.theModel.username}" /> 
-                            <h:commandLink action="#{adminLoginController.logout()}" value="Logout" />
+                            <h:commandLink action="/Admin/AdminAccount?faces-redirect=true"  ><i class="fa fa-home"></i></h:commandLink> |
+                            <h:commandLink action="#{loginController.logoutAdmin()}" value="Logout" />
                         </h:form>
                     </h:panelGroup>
                 </c:if>
-                <c:if test="${!(loginController.loggedIn || adminLoginController.loggedIn)}">
-                    <h:panelGroup layout="block" >
-                        <h:form> 
-                            <h:commandLink action="/Home/Home.xhtml?faces-redirect=true"><i class="fa fa-home"></i></h:commandLink> |
-                            <h:commandLink action="/Account/SignUp.xhtml?faces-redirect=true" value="Sign Up" /> 
-                        </h:form>
-                    </h:panelGroup>
+                <c:if test="${!(loginController.loggedIn)}">
+                    <c:if test="${!(loginController.adminVerified)}">
+                        <h:panelGroup layout="block" >
+                            <h:form> 
+                                <h:commandLink action="/Home/Home.xhtml?faces-redirect=true"><i class="fa fa-home"></i></h:commandLink> |
+                                <h:commandLink action="/Account/SignUp.xhtml?faces-redirect=true" value="Sign Up" /> 
+                            </h:form>
+                        </h:panelGroup>
+                    </c:if>
                 </c:if>
             </div>
         </div>

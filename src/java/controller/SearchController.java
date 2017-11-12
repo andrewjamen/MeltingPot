@@ -40,15 +40,24 @@ public class SearchController {
     }
 
     public ArrayList<UserBean> getResults() {
-        
+
         ArrayList<UserBean> users = UserDAO.searchForUsers(theModel.getName(), theModel.getGender(), theModel.getAge(),
                 theModel.getCity(), theModel.getState(), theModel.getReligion(), theModel.getRace(), theModel.getPolitics());
 
         //dont show your own profile
+        Iterator<UserBean> iter1 = users.iterator();
+        while (iter1.hasNext()) {
+            String removeName = iter1.next().getUsername();
+            if (searcher.equals(removeName)) {
+                iter1.remove();
+            }
+        }
+
+        //dont show banned accounts
         Iterator<UserBean> iter = users.iterator();
         while (iter.hasNext()) {
-            String removeName = iter.next().getUsername();
-            if (searcher.equals(removeName)) {
+            boolean removedBanned = iter.next().isBanned();
+            if (removedBanned) {
                 iter.remove();
             }
         }

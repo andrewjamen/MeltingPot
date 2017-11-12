@@ -21,13 +21,14 @@ public class UserBean {
     private String email;
     private String friendRequest;
     private String friendList;
+    private boolean banned;
 
     public UserBean() {
     }
 
     public UserBean(String username, String password, String name, int age, String gender,
             String city, String state, String religion, String race, String politics,
-            String bio, String email, String friendRequest, String friendList) {
+            String bio, String email, boolean banned, String friendRequest, String friendList) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -40,6 +41,7 @@ public class UserBean {
         this.politics = politics;
         this.bio = bio;
         this.email = email;
+        this.banned = banned;
         this.friendRequest = friendRequest;
         this.friendList = friendList;
     }
@@ -163,6 +165,15 @@ public class UserBean {
     public void setFriendList(String friendList) {
         this.friendList = friendList;
     }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
+    
     
     
 }
