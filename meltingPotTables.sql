@@ -9,6 +9,7 @@ DROP TABLE MELT.Users;
 DROP TABLE MELT.Conversations;
 DROP TABLE MELT.Messages;
 DROP TABLE MELT.Reports;
+DROP TABLE MELT.Status;
 
 --User Table
 CREATE TABLE MELT.Users(
@@ -59,3 +60,10 @@ CREATE TABLE MELT.Reports(
     MESSAGE                 VARCHAR(500)
 );
 
+   --status table
+ CREATE TABLE MELT.Status(
+    STATUS_ID               INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    STATUS                  VARCHAR(25),
+    USERNAME                VARCHAR(25),
+    DATETIME                TIMESTAMP
+);
