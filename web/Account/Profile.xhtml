@@ -83,8 +83,7 @@
                                 <c:if test="${loginController.loggedIn}">
                                     <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
                                         <c:if test="${!profileController.pendingRequest(loginController.theModel.username)}">
-                                            <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:200px; height:50px"
-                                                             value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
+                                            <h:commandButton value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
 
                                         </c:if>
                                     </c:if>
@@ -96,8 +95,24 @@
                                     </c:if>
                                 </c:if>
                                 <c:if test="${!loginController.loggedIn}">
-                                    <h3 class="medium section_title">Login to start a conversation!</h3>
+                                    <c:if test="${!loginController.adminVerified}">
+                                        <h3 class="medium section_title">Login to start a conversation!</h3>
+                                    </c:if>
                                 </c:if>
+                            </h:form>
+                            <h:form>
+                                <c:if test="${loginController.adminVerified}">
+                                    <c:if test="${!profileController.userModel.banned}">
+
+                                        <h:commandButton value="Ban Account" onclick="alert('Account Banned!');" action="#{adminController.banAccount(profileController.userModel.username)}" /><br/><br/><br/>
+                                    </c:if>
+                                </c:if>    
+                                <c:if test="${loginController.adminVerified}">
+                                    <c:if test="${profileController.userModel.banned}">
+
+                                        <h:commandButton value="Unban Account" onclick="alert('Account Unbanned!');" action="#{adminController.unbanAccount(profileController.userModel.username)}" /><br/><br/><br/>
+                                    </c:if>
+                                </c:if>  
                             </h:form>
                         </div>
                     </div>

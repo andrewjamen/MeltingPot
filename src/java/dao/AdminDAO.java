@@ -22,6 +22,8 @@ public class AdminDAO {
     private final static String DRIVER_STRING = "org.apache.derby.jdbc.ClientDriver";
     private final static String USERNAME = "melt";
     private final static String PASSWORD = "pot";
+    private final static String REPORTS_TABLE = "MELT.REPORTS";
+    private final static String USERS = "MELT.USERS";
 
     public static ArrayList<String> findBannedAccounts() {
         ArrayList<String> bannedAccounts = new ArrayList<>();
@@ -38,7 +40,7 @@ public class AdminDAO {
 
     public static ArrayList<Report> findAllReports() {
 
-        String query = "SELECT * FROM REPORTS";
+        String query = "SELECT * FROM " + REPORTS_TABLE;
         ArrayList<Report> reports = selectReportsFromDB(query);
         return reports;
     }
@@ -81,5 +83,55 @@ public class AdminDAO {
 
         return reports;
     }
+    
+    public static int banAccount(UserBean profile){
+                int rowCount = -1;
+        try {
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE  " + USERS + " SET "
+                    + "BANNED = true WHERE USERNAME = ?");
+            pstmt.setString(1, profile.getUsername());
+
+            rowCount = pstmt.executeUpdate();
+
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        if (rowCount != 1) {
+            System.err.println("ERROR: Message Insertion failed.");
+        }
+        return rowCount;
+
+    }
+    
+    public static int unbanAccount(UserBean profile){
+                int rowCount = -1;
+        try {
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE  " + USERS + " SET "
+                    + "BANNED = false WHERE USERNAME = ?");
+            pstmt.setString(1, profile.getUsername());
+
+            rowCount = pstmt.executeUpdate();
+
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        if (rowCount != 1) {
+            System.err.println("ERROR: Message Insertion failed.");
+        }
+        return rowCount;
+
+    }
+    
+    
 
 }

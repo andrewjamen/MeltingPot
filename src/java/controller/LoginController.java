@@ -23,10 +23,17 @@ public class LoginController {
     boolean adminVerified = false;
 
     public LoginController() {
+        response = "";
         theModel = new UserBean();
     }
 
     public UserBean getTheModel() {
+        UserBean aModel = UserDAO.findByUsername(theModel.getUsername());
+        
+        if (aModel != null){
+            theModel = aModel;
+        }
+        
         return theModel;
     }
 
@@ -57,7 +64,7 @@ public class LoginController {
     public void setAdminVerified(boolean adminVerified) {
         this.adminVerified = adminVerified;
     }
-    
+
     public void checkIfLoggedIn() {
         if (!loggedIn) {
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -75,6 +82,12 @@ public class LoginController {
             return ""; // stay right at the current page
         } else {
             this.setTheModel(findProfile());
+            
+            if (theModel.isBanned()) {
+                loggedIn = false;
+                response = "Your account has been banned for miscounduct!";
+                return ""; // stay right at the current page
+            }
             loggedIn = true;
             adminVerified = false;
             response = "";
@@ -86,8 +99,8 @@ public class LoginController {
         adminVerified = true;
         return "/Admin/AdminAccount.xhtml?faces-redirect=true";
     }
-    
-    public String logoutAdmin(){
+
+    public String logoutAdmin() {
         adminVerified = false;
         return "/Home/Home.xhtml?faces-redirect=true";
     }
@@ -122,6 +135,5 @@ public class LoginController {
 
         return theModel;
     }
-    
-    
+
 }
