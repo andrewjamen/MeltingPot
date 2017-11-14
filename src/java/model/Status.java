@@ -5,6 +5,7 @@
  */
 package model;
 
+import dao.StatusDAO;
 import java.util.Date;
 
 /**
@@ -13,44 +14,30 @@ import java.util.Date;
  */
 public class Status {
     
-    private int statusID;
-    private String status;
-    private Date dateTime;
+    private int id;
+    private String currentStatus;
     private String username;
     
-    public Status(int statusID, String status, Date dateTime,String username) {
-    this.statusID = statusID;
-    this.status = status;
-    this.dateTime = dateTime;
+    public Status(String currentStatus, String username) {
+    this.currentStatus = currentStatus;
     this.username = username;
 
     }
 
     public Status() {
     }
-    
-     public int getStatusID() {
-        return statusID;
-    }
 
-    public void setStatusID(int statusID) {
-        this.statusID = statusID;
-    }
-    
-     public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
+     public String getCurrentStatus(String username) {
+        this.currentStatus = StatusDAO.getCurrentStatus(username);
+        return this.currentStatus;
     }
-    
-     public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+     
+    public void changeCurrentStatus() throws Exception {
+        this.id = StatusDAO.changeCurrentStatus(username, currentStatus);
+        if (id < 0) {
+            throw new Exception("Status could not be changed.");
+        }
     }
     
     public String getUsername(){

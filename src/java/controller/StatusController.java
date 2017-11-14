@@ -6,6 +6,9 @@
 package controller;
 
 import dao.StatusDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
 import model.Status;
 
 /**
@@ -14,31 +17,76 @@ import model.Status;
  */
 public class StatusController {
     
-    private Status status;
+    private Status statusModel;
+    private String username;
+    private String currentStatus;
+    
 
+    
+    /**
+     * Creates a new instance of StatusController
+     */
     public StatusController() {
-        status = new Status();
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status userBean) {
-        this.status = status;
+        this.statusModel = null;
+        this.username = "";
+        this.currentStatus = "";
     }
     
-    public void updateStatus() {
-        StatusDAO statusDAO = new StatusDAO();
+//
+//    public String getCurrentStatus() {
+//        return currentStatus;
+//    }
+    
+    public Status getStatusModel() {
+        return statusModel;
+    }
 
-        int status1 = statusDAO.changeStatus(status);
-        if (status1 == 0)
+    public void setStatusModel(Status statusModel) {
+        this.statusModel = statusModel;
+    }
+
+    
+     /**
+     * Initializes the username.
+     */
+    public void init() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        this.username = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class).getTheModel().getUsername();
+    }
+    
+    public void getCurrentStatus() {
+        
+        if (username == null) 
         {
-//            status change failed
+            init();
+            statusModel = new Status(this.currentStatus, this.username);
         }
 
+        statusModel.getCurrentStatus(username); 
 
     }
+    
+    public void changeCurrentStatus(){
+        
+        if(username == null)
+        {
+            init();
+            statusModel = new Status(this.currentStatus, this.username);
+        }
+        
+        try {
+            statusModel.changeCurrentStatus();
+        } catch (Exception ex) {
+            Logger.getLogger(StatusController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+   
+    
+    
+    
+    
 
     
 }

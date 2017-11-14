@@ -27,21 +27,27 @@ public class StatusDAO {
     
     
     
-    public static int changeStatus(Status status) {
-        int rowCount = -1;
+    public static int changeCurrentStatus(String username, String currentStatus) {
+        
+        int rowCount = 0;
+        int id = -1;
+        
         try {
             DBHelper.loadDriver(DRIVER_STRING);
             Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
 
-            String statusString = "UPDATE " + TABLE_NAME + " SET "
-                    + "Status = '" + status.getStatus() + "', "
-                    + "DATETIME = '" + status.getDateTime() + "' "
-                    + "WHERE UserName = '" + status.getUsername() + "'";
-
-            PreparedStatement pstmt = conn.prepareStatement(statusString);
+             PreparedStatement pstmt = conn.prepareStatement("UPDATE " + TABLE_NAME + " SET CURRENTSTATUS = " + currentStatus + "WHERE USERNAME = " + USERNAME);
 
             rowCount = pstmt.executeUpdate();
 
+            ResultSet rs = pstmt.getGeneratedKeys();
+
+            if (rs.next()) 
+            {
+                id = rs.getInt(1);
+            }
+            
+            
             pstmt.close();
             conn.close();
         } catch (SQLException e) {
@@ -52,6 +58,33 @@ public class StatusDAO {
         }
         return rowCount;
 
+    }
+    
+        public static String getCurrentStatus(String username) {
+
+         String currentStatus = "error";
+
+        try {
+            DBHelper.loadDriver(DRIVER_STRING);
+            Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
+
+            PreparedStatement pstmt = conn.prepareStatement("SELECT CURRENTSTATUS FROM " + TABLE_NAME + " WHERE USERNAME = " + USERNAME);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                currentStatus = rs.getString("CURRENTSTATUS");
+            }
+
+            pstmt.close();
+            conn.close();
+            rs.close();
+        } catch (Exception e) {
+        System.err.println("ERROR: get currentStatus problem");
+            e.printStackTrace();
+        }
+
+        return currentStatus;
     }
     
     

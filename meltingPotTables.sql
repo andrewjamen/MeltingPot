@@ -63,7 +63,6 @@ CREATE TABLE MELT.Reports(
    --status table
  CREATE TABLE MELT.Status(
     STATUS_ID               INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    STATUS                  VARCHAR(25),
-    USERNAME                VARCHAR(25),
-    DATETIME                TIMESTAMP
+    CURRENTSTATUS           VARCHAR(25),
+    USERNAME                VARCHAR(25)
 );
