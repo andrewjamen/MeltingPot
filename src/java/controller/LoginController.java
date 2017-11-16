@@ -65,12 +65,14 @@ public class LoginController {
         this.adminVerified = adminVerified;
     }
 
-    public void checkIfLoggedIn() {
+    public boolean checkIfLoggedIn() {
         if (!loggedIn) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("/Home/Home.xhtml?faces-redirect=true");
+            return false;
         }
+        return true;
     }
 
     public String processLogin() {

@@ -59,8 +59,7 @@ public class ConversationController {
     public void prepareConversations() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         LoginController lc = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class);
-        if (!lc.isLoggedIn()) {
-            lc.checkIfLoggedIn();
+        if (!lc.checkIfLoggedIn()) {
             return;
         }
         this.updateConversations();

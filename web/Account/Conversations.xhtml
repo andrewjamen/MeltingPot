@@ -24,31 +24,21 @@
             <ui:define name="main" >
                 <div class ="sticker">
 
-<<<<<<< HEAD
-                    <h2 class = "big" >Conversations</h2>
-=======
                     <h2 class="big section_header">Conversations:</h2>
->>>>>>> 16b5f0197d60bb7fb05303546b7fbfc4d03218d6
 
                     <h:form id="conversations">
                         <table class="conv_table">
                             <ui:repeat value="#{conversationController.conversations.conversationsList}" var="conv" varStatus="convStatus">
                                 <tr>
-<<<<<<< HEAD
-                                    <td><h3 style = "font-family: acme"><h:outputText value="#{conv.partnerUsername}"/></h3></td>
-                                    <td><p:commandButton styleClass="button" value="Open" action="#{profileController.getProfilePage(conv.partnerUsername)}"/></td>
-                                    <td><p:commandButton styleClass="button" value="Delete" actionListener="#{conversationController.deleteListedConversation(convStatus.index)}" update="conversations" /></td>
-=======
                                     <td>
                                         <h3 class="small conv_table_title"><h:outputText value="#{conv.partnerUsername}"/></h3>
                                     </td>
                                     <td>
-                                        <p:commandButton styleClass="button" value="resume" action="#{profileController.getProfilePage(conv.partnerUsername)}"/>
+                                        <p:commandButton styleClass="button" value="Open" action="#{profileController.getURL(conv.partnerUsername)}"/>
                                     </td>
                                     <td>
-                                        <p:commandButton styleClass="button" value="delete" actionListener="#{conversationController.deleteListedConversation(convStatus.index)}" update="conversations" />
+                                        <p:commandButton styleClass="button" value="Delete" actionListener="#{conversationController.deleteListedConversation(convStatus.index)}" update="conversations" />
                                     </td>
->>>>>>> 16b5f0197d60bb7fb05303546b7fbfc4d03218d6
                                 </tr>
                             </ui:repeat>
                         </table>

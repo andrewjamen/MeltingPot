@@ -9,7 +9,9 @@ import dao.UserDAO;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.UserBean;
+import utility.Navigation;
 
 /**
  *
@@ -24,7 +26,7 @@ public class UpdateController {
     private String status;
 
     public UpdateController() {
-        userBean = new UserBean();
+        userBean = null;
     }
 
     public UserBean getUserBean() {
@@ -50,25 +52,33 @@ public class UpdateController {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
 
-    public String retrieveProfile(UserBean theBean) {
-        userBean = theBean;
+    public String getURL() {
+        return Navigation.UPDATE_PROFILE;
+    }
 
-        userBean = UserDAO.findByUsername(userBean.getUsername());
+    public void preparePage() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        LoginController lc = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class);
+        if (!lc.checkIfLoggedIn()) {
+            return;
+        }
 
-        if (userBean != null) {
-            return "/Account/UpdateProfile.xhtml?faces-redirect=true";
-        } else {
-            return "/Home/Error.xhtml?faces-redirect=true";
+        if (userBean == null) {
+            userBean = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class).getTheModel();
+        }
+
+        userBean = UserDAO.findByUsername(userBean.getUsername()); //This could cause problems. Shouldn't be creating a new userbean.
+        
+        if (userBean == null) {
+            //Nothing should need to be here...
         }
     }
 
     //TODO: dont log out
     public String updateUser() {
         UserDAO aStudentDAO = new UserDAO();
-        
+
         if (userBean.getName().equals("") || userBean.getName() == null) {
             status = "Enter a Name!";
             return "";

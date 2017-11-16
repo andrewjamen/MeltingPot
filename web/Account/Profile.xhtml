@@ -17,7 +17,10 @@
             <ui:define name="htmlHead">
                 <h:outputScript name="scripts/ConversationScripts.js" />
                 <h:outputStylesheet name="styles/ConversationStyles.css" />
-
+                <f:metadata>
+                    <f:viewParam name="user" value="#{profileController.userparam}" />
+                    <f:viewAction action="#{profileController.preparePage()}" />
+                </f:metadata>
                 <meta name="description" content="Login" />
                 <title>Profile</title>
             </ui:define>
