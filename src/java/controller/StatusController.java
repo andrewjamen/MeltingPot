@@ -32,10 +32,7 @@ public class StatusController {
         this.currentStatus = "";
     }
     
-//
-//    public String getCurrentStatus() {
-//        return currentStatus;
-//    }
+
     
     public Status getStatusModel() {
         return statusModel;
@@ -54,28 +51,22 @@ public class StatusController {
         this.username = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class).getTheModel().getUsername();
     }
     
-    public void getCurrentStatus() {
-        
-        if (username == null) 
-        {
-            init();
-            statusModel = new Status(this.currentStatus, this.username);
-        }
-
-        statusModel.getCurrentStatus(username); 
-
+    
+    public String getCurrentStatus() {
+        return currentStatus;
     }
+
+    
     
     public void changeCurrentStatus(){
         
         if(username == null)
         {
             init();
-            statusModel = new Status(this.currentStatus, this.username);
         }
         
         try {
-            statusModel.changeCurrentStatus();
+            //statusModel.changeCurrentStatus();
         } catch (Exception ex) {
             Logger.getLogger(StatusController.class.getName()).log(Level.SEVERE, null, ex);
         }

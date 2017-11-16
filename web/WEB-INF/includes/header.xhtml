@@ -2,7 +2,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      >
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <div id ="banner" class="banner">
         <div class="banner_content">
             <a class="banner_title" href="/MeltingPot/faces/Home/Home.xhtml">Melting Pot</a>
@@ -15,6 +16,15 @@
                             <h:commandLink action="#{loginController.logout()}" value="Logout" />
                         </h:form>
                     </h:panelGroup>
+                    
+                    
+                    <h:selectOneMenu value="Status">
+                        <f:selectItem itemValue="Online" itemLabel="Online" />
+                        <f:selectItem itemValue="Away" itemLabel="Away" />
+                        <f:selectItem itemValue="Busy" itemLabel="Busy" />
+                        <f:selectItem itemValue="Offline" itemLabel="Appear Offline" />
+                    </h:selectOneMenu>
+
 
                 </c:if>
                 <c:if test="${loginController.adminVerified}">
