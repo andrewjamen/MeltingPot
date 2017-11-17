@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        
+
     </h:head>
     <h:body>
         <ui:composition	template="/WEB-INF/includes/template.xhtml">
@@ -14,15 +14,18 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
-                <title>Error</title>
+                <title>404</title>
             </ui:define>
+            <h:outputText class="big" value="404: The Page You Requested Does Not Exist!" style="color:#ff0000"/>
+
+
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
                 <div id="login" class ="sticker" style = "height: 300px; margin-top: 80px; padding: 10px" >
-                    
+
                     <br/><br/><br/>
-                    <h:outputText class="big" value="An Error Has Occured" style="color:#ff0000"/>
+                    <h:outputText class="big" value="404: The Page You Requested Does Not Exist!" style="color:#ff0000"/>
                 </div>
             </ui:define>
 
