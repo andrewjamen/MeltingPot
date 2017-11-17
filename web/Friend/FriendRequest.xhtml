@@ -8,7 +8,7 @@
     <h:head>
         
         <f:metadata>
-
+            <f:viewAction action="#{friendController.preparePage()}" />
         </f:metadata>
     </h:head>
     <h:body>
@@ -34,8 +34,8 @@
 
                             <h:column>
                                 <h:commandButton class ="button"
-                                                 value="View Profile" action="#{profileController.getProfilePage(friendController.getRequestSender(aRow))}"/>
-
+                                                 value="View Profile" action="#{profileController.getURL(friendController.getRequestSender(aRow))}"/>
+                                                                                             
                             </h:column>
                             <h:column>
                                 <h:commandButton class ="button"

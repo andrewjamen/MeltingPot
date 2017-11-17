@@ -151,6 +151,7 @@ public class SignUpController {
         }
         boolean goodPassword = false;
 
+
         if (userBean.getPassword().equals(userBean.getConfirm())) {
             goodPassword = true;
         }
@@ -202,10 +203,24 @@ public class SignUpController {
 
         int rowCount = UserDAO.createProfile(userBean);
         if (rowCount == 1) {
-            return "/Account/SignUpSuccess.xhtml?faces-redirect=true";
+            return "/SignUp/SignUpSuccess.xhtml?faces-redirect=true";
         } else {
             return "/Home/Error.xhtml?faces-redirect=true";
         }
+    }
+    
+    public String preparePage(){
+        
+        getResponse();
+        
+        String test = response.substring(7, 11);
+        
+        if (test.equals("null")){
+            return "/Account/Account.xhtml?faces-redirect=true";
+        }
+        
+        
+        return "";
     }
 
 }

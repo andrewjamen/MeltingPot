@@ -91,9 +91,8 @@ public class FriendController {
             }
         }
 
-        
         //remove banned accounts
-        ArrayList<String> removals = new ArrayList<>();      
+        ArrayList<String> removals = new ArrayList<>();
         for (String aUsername : friendList) {
 
             UserBean aProfile = UserDAO.findByUsername(aUsername);
@@ -103,7 +102,6 @@ public class FriendController {
             }
         }
         friendList.removeAll(removals);
-        
 
         return friendList;
     }
@@ -127,7 +125,7 @@ public class FriendController {
         //remove banned accounts
         ArrayList<String> removals = new ArrayList<>();
         for (String aRequest : friendRequests) {
-            
+
             String aUsername = aRequest.substring(0, aRequest.indexOf(" "));
 
             UserBean aProfile = UserDAO.findByUsername(aUsername);
@@ -203,9 +201,16 @@ public class FriendController {
         userBean = UserDAO.findByUsername(userBean.getUsername());
         setUserBean(userBean); //this doesnt seem to be working?
 
-
         //TODO: reload and update page
         return "/Friend/FriendRequest.xhtml?faces-redirect=true";
+    }
+
+    public String preparePage() {
+
+        if (this.userBean.getUsername() == null){
+            return "/Account/Account.xhtml?faces-redirect=true";
+        }
+        else return "";
     }
 
 }

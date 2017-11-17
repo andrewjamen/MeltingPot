@@ -41,8 +41,16 @@ public class SearchController {
 
     public ArrayList<UserBean> getResults() {
 
-        ArrayList<UserBean> users = UserDAO.searchForUsers(theModel.getName(), theModel.getGender(), theModel.getAge(),
-                theModel.getCity(), theModel.getState(), theModel.getReligion(), theModel.getRace(), theModel.getPolitics());
+        ArrayList<UserBean> users = null;
+
+        if (UserDAO.searchForUsers(theModel.getName(), theModel.getGender(), theModel.getAge(),
+                theModel.getCity(), theModel.getState(), theModel.getReligion(), theModel.getRace(), theModel.getPolitics()) != null) {
+            users = UserDAO.searchForUsers(theModel.getName(), theModel.getGender(), theModel.getAge(),
+                    theModel.getCity(), theModel.getState(), theModel.getReligion(), theModel.getRace(), theModel.getPolitics());
+        }
+        else{
+            return null;
+        }
 
         //dont show your own profile
         Iterator<UserBean> iter1 = users.iterator();
@@ -72,5 +80,14 @@ public class SearchController {
     public String search() {
 
         return "/Search/SearchResults.xhtml?faces-redirect=true";
+    }
+
+    public boolean validSearch() {
+
+        if (getResults() == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

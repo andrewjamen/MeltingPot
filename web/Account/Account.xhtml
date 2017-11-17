@@ -7,9 +7,16 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>User Account</title>
-        <f:metadata>
-            <f:viewAction action="#{friendController.setUserBean(loginController.theModel)}" />
-        </f:metadata>
+
+        <c:if test="#{loginController.isLoggedIn() == false}">
+            <h:outputText value="Youre Not an Logged In, Bud"/>
+        </c:if>
+
+        <c:if test="#{loginController.isLoggedIn() == true}">
+            <f:metadata>
+                <f:viewAction action="#{friendController.setUserBean(loginController.theModel)}" />
+            </f:metadata>
+        </c:if>
     </h:head>
     <h:body>
         <ui:composition	template="/WEB-INF/includes/template.xhtml">
@@ -20,61 +27,73 @@
                 <title>Account</title>
             </ui:define>
 
+
+
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
                 <div id="login" class="sticker">
-                    <div class="profile_content_left">
-                        <h2 class="medium section_title">Your Account</h2>
 
-                        <h3 class="small subsection_title">Location</h3>
-                        City: <h:outputText value="#{loginController.theModel.city}" /><br/>
-                        State: <h:outputText value="#{loginController.theModel.state}" /><br/>
+                    <c:if test="#{loginController.isLoggedIn() == false}">
+                        <h:outputText value="Youre Not an Logged In, Bud"/>
+                    </c:if>
 
-                        <h3 class="small subsection_title">Contact Info:</h3>
-                        Email: <h:outputText value="#{loginController.theModel.email}" /><br/>
+                    <c:if test="#{loginController.isLoggedIn() == true}">
+                        <div class="profile_content_left">
+                            <h2 class="medium section_title">Your Account</h2>
 
-                        <h3 class="small subsection_title">Personal Info:</h3>
-                        Age: <h:outputText value="#{loginController.theModel.age}"/><br/>
-                        Gender: <h:outputText value="#{loginController.theModel.gender}"/><br/>
-                        Religion: <h:outputText value="#{loginController.theModel.religion}"/><br/>
-                        Race: <h:outputText value="#{loginController.theModel.race}"/><br/>
-                        Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>  
-                        
-                        <h3 class="small subsection_title">Bio:</h3>
-                        <h:outputText value="#{loginController.theModel.bio}" />
-                    </div>
-                    <div class="profile_content_right">
-                        <h1 class="big section_title">Account Options</h1>
-                        <h:form>
 
-                            <h:commandButton class="button"
-                                             value="Conversations (#{conversationController.conversationCount()})"
-                                             action="/Account/Conversations.xhtml?faces-redirect=true"/>
-                            <br/><br/>
 
-                            <h:button  class="button" 
-                                       value="User Search"
-                                       outcome="/Search/Search.xhtml?faces-redirect=true" />
-                            <br/><br/>
+                            <h3 class="small subsection_title">Location</h3>
+                            City: <h:outputText value="#{loginController.theModel.city}" /><br/>
+                            State: <h:outputText value="#{loginController.theModel.state}" /><br/>
 
-                            <h:commandButton class="button" 
-                                             value="View Friend Requests (#{friendController.numberRequests()})"
-                                             action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" />
-                            <br/><br/>
+                            <h3 class="small subsection_title">Contact Info:</h3>
+                            Email: <h:outputText value="#{loginController.theModel.email}" /><br/>
 
-                            <h:commandButton class="button" 
-                                             value="View Friends List (#{friendController.numberList()})"
-                                             action="#{friendController.viewFriendList(loginController.theModel.getUsername())}"/>
-                            <br/><br/>
+                            <h3 class="small subsection_title">Personal Info:</h3>
+                            Age: <h:outputText value="#{loginController.theModel.age}"/><br/>
+                            Gender: <h:outputText value="#{loginController.theModel.gender}"/><br/>
+                            Religion: <h:outputText value="#{loginController.theModel.religion}"/><br/>
+                            Race: <h:outputText value="#{loginController.theModel.race}"/><br/>
+                            Political Views: <h:outputText value="#{loginController.theModel.politics}"/><br/>  
 
-                            <h:commandButton class="button"
-                                             value="Update Your Information"
-                                             action="#{updateController.getURL()}" />
-                        </h:form>         
-                    </div>
-                    <div class="clear"></div>
+                            <h3 class="small subsection_title">Bio:</h3>
+                            <h:outputText value="#{loginController.theModel.bio}" />
+                        </div>
+                        <div class="profile_content_right">
+                            <h1 class="big section_title">Account Options</h1>
+                            <h:form>
+
+                                <h:commandButton class="button"
+                                                 value="Conversations (#{conversationController.conversationCount()})"
+                                                 action="/Account/Conversations.xhtml?faces-redirect=true"/>
+                                <br/><br/>
+
+                                <h:button  class="button" 
+                                           value="User Search"
+                                           outcome="/Search/Search.xhtml?faces-redirect=true" />
+                                <br/><br/>
+
+                                <h:commandButton class="button" 
+                                                 value="View Friend Requests (#{friendController.numberRequests()})"
+                                                 action="#{friendController.viewFriendRequests(loginController.theModel.getUsername())}" />
+                                <br/><br/>
+
+                                <h:commandButton class="button" 
+                                                 value="View Friends List (#{friendController.numberList()})"
+                                                 action="#{friendController.viewFriendList(loginController.theModel.getUsername())}"/>
+                                <br/><br/>
+
+                                <h:commandButton class="button"
+                                                 value="Update Your Information"
+                                                 action="#{updateController.getURL()}" />
+                            </h:form>         
+                        </div>
+                        <div class="clear"></div>
+                    </c:if>
                 </div>
             </ui:define>
+
         </ui:composition>
     </h:body>
 </html>

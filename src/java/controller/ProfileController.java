@@ -72,8 +72,7 @@ public class ProfileController {
         conversation.startConversation(username);
     }
 
-    //TODO: make it so you cant add a friend twice
-    public void addFriend(String sender) {
+    public String addFriend(String sender) {
 
         String allRequests = "";
 
@@ -84,6 +83,8 @@ public class ProfileController {
         allRequests += sender + " added you as a friend!";
 
         FriendsDAO.sendFriendRequest(userModel, allRequests);
+        
+        return getURL(userModel.getUsername());
     }
 
     public boolean isFriend(String username) {

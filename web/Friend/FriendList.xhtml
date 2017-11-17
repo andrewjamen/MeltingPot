@@ -7,6 +7,10 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>User Messages</title>
+
+        <f:metadata>
+            <f:viewAction action="#{friendController.preparePage()}" />
+        </f:metadata>
     </h:head>
     <h:body>
         <ui:composition	template="/WEB-INF/includes/template.xhtml">
@@ -18,8 +22,8 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main" >
-                
-                
+
+
                 <div id="login" class = "sticker" >
                     <h2 class = "big" >Friend's List</h2>
 
@@ -31,8 +35,8 @@
                         <h:column>
                             <h:form>
                                 <h:commandButton class ="button"
-                                                     value="View Profile" action="#{profileController.getProfilePage(aRow)}"/>
-                                
+                                                 value="View Profile" action="#{profileController.getURL(aRow)}"/>
+
                             </h:form>
 
                         </h:column>

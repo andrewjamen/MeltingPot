@@ -181,6 +181,11 @@ public class UserDAO {
 
     public static ArrayList<UserBean> searchForUsers(String name, String gender, int age, String city,
             String state, String religion, String race, String politics) {
+        
+        if (name == null){
+            return null;
+        }
+        
         String query = "SELECT * FROM MELT.Users WHERE ";
         query += "LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
         if (!gender.equals("Any")) {
