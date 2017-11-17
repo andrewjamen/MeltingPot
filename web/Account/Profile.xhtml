@@ -91,7 +91,7 @@
                                         </c:if>
                                     </c:if>
                                     <c:if test="${profileController.isFriend(loginController.theModel.username)}">
-                                        <h:outputText value="#{profileController.userModel.name} is your friend" /><br/><br/>
+                                        <h:commandButton value="Delete Friend" onclick="alert('Friend Deleted!');" action="#{friendController.deleteFriend(profileController.userModel.username, profileController.getURL(profileController.userModel.username))}"/> <br/><br/><br/>
                                     </c:if>
                                     <c:if test="${profileController.pendingRequest(loginController.theModel.username)}">
                                         <h:outputText value="A friend request is pending with #{profileController.userModel.name}" /><br/><br/>

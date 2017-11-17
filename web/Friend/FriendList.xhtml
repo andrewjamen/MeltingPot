@@ -28,15 +28,18 @@
                     <h2 class = "big" >Friend's List</h2>
 
                     <h:dataTable id="userNotifs" value="#{friendController.getFriendList()}" var="aRow"
-                                 border="1" cellpadding="3" cellspacing="0" style = "margin-left: 250px; margin-top:10px;">
+                                 border="1" cellpadding="3" cellspacing="0" style = "margin-left: 10px; margin-top:10px;">
                         <h:column>
                             <h4 style = "font-family: acme;"><h:outputText value="#{aRow}"/></h4>
                         </h:column>
                         <h:column>
                             <h:form>
-                                <h:commandButton class ="button"
-                                                 value="View Profile" action="#{profileController.getURL(aRow)}"/>
-
+                                <h:commandButton class ="button" value="View Profile" action="#{profileController.getURL(aRow)}"/>
+                            </h:form>
+                        </h:column>
+                        <h:column>
+                            <h:form>        
+                                <h:commandButton class ="button" value="Delete Friend" action="#{friendController.deleteFriend(aRow, '/Friend/FriendList.xhtml?faces-redirect=true')}"/>
                             </h:form>
 
                         </h:column>

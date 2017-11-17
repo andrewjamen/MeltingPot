@@ -23,12 +23,22 @@ public class FriendController {
         userBean = new UserBean();
     }
 
+    public String preparePage() {
+
+        if (this.userBean.getUsername() == null) {
+            return "/Account/Account.xhtml?faces-redirect=true";
+        } else {
+            userBean = UserDAO.findByUsername(userBean.getUsername());
+            return "";
+        }
+    }
+
     public UserBean getUserBean() {
         return userBean;
     }
 
     public void setUserBean(UserBean userBean) {
-        this.userBean = userBean; // why is green user bean correct but this -> userBean not correct? 
+        this.userBean = userBean;
     }
 
     public ArrayList<String> getFriendRequests() {
@@ -168,8 +178,8 @@ public class FriendController {
         updateNewFriend += userBean.getUsername() + "\n";
         allFriends += username + "\n";
 
-        FriendsDAO.addFriend(userBean, allFriends);
-        FriendsDAO.addFriend(UserDAO.findByUsername(username), updateNewFriend);
+        FriendsDAO.updateFriends(userBean, allFriends);
+        FriendsDAO.updateFriends(UserDAO.findByUsername(username), updateNewFriend);
 
         removeRequest(username);
     }
@@ -205,12 +215,25 @@ public class FriendController {
         return "/Friend/FriendRequest.xhtml?faces-redirect=true";
     }
 
-    public String preparePage() {
+    public String deleteFriend(String username, String nav) {
 
-        if (this.userBean.getUsername() == null){
-            return "/Account/Account.xhtml?faces-redirect=true";
-        }
-        else return "";
+        String allFriends = userBean.getFriendList();
+
+        int index = allFriends.indexOf(username);        
+        String remove = allFriends.substring(index, index + username.length() + 1);
+        allFriends = allFriends.replace(remove, "");
+
+        UserBean friend = UserDAO.findByUsername(username);
+        String updateFriend = friend.getFriendList();
+
+        index = updateFriend.indexOf(userBean.getUsername());
+        remove = updateFriend.substring(index, index + userBean.getUsername().length() + 1);
+        updateFriend = updateFriend.replace(remove, "");
+
+        FriendsDAO.updateFriends(userBean, allFriends);
+        FriendsDAO.updateFriends(UserDAO.findByUsername(username), updateFriend);
+
+        return nav;
     }
 
 }

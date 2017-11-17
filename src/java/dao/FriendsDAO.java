@@ -54,7 +54,7 @@ public class FriendsDAO {
 
     }
 
-    public static int addFriend(UserBean profile, String friends) {
+    public static int updateFriends(UserBean profile, String friends) {
         int rowCount = -1;
         try {
             DBHelper.loadDriver(DRIVER_STRING);
