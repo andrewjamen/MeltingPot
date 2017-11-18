@@ -17,6 +17,7 @@ import model.UserBean;
 public class AdminController {
 
     boolean verified;
+    Report report;
     ArrayList<String> bannedAccounts = new ArrayList<>();
     ArrayList<Report> reports = new ArrayList<>();
 
@@ -33,9 +34,23 @@ public class AdminController {
         this.verified = verified;
     }
 
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
+    }
+
     public ArrayList<String> getBannedAccounts() {
         bannedAccounts = AdminDAO.findBannedAccounts();
         return bannedAccounts;
+    }
+
+    public boolean isBanned(String username) {
+
+        return bannedAccounts.contains(username);
+
     }
 
     public void setBannedAccounts(ArrayList<String> bannedAccounts) {
@@ -52,15 +67,30 @@ public class AdminController {
     }
 
     public void banAccount(String username) {
-        
-        UserBean profile = UserDAO.findByUsername(username);        
+
+        UserBean profile = UserDAO.findByUsername(username);
         AdminDAO.banAccount(profile);
     }
 
     public void unbanAccount(String username) {
-        
+
         UserBean profile = UserDAO.findByUsername(username);
         AdminDAO.unbanAccount(profile);
+    }
+
+    public String viewReport(Report aReport) {
+        report = aReport;
+
+        return "/Admin/Report.xhtml?faces-redirect=true";
+    }
+
+    public String prepareReport() {
+        if (report == null) {
+            return "/Home/Home.xhtml?faces-redirect=true";
+        } else {
+
+            return "";
+        }
     }
 
 }

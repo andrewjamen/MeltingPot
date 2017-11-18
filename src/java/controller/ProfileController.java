@@ -1,5 +1,6 @@
 package controller;
 
+import dao.AdminDAO;
 import dao.UserDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -8,7 +9,12 @@ import model.UserBean;
 import dao.FriendsDAO;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.faces.application.ConfigurableNavigationHandler;
+import model.Report;
 import utility.Navigation;
 
 /**
@@ -20,6 +26,7 @@ import utility.Navigation;
 public class ProfileController {
 
     private UserBean userModel;
+    private Report report;
     String userparam = null;
 
     public ProfileController() {
@@ -32,6 +39,14 @@ public class ProfileController {
 
     public void setUserModel(UserBean userModel) {
         this.userModel = userModel;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
     }
 
     public String getURL(String username) {
@@ -83,7 +98,7 @@ public class ProfileController {
         allRequests += sender + " added you as a friend!";
 
         FriendsDAO.sendFriendRequest(userModel, allRequests);
-        
+
         return getURL(userModel.getUsername());
     }
 
@@ -119,6 +134,21 @@ public class ProfileController {
 
     public void setUserparam(String userparam) {
         this.userparam = userparam;
+    }
+
+    public String submitReport(String username, String message) {
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        Date current = Calendar.getInstance().getTime();
+        String reportTime = df.format(current);
+
+        int reportID = AdminDAO.newReportID();
+
+        report = new Report(reportID, username, userModel.getUsername(), message, reportTime);
+        
+        AdminDAO.addReport(report);        
+
+        return Navigation.ACCOUNT;
     }
 
 }

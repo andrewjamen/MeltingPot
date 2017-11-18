@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+
+    </h:head>
+    <h:body>
+
+        <ui:composition	template="/WEB-INF/includes/template.xhtml">
+
+            <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="htmlHead">
+                <meta name="description" content="Login" />
+                <title>Send Report</title> 
+            </ui:define>
+
+            <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
+            <ui:define name="main">
+                <div id="sign up" class = "sticker">
+                    <c:if test="#{loginController.isLoggedIn() == false}">
+                        <h:outputText value="Youre Not an Logged In, Bud"/>
+                    </c:if>
+
+                    <c:if test="#{loginController.isLoggedIn() == true}">
+                        <h3 class = "big">Send a Report</h3>
+                        <h:form>
+
+                            <h:inputTextarea id="report" styleClass="input_textarea input_table_input" binding="#{message}"/><br/><br/>
+
+                            <h:commandButton styleClass="button input_button" id="submitID" value="Submit" action="#{profileController.submitReport(loginController.theModel.username, message.value)}"/>
+                        </h:form>
+                    </c:if>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>

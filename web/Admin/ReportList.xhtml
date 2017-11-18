@@ -14,14 +14,14 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <f:metadata>
-           
+
                 </f:metadata>
                 <meta name="description" content="Login" />
             </ui:define>
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:675px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" class="sticker">
                     <c:if test="#{loginController.isAdminVerified() == false}">
                         <h:outputText value="Youre Not an Admin, Bud"/>
                     </c:if>
@@ -31,12 +31,14 @@
                         <h:dataTable id="reviews" value="#{adminController.getReports()}" var="aRow"
                                      border="1" cellpadding="3" cellspacing="0">
                             <h:column>
-                                <h4><h:outputText value="#{aRow}"/>&#160;&#160;&#160;</h4>
+                                <h4><h:outputText value="Report Number: #{aRow.reportID}"/>&#160;&#160;&#160;</h4>
+                            </h:column>
+                            <h:column>
+                                <h4><h:outputText value="At: #{aRow.timestamp}"/>&#160;&#160;&#160;</h4>
                             </h:column>
                             <h:column>
                                 <h:form>
-                                    <h:commandButton style="background-color: #699DB6; border-color: rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(0,0,0,0.5); color: #FFF; width:100px; height:40px"
-                                                     value="View Profile" action="#{profileController.getProfilePage(adminController.getSender(aRow))}"/>
+                                    <h:commandButton value="View Report" class="button" action="#{adminController.viewReport(aRow)}"/>
                                 </h:form>
 
                             </h:column>
