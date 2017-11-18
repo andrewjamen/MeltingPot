@@ -31,7 +31,7 @@
 
                             <h:inputTextarea id="report" styleClass="input_textarea input_table_input" binding="#{message}"/><br/><br/>
 
-                            <h:commandButton styleClass="button input_button" id="submitID" value="Submit" action="#{profileController.submitReport(loginController.theModel.username, message.value)}"/>
+                            <h:commandButton class="button"  id="submitID" onclick="alert('Report Submitted!');" value="Submit" action="#{profileController.submitReport(loginController.theModel.username, message.value)}"/>
                         </h:form>
                     </c:if>
                 </div>

@@ -89,18 +89,18 @@
                                     
                                     <c:if test="${!profileController.isFriend(loginController.theModel.username)}">
                                         <c:if test="${!profileController.pendingRequest(loginController.theModel.username)}">
-                                            <h:commandButton value="Add Friend" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
+                                            <h:commandButton value="Add Friend" class="button" onclick="alert('Friend Request Sent!');" action="#{profileController.addFriend(loginController.theModel.username)}" /><br/><br/><br/>
 
                                         </c:if>
                                     </c:if>
                                     <c:if test="${profileController.isFriend(loginController.theModel.username)}">
-                                        <h:commandButton value="Delete Friend" onclick="alert('Friend Deleted!');" action="#{friendController.deleteFriend(profileController.userModel.username, profileController.getURL(profileController.userModel.username))}"/> <br/><br/><br/>
+                                        <h:commandButton value="Delete Friend" class="button" onclick="alert('Friend Deleted!');" action="#{friendController.deleteFriend(profileController.userModel.username, profileController.getURL(profileController.userModel.username))}"/> <br/><br/><br/>
                                     </c:if>
                                     <c:if test="${profileController.pendingRequest(loginController.theModel.username)}">
                                         <h:outputText value="A friend request is pending with #{profileController.userModel.name}" /><br/><br/>
                                     </c:if>
                                     
-                                    <h:commandButton value="Report Misconduct" action="/Account/SendReport.xhtml?faces-redirect=true" /><br/><br/><br/>
+                                    <h:commandButton value="Report Misconduct" class="button" action="/Account/SendReport.xhtml?faces-redirect=true" /><br/><br/><br/>
                                 </c:if>
                                 <c:if test="${!loginController.loggedIn}"> <br/>
                                     <c:if test="${!loginController.adminVerified}">
