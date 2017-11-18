@@ -54,12 +54,16 @@ CREATE TABLE MELT.Messages(
 );
 
 CREATE TABLE MELT.Reports(
-    REPORT_ID               INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    REPORT_ID               INTEGER,
     REPORTER                VARCHAR(25),
     OFFENDER                VARCHAR(25),
-    DATETIME                TIMESTAMP,
+    TIMESTAMP               VARCHAR(25),
     MESSAGE                 VARCHAR(500)
 );
+
+
+--Sample Report(to be used for testing).
+INSERT INTO MELT.Reports VALUES (0, 'test', 'ajamen', '11/17/2017 19:27', 'he is very smelly');
 
    --status table
  CREATE TABLE MELT.Status(
