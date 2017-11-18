@@ -42,7 +42,7 @@
                             </h:column>
                             <h:column>
                                 <h:form>
-                                    <h:commandButton value="Unban Account" class="button" action="#{adminController.unbanAccount(aRow)}"/>
+                                    <h:commandButton value="Unban Account" onclick="alert('Account Unbanned!');" class="button" action="#{adminController.unbanAccount(aRow, '/Admin/BannedAccounts.xhtml?faces-redirect=true')}"/>
                                 </h:form>
 
                             </h:column>

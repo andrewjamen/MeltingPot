@@ -112,13 +112,13 @@
                                 <c:if test="${loginController.adminVerified}">
                                     <c:if test="${!profileController.userModel.banned}">
 
-                                        <h:commandButton value="Ban Account" class="button" onclick="alert('Account Banned!');" action="#{adminController.banAccount(profileController.userModel.username)}" /><br/><br/><br/>
+                                        <h:commandButton value="Ban Account" class="button" onclick="alert('Account Banned!');" action="#{adminController.banAccount(profileController.userModel.username, 'profile')}" /><br/><br/><br/>
                                     </c:if>
                                 </c:if>    
                                 <c:if test="${loginController.adminVerified}">
                                     <c:if test="${profileController.userModel.banned}">
 
-                                        <h:commandButton value="Unban Account" class="button" onclick="alert('Account Unbanned!');" action="#{adminController.unbanAccount(profileController.userModel.username)}" /><br/><br/><br/>
+                                        <h:commandButton value="Unban Account" class="button" onclick="alert('Account Unbanned!');" action="#{adminController.unbanAccount(profileController.userModel.username, 'profile')}" /><br/><br/><br/>
                                     </c:if>
                                 </c:if>  
                             </h:form>

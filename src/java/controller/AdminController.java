@@ -48,6 +48,7 @@ public class AdminController {
     }
 
     public boolean isBanned(String username) {
+        bannedAccounts = getBannedAccounts();
 
         return bannedAccounts.contains(username);
 
@@ -66,16 +67,31 @@ public class AdminController {
         this.reports = reports;
     }
 
-    public void banAccount(String username) {
+    public String banAccount(String username, String nav) {
 
         UserBean profile = UserDAO.findByUsername(username);
         AdminDAO.banAccount(profile);
+
+        ProfileController pc = new ProfileController();
+
+        if (nav.equals("profile")) {
+            return pc.getURL(username);
+        }
+
+        return nav;
     }
 
-    public void unbanAccount(String username) {
+    public String unbanAccount(String username, String nav) {
 
         UserBean profile = UserDAO.findByUsername(username);
         AdminDAO.unbanAccount(profile);
+
+        ProfileController pc = new ProfileController();
+
+        if (nav.equals("profile")) {
+            return pc.getURL(username);
+        }
+        return nav;
     }
 
     public String viewReport(Report aReport) {
@@ -89,6 +105,33 @@ public class AdminController {
             return "/Home/Home.xhtml?faces-redirect=true";
         } else {
 
+            return "";
+        }
+    }
+
+    public String searchForReport(String reportNumber) {
+
+        try {
+            int reportNum = Integer.parseInt(reportNumber);
+            ArrayList<Report> reports = AdminDAO.findAllReports();
+
+            Report theReport = null;
+
+            for (Report aReport : reports) {
+                if (aReport.getReportID() == reportNum) {
+                    theReport = aReport;
+                }
+            }
+
+            if (theReport != null) {
+
+                report = theReport;
+
+                return "/Admin/Report.xhtml?faces-redirect=true";
+            }
+            else return "";
+
+        } catch (Exception e) {
             return "";
         }
     }

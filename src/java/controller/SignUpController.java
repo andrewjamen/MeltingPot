@@ -12,6 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.UserBean;
+import utility.Email;
 
 /**
  * @author Andrew Amen
@@ -70,61 +71,13 @@ public class SignUpController {
         this.status = status;
     }
 
-    //TODO: change from account confimation to appointment confimation
-    public void sendEmail() {
-        // Recipient's email ID needs to be mentioned.
-        String to = userBean.getEmail();
-
-        // Sender's email ID needs to be mentioned
-        String from = "akolet@ilstu.edu";
-
-        // Assuming you are sending email from this host
-        String host = "smtp.ilstu.edu";
-
-        // Get system properties
-        Properties properties = System.getProperties();
-
-        // Setup mail server
-        properties.setProperty("mail.smtp.host", host);
-        properties.setProperty("mail.user", "yourID"); // if needed
-        properties.setProperty("mail.password", "yourPassword"); // if needed
-
-        // Get the default Session object.
-        Session session = Session.getDefaultInstance(properties);
-
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
-
-            // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress(to));
-
-            // Set Subject: header field
-            message.setSubject("Melting Pot - New account");
-
-            // Send the actual HTML message, as big as you like
-            message.setContent(getResponse(),
-                    "text/html");
-
-            // Send message
-            Transport.send(message);
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-        }
-    }
-
     public String checkAvailable() {
 
         if ("".equals(userBean.getUsername()) || userBean.getUsername() == null) {
             return "Enter a username!";
         }
         boolean goodLogin = true;
-        
+
         ArrayList<UserBean> allUsers = UserDAO.findAll();
 
         for (int i = 0; i < allUsers.size(); i++) {
@@ -132,8 +85,8 @@ public class SignUpController {
                 goodLogin = false;
             }
         }
-        
-        if (userBean.getUsername().toUpperCase().equals("ADMIN")){
+
+        if (userBean.getUsername().toUpperCase().equals("ADMIN")) {
             goodLogin = false;
         }
 
@@ -150,7 +103,6 @@ public class SignUpController {
             return "Enter a password!";
         }
         boolean goodPassword = false;
-
 
         if (userBean.getPassword().equals(userBean.getConfirm())) {
             goodPassword = true;
@@ -203,23 +155,24 @@ public class SignUpController {
 
         int rowCount = UserDAO.createProfile(userBean);
         if (rowCount == 1) {
+            //TODO: send email
+            //Email.sendIsuEmail(userBean.getEmail(), "New Account", getResponse());
             return "/SignUp/SignUpSuccess.xhtml?faces-redirect=true";
         } else {
             return "/Home/Error.xhtml?faces-redirect=true";
         }
     }
-    
-    public String preparePage(){
-        
+
+    public String preparePage() {
+
         getResponse();
-        
+
         String test = response.substring(7, 11);
-        
-        if (test.equals("null")){
+
+        if (test.equals("null")) {
             return "/Account/Account.xhtml?faces-redirect=true";
         }
-        
-        
+
         return "";
     }
 

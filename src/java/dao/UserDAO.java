@@ -132,15 +132,6 @@ public class UserDAO {
         return aUserBean.get(0);
     }
 
-    public static ArrayList<UserBean> findByName(String name) {
-        // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
-        String query = "SELECT * FROM MELT.Users ";
-        query += "WHERE Name = '" + name + "' ";
-
-        ArrayList<UserBean> aStudentBeanCollection = selectProfilesFromDB(query);
-        return aStudentBeanCollection;
-    }
-
     public static int updateProfile(UserBean profile) {
         int rowCount = -1;
         try {
@@ -181,12 +172,12 @@ public class UserDAO {
 
     public static ArrayList<UserBean> searchForUsers(String name, String gender, int age, String city,
             String state, String religion, String race, String politics) {
-        
-        if (name == null){
+
+        if (name == null) {
             return null;
         }
-        
-        String query = "SELECT * FROM MELT.Users WHERE ";
+
+        String query = "SELECT * FROM "+ TABLE_NAME + " WHERE ";
         query += "LOWER(Name) LIKE '%" + name.toLowerCase() + "%' ";
         if (!gender.equals("Any")) {
             query += "AND Gender = '" + gender + "' ";
@@ -212,6 +203,15 @@ public class UserDAO {
 
         ArrayList<UserBean> aUserBeanCollection = selectProfilesFromDB(query);
         return aUserBeanCollection;
+    }
+
+    public static ArrayList<UserBean> searchByUsername(String username) {
+        // if interested in matching wild cards, use: LIKE and '%" + aName + "%'";
+        String query = "SELECT * FROM "+ TABLE_NAME + " WHERE ";
+        query += "LOWER(Username) LIKE '%" + username.toLowerCase() + "%' ";
+
+        ArrayList<UserBean> aStudentBeanCollection = selectProfilesFromDB(query);
+        return aStudentBeanCollection;
     }
 
 }

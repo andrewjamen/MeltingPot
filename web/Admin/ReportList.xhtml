@@ -28,6 +28,14 @@
 
                     <c:if test="#{loginController.isAdminVerified() == true}">
 
+                        <h:form>
+                                Search by Report Number:
+                                <h:inputText id="reportSearch" styleClass="input_table_input" binding="#{reportNumber}"/>
+                                <h:commandLink action="#{adminController.searchForReport(reportNumber.value)}">&#160;<i class="fa fa-search"></i></h:commandLink>
+                        </h:form>
+
+                        <br/><br/>
+
                         <h:dataTable id="reviews" value="#{adminController.getReports()}" var="aRow"
                                      border="1" cellpadding="3" cellspacing="0">
                             <h:column>

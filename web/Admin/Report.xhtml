@@ -40,12 +40,12 @@
                         <h:commandButton  class = "button" value="Go to profile" action="#{profileController.getURL(adminController.report.offender)}"/><br/><br/>
                         <c:if test="${!adminController.isBanned(adminController.report.offender)}">
 
-                            <h:commandButton value="Ban Account" class="button" onclick="alert('Account Banned!');" action="#{adminController.banAccount(adminController.report.offender)}" /><br/><br/><br/>
+                            <h:commandButton value="Ban Account" class="button" onclick="alert('Account Banned!');" action="#{adminController.banAccount(adminController.report.offender, '/Admin/Report.xhtml?faces-redirect=true')}" /><br/><br/><br/>
                         </c:if> 
                         <c:if test="${adminController.isBanned(adminController.report.offender)}">
 
                             <h:outputText value="Account Has Been Banned" /><br/>
-                            <h:commandButton value="Unban Account" class ="button" onclick="alert('Account Unbanned!');" action="#{adminController.unbanAccount(adminController.report.offender)}" /><br/><br/><br/>
+                            <h:commandButton value="Unban Account" class ="button" onclick="alert('Account Unbanned!');" action="#{adminController.unbanAccount(adminController.report.offender, '/Admin/Report.xhtml?faces-redirect=true')}" /><br/><br/><br/>
 
                         </c:if>
                     </h:form>
