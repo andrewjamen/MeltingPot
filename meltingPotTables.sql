@@ -57,7 +57,7 @@ CREATE TABLE MELT.Reports(
     REPORT_ID               INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     REPORTER                VARCHAR(25),
     OFFENDER                VARCHAR(25),
-    DATETIME                TIMESTAMP,
+    TIMESTAMP               VARCHAR(25),
     MESSAGE                 VARCHAR(500)
 );
 
