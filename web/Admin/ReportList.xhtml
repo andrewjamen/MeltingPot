@@ -21,7 +21,11 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" class="sticker">
+                
+                <div id="login" class="sticker" style = "height: 700px;">
+                    
+                    <h2 class = "big" >Report List</h2>
+                    
                     <c:if test="#{loginController.isAdminVerified() == false}">
                         <h:outputText value="Youre Not an Admin, Bud"/>
                     </c:if>
@@ -29,7 +33,7 @@
                     <c:if test="#{loginController.isAdminVerified() == true}">
 
                         <h:form>
-                                Search by Report Number:
+                                Search by Report Number:&#160;&#160;&#160;
                                 <h:inputText id="reportSearch" styleClass="input_table_input" binding="#{reportNumber}"/>
                                 <h:commandLink action="#{adminController.searchForReport(reportNumber.value)}">&#160;<i class="fa fa-search"></i></h:commandLink>
                         </h:form>
@@ -37,7 +41,7 @@
                         <br/><br/>
 
                         <h:dataTable id="reviews" value="#{adminController.getReports()}" var="aRow"
-                                     border="1" cellpadding="3" cellspacing="0">
+                                     border="0" cellpadding="7" cellspacing="7">
                             <h:column>
                                 <h4><h:outputText value="Report Number: #{aRow.reportID}"/>&#160;&#160;&#160;</h4>
                             </h:column>

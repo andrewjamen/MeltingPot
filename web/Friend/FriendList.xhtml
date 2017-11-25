@@ -24,13 +24,13 @@
             <ui:define name="main" >
 
 
-                <div id="login" class = "sticker" >
+                <div id="login" class = "sticker" style = "height: 600px;" >
                     <h2 class = "big" >Friend's List</h2>
 
                     <h:dataTable id="userNotifs" value="#{friendController.getFriendList()}" var="aRow"
-                                 border="1" cellpadding="3" cellspacing="0" style = "margin-left: 10px; margin-top:10px;">
+                                 border="0" cellpadding="7" cellspacing="7">
                         <h:column>
-                            <h4 style = "font-family: acme;"><h:outputText value="#{aRow}"/></h4>
+                            <h4 style = "font-family: acme;"><h:outputText value="#{aRow}"/>&#160;&#160;&#160;</h4>
                         </h:column>
                         <h:column>
                             <h:form>

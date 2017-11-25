@@ -22,7 +22,11 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" class="sticker" style="height:800px; ">
+                
+                
+                <div id="login" class="sticker" style="height:350px; ">
+                    
+                     <h2 class = "big" >Admin Options </h2>
                     <div style="margin-top: 15px">
                         <h:panelGroup layout="block">
                             <c:if test="#{loginController.isAdminVerified() == false}">
@@ -36,7 +40,7 @@
                                                      value="View Reports (#{adminController.getReports().size()})" action="/Admin/ReportList.xhtml?faces-redirect=true"/><br/><br/>
 
                                     <h:commandButton class="button" style ="font-style:italic;"
-                                                     value="View Banned Accoutns (#{adminController.getBannedAccounts().size()})" action="/Admin/BannedAccounts.xhtml?faces-redirect=true"/><br/><br/>
+                                                     value="View Banned Accounts (#{adminController.getBannedAccounts().size()})" action="/Admin/BannedAccounts.xhtml?faces-redirect=true"/><br/><br/>
 
                                     <h:button  class="button" 
                                                value="User Search" outcome="/Search/Search.xhtml?faces-redirect=true" /><br/><br/>

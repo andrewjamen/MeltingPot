@@ -26,18 +26,23 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" class="sticker">
-
-                    Report Number:<h:outputText value=" #{adminController.report.reportID}" /><br/>
-                    Date Submitted:<h:outputText value=" #{adminController.report.timestamp}" /><br/>
-                    Reporter:<h:outputText value=" #{adminController.report.reporter}" /><br/>
-                    Offender:<h:outputText value=" #{adminController.report.offender}" /><br/><br/>
+                <div id="login" class="sticker" >
+                    
+                    <div style = "font-size: 130%; font-family: sans-serif;">
+                    Report Number:<h:outputText value=" #{adminController.report.reportID}" style ="font-family: acme;" />
+                    </div>
+                    <div style = "text-align: left; margin-left: 20px; font-size: 110%;font-family: sans-serif; ">
+                    
+                    Date Submitted: <h:outputText value=" #{adminController.report.timestamp} " style = "font-family: acme;"/><br/>
+                    Reporter:<h:outputText value=" #{adminController.report.reporter}" style = "font-family: acme;"/><br/>
+                    Offender:<h:outputText value=" #{adminController.report.offender}" style = "font-family: acme;"/><br/><br/>
                     Report:<br/>
-                    <h:outputText value="#{adminController.report.message}" /><br/>
+                    <h:outputText value="#{adminController.report.message}" style = "font-family: acme;"/><br/><br></br><br></br>
 
-
+                    </div>
+                    
                     <h:form>
-                        <h:commandButton  class = "button" value="Go to profile" action="#{profileController.getURL(adminController.report.offender)}"/><br/><br/>
+                        <h:commandButton  class = "button" value="View #{adminController.report.offender}'s profile" action="#{profileController.getURL(adminController.report.offender)}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <c:if test="${!adminController.isBanned(adminController.report.offender)}">
 
                             <h:commandButton value="Ban Account" class="button" onclick="alert('Account Banned!');" action="#{adminController.banAccount(adminController.report.offender, '/Admin/Report.xhtml?faces-redirect=true')}" /><br/><br/><br/>

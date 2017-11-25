@@ -21,8 +21,11 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" style ="width:600px; height:675px; margin-top: 50px; border: 1px solid #000; background-color: #EAEBD8">
+                <div id="login" class = "sticker" style = "height: 600px;">
 
+                    
+                     <h2 class = "big" >Banned Accounts</h2>
+                    
                     <c:if test="#{loginController.isAdminVerified() == false}">
                         <h:outputText value="Youre Not an Admin, Bud"/>
                     </c:if>
@@ -30,7 +33,7 @@
                     <c:if test="#{loginController.isAdminVerified() == true}">
 
                         <h:dataTable id="reviews" value="#{adminController.getBannedAccounts()}" var="aRow"
-                                     border="1" cellpadding="3" cellspacing="0">
+                                     border="0" cellpadding="7" cellspacing="7">
                             <h:column>
                                 <h4><h:outputText value="#{aRow}"/>&#160;&#160;&#160;</h4>
                             </h:column>

@@ -5,36 +5,41 @@
 
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <div id ="banner" class="banner">
-        <div class="banner_content">
+        <div class="banner_content" >
             <a class="banner_title" href="/MeltingPot/faces/Home/Home.xhtml">Melting Pot</a>
+               
+            <div class="banner_options">
+                
 
-            <h:form>
-                <h:inputText id="reportSearch" styleClass="input_table_input" binding="#{aUsername}"/>
-                <h:commandLink action="#{searchController.quickSerch(aUsername.value)}">&#160;<i class="fa fa-search"></i></h:commandLink>
+            <h:form >
+                <h:inputText id="reportSearch" styleClass="input_table_input" style = "margin: 0 auto;"  binding="#{aUsername}"/>
+                <h:commandLink action="#{searchController.quickSerch(aUsername.value)}"><i class="fa fa-search"></i></h:commandLink>
             </h:form>
 
-            <div class="banner_options">
-                <c:if test="${loginController.loggedIn}">
-                    <h:panelGroup layout="block">
+                <c:if test="${loginController.loggedIn}" >
+                    <h:panelGroup layout="block" style ="float: right;" >
+                        
                         <h:form>
                             <h:commandLink action="/Home/Home.xhtml?faces-redirect=true"><i class="fa fa-home"></i></h:commandLink> |
+                            
+                    <h:selectOneMenu style = "width: 30%; font-size: 80%;" value="Status">
+                        <f:selectItem itemValue="Online" itemLabel="Online" />
+                        <f:selectItem itemValue="Away" itemLabel="Away" />
+                        <f:selectItem itemValue="Busy" itemLabel="Busy" />
+                        <f:selectItem itemValue="Offline" itemLabel="Appear Offline" />
+                    </h:selectOneMenu> |
+                    
                             <h:commandLink action="/Account/Account.xhtml?faces-redirect=true" value="#{loginController.theModel.username}" /> |
                             <h:commandLink action="#{loginController.logout()}" value="Logout" />
                         </h:form>
                     </h:panelGroup>
 
 
-                    <h:selectOneMenu value="Status">
-                        <f:selectItem itemValue="Online" itemLabel="Online" />
-                        <f:selectItem itemValue="Away" itemLabel="Away" />
-                        <f:selectItem itemValue="Busy" itemLabel="Busy" />
-                        <f:selectItem itemValue="Offline" itemLabel="Appear Offline" />
-                    </h:selectOneMenu>
 
 
                 </c:if>
                 <c:if test="${loginController.adminVerified}">
-                    <h:panelGroup layout="block">
+                    <h:panelGroup layout="block" style ="float: right;">
                         <h:form>
                             <h:commandLink action="/Admin/AdminAccount?faces-redirect=true"  ><i class="fa fa-home"></i></h:commandLink> |
                             <h:commandLink action="#{loginController.logoutAdmin()}" value="Logout" />
@@ -43,7 +48,7 @@
                 </c:if>
                 <c:if test="${!(loginController.loggedIn)}">
                     <c:if test="${!(loginController.adminVerified)}">
-                        <h:panelGroup layout="block" >
+                        <h:panelGroup layout="block" style ="float: right;" >
                             <h:form> 
                                 <h:commandLink action="/Home/Home.xhtml?faces-redirect=true"><i class="fa fa-home"></i></h:commandLink> |
                                 <h:commandLink action="/Account/Login.xhtml?faces-redirect=true" value="Login" /> |

@@ -15,9 +15,10 @@
             <!-- "htmlHead" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="htmlHead">
                 <meta name="description" content="Login" />
-                <title>Send Report</title> 
+                <title>Report</title> 
             </ui:define>
 
+            
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
                 <div id="sign up" class = "sticker">
@@ -26,13 +27,19 @@
                     </c:if>
 
                     <c:if test="#{loginController.isLoggedIn() == true}">
-                        <h3 class = "big">Send a Report</h3>
+                        <h3 class = "big">Report a User</h3>
+                        
+                        <p style = "font-size: 90%; font-family: sans-serif;">Please write a detailed report below about the user you are reporting. <br></br>Feel free to use specifics and note instances of why this user should be reported. <br></br>Our administrative team will receive the report and <br></br>then make an appropriate decision to take care of this misconduct. <br></br>   Thank you!</p>
+                        
+                        
                         <h:form>
 
-                            <h:inputTextarea id="report" styleClass="input_textarea input_table_input" binding="#{message}"/><br/><br/>
+                            <h:inputTextarea id="report" class="input_textarea" style ="width:500px; padding: 15px;" binding="#{message}"/><br/><br/>
 
-                            <h:commandButton class="button"  id="submitID" onclick="alert('Report Submitted!');" value="Submit" action="#{profileController.submitReport(loginController.theModel.username, message.value)}"/>
+                            <h:commandButton class="button"  id="submitID" onclick="alert('Report Submitted!');" value="Send Report" action="#{profileController.submitReport(loginController.theModel.username, message.value)}"/>
                         </h:form>
+                        
+               
                     </c:if>
                 </div>
             </ui:define>

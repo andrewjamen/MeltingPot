@@ -22,13 +22,19 @@
 
             <!-- "main" part of the template will be replaced by the HTML fragment defined here -->
             <ui:define name="main">
-                <div id="login" class = "sticker">
+                <div id="login" class = "sticker" style = "height: 500px;">
+                    
+                    <h2 class = "big" >Friend Requests</h2><br></br>
+                    
                     <h:form>
+                        
+                      <div class="input_table_container">
+                        <table class="input_table">
 
-                        <h:dataTable id="userNotifs" value="#{friendController.getFriendRequests()}" var="aRow"
-                                     border="1" cellpadding="1" cellspacing="1">
+                        <h:dataTable style = "margin-left:40px;" id="userNotifs" value="#{friendController.getFriendRequests()}" var="aRow"
+                                     border="0" cellpadding="7" cellspacing="1">
                             <h:column>
-                                <h4><h:outputText style="font-family: acme;" value="#{aRow}"/></h4>
+                                <h4><h:outputText style="font-family: acme;" value="#{aRow}"/>&#160;&#160;&#160;</h4>
                             </h:column>
 
 
@@ -39,7 +45,7 @@
                             </h:column>
                             <h:column>
                                 <h:commandButton class ="button"
-                                                 value="Confrim" action="#{friendController.confrimFriend(friendController.getRequestSender(aRow))}"/>
+                                                 value="Confirm" action="#{friendController.confrimFriend(friendController.getRequestSender(aRow))}"/>
                             </h:column>
                             <h:column>
                                 <h:commandButton class ="button"
@@ -48,8 +54,12 @@
 
 
 
-                        </h:dataTable>    
+                        </h:dataTable> 
+                            
+                            </table>
+                         </div>
                     </h:form>
+
                 </div>
             </ui:define>
         </ui:composition>
