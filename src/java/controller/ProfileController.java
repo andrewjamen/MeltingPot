@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.faces.application.ConfigurableNavigationHandler;
 import model.Report;
+import model.Status;
 import utility.Navigation;
 
 /**
@@ -28,9 +29,11 @@ public class ProfileController {
     private UserBean userModel;
     private Report report;
     String userparam = null;
+    private Status statusModel;
 
     public ProfileController() {
         userModel = new UserBean();
+        statusModel = null;
     }
 
     public UserBean getUserModel() {
@@ -120,11 +123,11 @@ public class ProfileController {
     }
 
     public boolean findProfile(String username) {
-        userModel = UserDAO.findByUsername(username);
-        if (userModel == null) {
+        this.userModel = UserDAO.findByUsername(username);
+        if (this.userModel == null) {
             return false;
         }
-
+        this.statusModel = new Status(this.userModel);
         return true;
     }
 
@@ -149,6 +152,12 @@ public class ProfileController {
         AdminDAO.addReport(report);        
 
         return Navigation.ACCOUNT;
+    }
+    
+    public String getCurrentStatus() {
+        if (this.statusModel == null) return "N/A";
+        if (statusModel.getCurrentStatus() == null || statusModel.getCurrentStatus().equals("")) return "N/A";
+        return this.statusModel.getCurrentStatus();
     }
 
 }
