@@ -94,7 +94,8 @@ public class StatusDAO {
             DBHelper.loadDriver(DRIVER_STRING);
             Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
 
-            PreparedStatement pstmt = conn.prepareStatement("SELECT CURRENTSTATUS FROM " + TABLE_NAME + " WHERE USERNAME = " + USERNAME);
+            PreparedStatement pstmt = conn.prepareStatement("SELECT CURRENTSTATUS FROM " + TABLE_NAME + " WHERE USERNAME = ?");
+            pstmt.setString(1, username);
 
             ResultSet rs = pstmt.executeQuery();
 

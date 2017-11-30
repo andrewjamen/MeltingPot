@@ -84,6 +84,48 @@ form, table {
     font-size: 120%;
 }
 
+.smallButton {
+    margin: 0 4px !important;
+    display: block;
+    float: left;
+    width: 65px !important;
+    height: 32.4px !important;
+    font-size: 100%;
+}
+
+.smallButton span {
+    height: 32.4px !important;
+    width: 65px !important;
+    padding: 3px 0 0 0 !important;
+    margin: auto;
+}
+
+.statusText {
+    margin: 3px 4px 0 4px;
+    display: block !important;
+    float: left !important;
+}
+
+.statusInput {
+    margin: 0 4px;
+    display: block;
+    float: left;
+    margin: 0 !important;
+    width: 125px !important;
+    height: 32.4px;
+    padding: 2px 5px !important;
+}
+
+#statusPanel div {
+    height: 32.4px !important;
+    min-width: 300px;
+}
+
+.headerTable td {
+    height: 32.4px;
+    padding: 0 2px;
+}
+
 .section_title {
     margin: 0 0 20px 0 !important;
 }
