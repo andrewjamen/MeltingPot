@@ -146,10 +146,12 @@ h3{
     padding: 1px 5px;
     text-align: center;
     margin: auto;
+    font-family: sans-serif;
 }
 
 .input_table .label {
     text-align: right !important;
+    font-family: "acme";
 }
 
 .input_textarea {
@@ -170,10 +172,13 @@ input[type=text], input[type="password"],select, .input_textarea {
     border: 1px solid seagreen;
     border-radius: 7px;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
+
 
 .input_table_input {
     width: 200px !important;
+    font-family: sans-serif;
 }
 
 /*

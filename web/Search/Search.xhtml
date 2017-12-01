@@ -28,17 +28,17 @@
                         <table class="input_table">
                         
                         <tr>
-                            <td>Name:</td> 
+                            <td class="label">Name:</td> 
                             <td><h:inputText  style="width:300px" id="nameID" value="#{searchController.theModel.name}"></h:inputText></td>
                         </tr>
                         
                         <tr>
-                            <td>Age: </td> 
+                            <td class="label">Age: </td> 
                             <td> <h:inputText style="width:300px" id="ageID" value="#{searchController.theModel.age}"> </h:inputText> </td>
                          </tr>
                             
                             <tr>
-                                <td>Gender: </td>
+                                <td class="label">Gender: </td>
                              <td> <h:selectOneMenu id="genderID" style="width:300px"  value="#{searchController.theModel.gender}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Male" itemLabel="Male" />
@@ -49,7 +49,7 @@
                          
 
                             <tr>
-                                <td>Religion: </td>
+                                <td class="label">Religion: </td>
                                                             <td>
                         <h:selectOneMenu id="religionID" style="width:300px"  value="#{searchController.theModel.religion}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
@@ -65,13 +65,13 @@
 
                             
                             <tr>
-                                <td>City: </td>
+                                <td class="label">City: </td>
                                 <td> <h:inputText style="width:300px" id="cityID" value="#{searchController.theModel.city}">
                         </h:inputText></td>
                             </tr>
                          
                             <tr>
-                                <td>State: </td>
+                                <td class="label">State: </td>
                                 <td>
                                     
                                     <h:selectOneMenu id="stateID" style="width:300px"  value="#{searchController.theModel.state}">
@@ -131,7 +131,7 @@
 
            
                             <tr>
-                                <td>Race: </td>
+                                <td class="label">Race: </td>
                                 <td> <h:selectOneMenu id="raceID" style="width:300px"  value="#{searchController.theModel.race}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="White" itemLabel="White" />
@@ -144,7 +144,7 @@
                             </tr>
                         
                             <tr>
-                                <td>Political Views:</td>
+                                <td class="label">Political Views:</td>
                                 <td><h:selectOneMenu id="politicsID" style="width:300px"  value="#{searchController.theModel.politics}">
                             <f:selectItem itemValue="Any" itemLabel="Any" />
                             <f:selectItem itemValue="Liberal" itemLabel="Liberal" />
