@@ -49,9 +49,10 @@
                         </c:if> 
                         <c:if test="${adminController.isBanned(adminController.report.offender)}">
 
-                            <h:outputText value="Account Has Been Banned" /><br/>
+                            
                             <h:commandButton value="Unban Account" class ="button" onclick="alert('Account Unbanned!');" action="#{adminController.unbanAccount(adminController.report.offender, '/Admin/Report.xhtml?faces-redirect=true')}" /><br/><br/><br/>
-
+                             <br/>
+                             <h:outputText value="This Account Has Been Banned." style ="color:red; font-size: 175%;" />
                         </c:if>
                     </h:form>
 
