@@ -10,6 +10,7 @@ import dao.StatusDAO;
 /**
  *
  * @author josh vetter
+ * @author Perry Kaufman
  */
 public class Status {
 
@@ -18,22 +19,28 @@ public class Status {
 
     public Status(UserBean user) {
         this.user = user;
-        this.currentStatus = StatusDAO.getCurrentStatus(user.getUsername());
+        this.currentStatus = null;
+        initStatus();
     }
-
-    public void updateCurrentStatus(String username) {
-        currentStatus = StatusDAO.getCurrentStatus(username);
+    
+    private void initStatus() {
+        String previousStatus = StatusDAO.getCurrentStatus(user.getUsername());
+        if (previousStatus == null) {
+            StatusDAO.insertStatus("", user.getUsername());
+            previousStatus = "";
+        }
+        this.currentStatus = previousStatus;
     }
 
     public String getCurrentStatus() {
-        return currentStatus;
+        this.currentStatus = StatusDAO.getCurrentStatus(user.getUsername());
+        if (this.currentStatus == null) return "";
+        return this.currentStatus;
     }
 
-    public void changeCurrentStatus(String currentStatus) {
-        if (this.currentStatus == null) {
-           StatusDAO.insertStatus(currentStatus, user.getUsername());
-        }
+    public void setCurrentStatus(String currentStatus) {
         StatusDAO.updateStatus(user.getUsername(), currentStatus);
+        this.currentStatus = currentStatus;
     }
 
     public UserBean getUser() {
