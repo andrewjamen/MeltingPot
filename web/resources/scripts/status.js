@@ -1,3 +1,9 @@
+/*
+ * By Perry Kaufman
+ * 
+ * Note: Not all features of Vue.js could be used due to conflicting syntax with JSF.
+ */
+
 var statusModel;
 
 window.addEventListener("DOMContentLoaded", function () {

@@ -10,7 +10,7 @@
 @media only screen and (min-width : 1824px) {
     .banner_content {
     margin: auto;
-    width: 800px;
+    width: 900px;
 }
 }
 
@@ -24,7 +24,6 @@ form, table {
 @font-face {
     font-family: "acme";
     src: url(Acme-Regular.ttf);
-   
 }
 
 .banner {

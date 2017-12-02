@@ -1,3 +1,7 @@
+/*
+ * By Perry Kaufman
+ */
+
 
 /*
  * Starts the message board scrolled to the bottom.
@@ -23,5 +27,7 @@ function onSendComplete() {
  */
 function scrollToBottom() {
     var board = $('#message_form\\:message_board');
-    board.scrollTop(board.prop("scrollHeight"));
+    if (board.height() < board[0].scrollHeight) {
+        board.scrollTop(board.prop("scrollHeight"));
+    }
 }
