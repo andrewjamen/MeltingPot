@@ -175,5 +175,131 @@ public class UserBean {
     }
     
     
-    
+    public static class UserBeanBuilder
+   {
+      private String nestedUsername;
+      private String nestedPassword;
+      private String nestedConfirm;
+      private String nestedName;
+      private int nestedAge;
+      private String nestedGender;
+      private String nestedCity;
+      private String nestedState;
+      private String nestedReligion;
+      private String nestedRace;
+      private String nestedPolitics;
+      private String nestedBio;
+      private String nestedEmail;
+      private String nestedFriendRequest;
+      private String nestedFriendList;
+      private boolean nestedBanned;
+      
+
+      public UserBeanBuilder(
+         final String newUsername,
+         final String newPassword,
+         final String newBio) 
+      {
+         this.nestedUsername = newUsername;
+         this.nestedPassword = newPassword;
+         this.nestedBio = newBio;
+      }
+
+      public UserBeanBuilder username(String newUsername)
+      {
+         this.nestedUsername = newUsername;
+         return this;
+      }
+
+      public UserBeanBuilder password(String newPassword)
+      {
+         this.nestedPassword = newPassword;
+         return this;
+      }
+
+      public UserBeanBuilder confirm(String newConfirm)
+      {
+         this.nestedConfirm = newConfirm;
+         return this;
+      }
+
+      public UserBeanBuilder name(String newName)
+      {
+         this.nestedName = newName;
+         return this;
+      }
+
+      public UserBeanBuilder age(int newAge)
+      {
+         this.nestedAge = newAge;
+         return this;
+      }
+
+      public UserBeanBuilder gender(String newGender)
+      {
+         this.nestedGender = newGender;
+         return this;
+      }
+
+      public UserBeanBuilder city(String newCity)
+      {
+         this.nestedCity = newCity;
+         return this;
+      }
+
+      public UserBeanBuilder state(String newState)
+      {
+         this.nestedState = newState;
+         return this;
+      }
+
+      public UserBeanBuilder religion(String newReligion)
+      {
+         this.nestedReligion = newReligion;
+         return this;
+      }
+
+      public UserBeanBuilder politics(String newPolitics)
+      {
+         this.nestedPolitics = newPolitics;
+         return this;
+      }
+
+      public UserBeanBuilder bio(String newBio)
+      {
+         this.nestedBio = newBio;
+         return this;
+      }
+      
+      public UserBeanBuilder email(String newEmail)
+      {
+         this.nestedEmail = newEmail;
+         return this;
+      }
+      public UserBeanBuilder friendRequest(String newFriendRequest)
+      {
+         this.nestedFriendRequest = newFriendRequest;
+         return this;
+      }
+      public UserBeanBuilder friendLIst(String newFriendList)
+      {
+         this.nestedFriendList = newFriendList;
+         return this;
+      }
+      public UserBeanBuilder banned(boolean newBanned)
+      {
+         this.nestedBanned = newBanned;
+         return this;
+      }
+      
+
+      public UserBean createUserBear()
+      {
+         return new UserBean(
+            nestedUsername, nestedPassword,
+            nestedName, nestedAge, nestedGender, nestedCity, 
+            nestedState, nestedReligion, nestedRace, nestedPolitics, nestedBio,
+            nestedEmail, nestedBanned, nestedFriendRequest, nestedFriendList);
+      }
+   } 
 }
