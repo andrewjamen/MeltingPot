@@ -35,6 +35,7 @@ INSERT INTO MELT.Users VALUES ('test', '123', 'tester', 99, 'Other', 'Anchorage'
 INSERT INTO MELT.Users VALUES ('pdkaufm', '123', 'Perry', 26, 'Male', 'Normal', 'Illinois', 'Athiest', 'White', 'Other', 'This is a bio...', 'pdkaufm@ilstu.edu', 'False', '', '');
 INSERT INTO MELT.Users VALUES ('ajamen', '123', 'Andrew', 23, 'Male', 'Normal', 'Illinois', 'None', 'White', 'Liberal', 'Skiier', 'ajamen@ilstu.edu', 'False', '', '');
 INSERT INTO MELT.Users VALUES ('akol', '123', 'Amanda', 23, 'Female', 'LITH', 'Illinois', 'None', 'White', 'Liberal', 'Dogs', 'akol@ilstu.edu', 'False', '', '');
+INSERT INTO MELT.Users VALUES ('rishi', '123', 'Rishi Saripalle', 26, 'Male', 'Normal', 'Illinois', 'None', 'None', 'None', 'Assistant Professor at School of Information Technology, Illinois State University. I possess 8+ years of experience in biomedical and healthcare informatics research and development.', 'rishi@ilstu.edu', 'False', '', '');
 
 --Conversation Table
 CREATE TABLE MELT.Conversations(
