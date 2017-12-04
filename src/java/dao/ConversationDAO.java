@@ -12,8 +12,9 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import model.ConversationPair;
+import model.ConversationPartner;
 import model.Message;
+import model.UserBean;
 
 /**
  *
@@ -204,25 +205,25 @@ public class ConversationDAO {
         return false;
     }
 
-    public static ArrayList<ConversationPair> getAllConversationsByUsername(String username) {
-        ArrayList<ConversationPair> conversations = new ArrayList();
+    public static ArrayList<ConversationPartner> getAllConversationsByUsername(UserBean user) {
+        ArrayList<ConversationPartner> conversations = new ArrayList();
         try {
             DBHelper.loadDriver(DRIVER_STRING);
             Connection conn = DBHelper.connect2DB(CONNECTION_STRING, USERNAME, PASSWORD);
 
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + C_TABLE_NAME + " WHERE " + C_USER_A + " = ? OR " + C_USER_B + " = ?");
-            pstmt.setString(1, username);
-            pstmt.setString(2, username);
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getUsername());
 
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 String partnerUsername = rs.getString(C_USER_A);
-                if (partnerUsername.equals(username)) {
+                if (partnerUsername.equals(user.getUsername())) {
                     partnerUsername = rs.getString(C_USER_B);
                 }
 
-                conversations.add(new ConversationPair(rs.getInt(C_CONV_ID), username, partnerUsername));
+                conversations.add(new ConversationPartner(rs.getInt(C_CONV_ID), user, partnerUsername));
             }
 
         } catch (Exception e) {

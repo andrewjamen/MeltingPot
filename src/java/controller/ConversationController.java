@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import model.Conversation;
 import model.Conversations;
 import model.Message;
+import model.UserBean;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -29,7 +30,7 @@ public class ConversationController {
 
     private Conversation conversationModel;
     private Conversations conversations;
-    private String username;
+    private UserBean user;
     private String content;
 
     /**
@@ -38,7 +39,7 @@ public class ConversationController {
     public ConversationController() {
         this.conversationModel = null;
         this.conversations = null;
-        this.username = null;
+        this.user = null;
         this.content = "";
     }
 
@@ -48,12 +49,12 @@ public class ConversationController {
      * @param partnerUsername
      */
     public void startConversation(String partnerUsername) {
-        if (username == null) {
+        if (user == null) {
             init();
         }
 
         content = "";
-        conversationModel = new Conversation(this.username, partnerUsername);
+        conversationModel = new Conversation(this.user.getUsername(), partnerUsername);
     }
 
     public void prepareConversations() {
@@ -70,17 +71,17 @@ public class ConversationController {
      */
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        this.username = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class).getTheModel().getUsername();
+        this.user = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{loginController}", LoginController.class).getTheModel();
     }
 
     public void updateConversations() {
         if (conversations == null) {
-            if (username == null) {
+            if (user == null) {
                 init();
             }
-            conversations = new Conversations(username);
+            conversations = new Conversations(user);
         } else {
-            conversations.update(username);
+            conversations.update();
         }
     }
 
@@ -101,7 +102,7 @@ public class ConversationController {
             System.err.println("Error: cannot send message (\"" + content + "\"). Conversation is null.");
             return;
         }
-        conversationModel.sendMessage(new Message(username, conversationModel.getPartnerUsername(), this.content, new Date()));
+        conversationModel.sendMessage(new Message(user.getUsername(), conversationModel.getPartnerUsername(), this.content, new Date()));
         this.content = "";
     }
 

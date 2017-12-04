@@ -13,14 +13,17 @@ import java.util.ArrayList;
  * @author Perry
  */
 public class Conversations {
-    private ArrayList<ConversationPair> conversationsList = null;
+    private ArrayList<ConversationPartner> conversationsList = null;
+    private UserBean user;
    
-    public Conversations(String username) {
-        this.update(username);
+    public Conversations(UserBean user) {
+        this.user = user;
+        this.update();
     }
 
-    public final void update(String username) {
-        conversationsList = ConversationDAO.getAllConversationsByUsername(username);
+    public final void update() {
+        if (this.user == null) return;
+        conversationsList = ConversationDAO.getAllConversationsByUsername(this.user);
     }
     
     public void deleteConversation(int index) {
@@ -33,11 +36,15 @@ public class Conversations {
         return conversationsList.size();
     }
     
-    public ArrayList<ConversationPair> getConversationsList() {
+    public ArrayList<ConversationPartner> getConversationsList() {
         return conversationsList;
     }
     
     public boolean noConversations() {
         return conversationsList.isEmpty();
+    }
+    
+    public UserBean getUser() {
+        return this.user;
     }
 }

@@ -9,37 +9,37 @@ package model;
  *
  * @author Perry
  */
-public class ConversationPair {
+public class ConversationPartner {
     private int id;
-    private String username;
+    private UserBean user;
     private String partnerUsername;
 
-    public ConversationPair(String username, String partnerUsername) {
+    public ConversationPartner(UserBean user, String partnerUsername) {
         this.id = -1;
-        this.username = username;
+        this.user = user;
         this.partnerUsername = partnerUsername;
     }
     
-    public ConversationPair(int id, String username, String partnerUsername) {
-        this(username, partnerUsername);
+    public ConversationPartner(int id, UserBean user, String partnerUsername) {
+        this(user, partnerUsername);
         this.id = id;
     }
     
     @Override
     public String toString() {
-        return id + " " + username + " " + partnerUsername;
+        return id + " " + user.getUsername() + " " + partnerUsername;
     }
 
     public int getId() {
         return this.id;
     }
     
-    public String getUsername() {
-        return username;
+    public UserBean getUser() {
+        return this.user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(UserBean user) {
+        this.user = user;
     }
 
     public String getPartnerUsername() {
@@ -51,12 +51,12 @@ public class ConversationPair {
     }
     
     public String getFirst() {
-        if (username.compareTo(partnerUsername) < 0) return username;
+        if (user.getUsername().compareTo(partnerUsername) < 0) return user.getUsername();
         return partnerUsername;
     }
     
     public String getSecond() {
-        if (username.compareTo(partnerUsername) < 0) return partnerUsername;
-        return username;
+        if (user.getUsername().compareTo(partnerUsername) < 0) return partnerUsername;
+        return user.getUsername();
     }
 }
