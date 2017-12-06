@@ -51,13 +51,10 @@ public class SendEmail {
     //TODO: fix local host if published
     public static void passResetEmail(String reciever, String email) {
 
-        String body = "<a href=\"http://localhost:8080/MeltingPot/faces" + Navigation.PASSWORD_UPDATE + "?username=" + reciever + "\">Click here to reset your password</a>";
+        String body = "Click the following link to reset your password! http://localhost:8080/MeltingPot/faces" + Navigation.PASSWORD_UPDATE + "?username=" + reciever;
+                        //"<a href=\"http://localhost:8080/MeltingPot/faces" + Navigation.PASSWORD_UPDATE + "?username=" + reciever + "\">Click here to reset your password</a>";
 
         sendGmail(email, "Password Reset", body);
     }
 
-    public static void main(String args[]) {
-        SendEmail e = new SendEmail();
-        e.sendGmail("MeltingPotPenPals@gmail.com", "test", "tester email");
-    }
 }
