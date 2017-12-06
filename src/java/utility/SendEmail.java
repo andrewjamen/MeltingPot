@@ -1,7 +1,6 @@
 package utility;
 
 import java.io.IOException;
-import com.sendgrid.*;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
