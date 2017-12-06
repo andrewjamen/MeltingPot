@@ -9,7 +9,7 @@ import model.UserBean;
 
 /**
  *
- * @author jfoss
+ * @author Andrew Amen
  */
 @ManagedBean
 @SessionScoped

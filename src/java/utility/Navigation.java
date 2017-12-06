@@ -19,4 +19,5 @@ public class Navigation {
     public static final String LOGIN = "";
     public static final String CONVERSATIONS = "";
     public static final String UPDATE_PROFILE = "/Account/UpdateProfile.xhtml?faces-redirect=true";
+    public static final String PASSWORD_UPDATE = "/Password/PasswordUpdate.xhtml";
 }

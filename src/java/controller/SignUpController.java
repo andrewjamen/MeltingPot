@@ -12,7 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.UserBean;
-import utility.Email;
+import utility.SendEmail;
 
 /**
  * @author Andrew Amen
@@ -103,8 +103,12 @@ public class SignUpController {
             return "Enter a password!";
         }
         boolean goodPassword = false;
-
-        if (userBean.getPassword().equals(userBean.getConfirm())) {
+        
+        if ("".equals(userBean.getPassword()) || userBean.getPassword() == null) {
+            return "Enter a password!";
+        }
+        
+        else if (userBean.getPassword().equals(userBean.getConfirm())) {
             goodPassword = true;
         }
 
